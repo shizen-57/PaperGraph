@@ -74,7 +74,8 @@ def parse_pdf(path: Path, doc_id: str) -> tuple[list[Element], list[tuple[float,
     from docling_core.types.doc import CoordOrigin, DocItemLabel, PictureItem, TableItem
 
     doc = _converter().convert(str(path)).document
-    sizes = [(doc.pages[p].size.width, doc.pages[p].size.height) for p in sorted(doc.pages)]
+    unit = 1 / 12700 if path.suffix.lower() == ".pptx" else 1  # PowerPoint stores EMU; everything else here is in points
+    sizes = [(doc.pages[p].size.width * unit, doc.pages[p].size.height * unit) for p in sorted(doc.pages)]
     elements: list[Element] = []
     sections = Sections()
     title = None
@@ -82,9 +83,10 @@ def parse_pdf(path: Path, doc_id: str) -> tuple[list[Element], list[tuple[float,
     def add(type_, prov, text, table=None):
         h = doc.pages[prov.page_no].size.height
         bb = prov.bbox
+        box = bbox_top_left(bb.l, bb.t, bb.r, bb.b, h, bb.coord_origin == CoordOrigin.BOTTOMLEFT)
         elements.append(Element(
             id=f"e{len(elements)}", doc_id=doc_id, type=type_, page=prov.page_no,
-            bbox=bbox_top_left(bb.l, bb.t, bb.r, bb.b, h, bb.coord_origin == CoordOrigin.BOTTOMLEFT),
+            bbox=BBox(x0=box.x0 * unit, y0=box.y0 * unit, x1=box.x1 * unit, y1=box.y1 * unit),
             text=text, heading=sections.path, table=table,
         ))
 
@@ -164,9 +166,36 @@ def _is_row(line: list) -> bool:
     return sum(b[0] - a[2] > 1.5 * height for a, b in zip(line, line[1:])) >= 2
 
 
+def _page_elements(elements: list[Element], doc_id: str, page_no: int, segs: list) -> None:
+    """Word boxes of one page → elements. Table-like lines stay one element each (so a row can be quoted and
+    highlighted); prose lines are merged into paragraphs."""
+    para: list[list] = []
+
+    def add(group: list[list]):
+        flat = [s for line in group for s in line]
+        elements.append(Element(
+            id=f"e{len(elements)}", doc_id=doc_id, type="text", page=page_no,
+            bbox=BBox(x0=min(s[0] for s in flat), y0=min(s[1] for s in flat), x1=max(s[2] for s in flat), y1=max(s[3] for s in flat)),
+            text="\n".join(_join(line) for line in group)))
+
+    for line in _lines(segs):
+        height = max(s[3] - s[1] for s in line)
+        if _is_row(line):
+            if para:
+                add(para)
+                para = []
+            add([line])
+            continue
+        if para and line[0][1] - max(s[3] for s in para[-1]) > 0.8 * height:  # a gap: new paragraph
+            add(para)
+            para = []
+        para.append(line)
+    if para:
+        add(para)
+
+
 def parse_pdf_textlayer(path: Path, doc_id: str) -> tuple[list[Element], list[tuple[float, float]], str | None]:
-    """Text elements from the PDF's own text layer. Table-like lines stay one element each (so a row can be quoted and
-    highlighted); prose lines are merged into paragraphs. Scanned pages have no text layer and yield nothing."""
+    """Text elements from the PDF's own text layer. Scanned pages have no text layer and yield nothing."""
     import pypdfium2 as pdfium
 
     pdf = pdfium.PdfDocument(str(path))
@@ -183,36 +212,57 @@ def parse_pdf_textlayer(path: Path, doc_id: str) -> tuple[list[Element], list[tu
                 text = tp.get_text_bounded(left, bottom, right, top)
                 if text.strip():
                     segs.append((left, h - top, right, h - bottom, text))
-            para: list[list] = []
-
-            def add(group: list[list]):
-                flat = [s for line in group for s in line]
-                elements.append(Element(
-                    id=f"e{len(elements)}", doc_id=doc_id, type="text", page=n,
-                    bbox=BBox(x0=min(s[0] for s in flat), y0=min(s[1] for s in flat),
-                              x1=max(s[2] for s in flat), y1=max(s[3] for s in flat)),
-                    text="\n".join(_join(line) for line in group)))
-
-            for line in _lines(segs):
-                height = max(s[3] - s[1] for s in line)
-                if _is_row(line):
-                    if para:
-                        add(para)
-                        para = []
-                    add([line])
-                    continue
-                if para and line[0][1] - max(s[3] for s in para[-1]) > 0.8 * height:  # a gap: new paragraph
-                    add(para)
-                    para = []
-                para.append(line)
-            if para:
-                add(para)
+            if segs:
+                _page_elements(elements, doc_id, n, segs)
     finally:
         pdf.close()
     return elements, sizes, None
 
 
-PARSERS = {"docling": parse_pdf, "pdfium": parse_pdf_textlayer}
+_CJK_GAP = re.compile(r"(?<=[\u3000-\u9fff\uff00-\uffef])\s+(?=[\u3000-\u9fff\uff00-\uffef])")
+
+
+def parse_pdf_tesseract(path: Path, doc_id: str, lang: str | None = None, dpi: int = 200) -> tuple[list[Element], list[tuple[float, float]], str | None]:
+    """Classic OCR baseline: render each page, run Tesseract (TESSERACT_LANG, default jpn+eng; TESSERACT_PSM, default 6).
+    Tesseract puts spaces between Japanese characters; they are removed again between two CJK characters."""
+    import pypdfium2 as pdfium
+    import pytesseract
+
+    lang = lang or os.environ.get("TESSERACT_LANG", "jpn+eng")
+    psm = os.environ.get("TESSERACT_PSM", "6")
+    pdf = pdfium.PdfDocument(str(path))
+    elements: list[Element] = []
+    sizes: list[tuple[float, float]] = []
+    scale = dpi / 72
+    try:
+        for n, page in enumerate(pdf, 1):
+            sizes.append(page.get_size())
+            img = page.render(scale=scale).to_pil().convert("RGB")
+            d = pytesseract.image_to_data(img, lang=lang, config=f"--psm {psm}", output_type=pytesseract.Output.DICT)
+            segs = [(d["left"][i] / scale, d["top"][i] / scale, (d["left"][i] + d["width"][i]) / scale,
+                     (d["top"][i] + d["height"][i]) / scale, d["text"][i])
+                    for i in range(len(d["text"])) if d["text"][i].strip() and float(d["conf"][i]) >= 0]
+            if segs:
+                _page_elements(elements, doc_id, n, segs)
+    finally:
+        pdf.close()
+    for e in elements:
+        e.text = _CJK_GAP.sub("", e.text)
+    return elements, sizes, None
+
+
+def _vlm(path: Path, doc_id: str):
+    from backend import vlm_parser  # imported late: it imports this module
+    return vlm_parser.parse_pdf_vlm(path, doc_id)
+
+
+def _router(path: Path, doc_id: str):
+    from backend import router
+    return router.parse_pdf_router(path, doc_id)
+
+
+PARSERS = {"docling": parse_pdf, "pdfium": parse_pdf_textlayer, "tesseract": parse_pdf_tesseract, "vlm": _vlm,
+           "router": _router}
 
 
 class ParserUnavailable(Exception):
