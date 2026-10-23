@@ -1,0 +1,90 @@
+{
+ "id": "clean-010",
+ "variant": "clean",
+ "layout": "b",
+ "date_style": "era",
+ "money_style": "fullwidth",
+ "fields": {
+  "invoice_number": "No.202606-957",
+  "issue_date": "2026-06-19",
+  "due_date": "2026-07-03",
+  "issuer": "株式会社小林食品",
+  "recipient": "小林情報株式会社",
+  "subtotal": 212180,
+  "tax": 21218,
+  "total": 233398
+ },
+ "line_items": [
+  {
+   "name": "電卓 12桁",
+   "quantity": 20,
+   "unit_price": 120,
+   "amount": 2400,
+   "tax_rate": null
+  },
+  {
+   "name": "液晶モニター 24インチ",
+   "quantity": 2,
+   "unit_price": 1200,
+   "amount": 2400,
+   "tax_rate": null
+  },
+  {
+   "name": "設置作業費",
+   "quantity": 13,
+   "unit_price": 12800,
+   "amount": 166400,
+   "tax_rate": null
+  },
+  {
+   "name": "外付けHDD 2TB",
+   "quantity": 5,
+   "unit_price": 480,
+   "amount": 2400,
+   "tax_rate": null
+  },
+  {
+   "name": "保守サポート 月額",
+   "quantity": 10,
+   "unit_price": 120,
+   "amount": 1200,
+   "tax_rate": null
+  },
+  {
+   "name": "ホワイトボードマーカー",
+   "quantity": 6,
+   "unit_price": 480,
+   "amount": 2880,
+   "tax_rate": null
+  },
+  {
+   "name": "出張技術料",
+   "quantity": 9,
+   "unit_price": 1500,
+   "amount": 13500,
+   "tax_rate": null
+  },
+  {
+   "name": "デスクライト LED",
+   "quantity": 3,
+   "unit_price": 1500,
+   "amount": 4500,
+   "tax_rate": null
+  },
+  {
+   "name": "ラベルシール A4 20枚",
+   "quantity": 11,
+   "unit_price": 1500,
+   "amount": 16500,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "令和8年6月19日",
+  "due_date": "令和8年7月3日",
+  "subtotal": "￥２１２，１８０",
+  "tax": "￥２１，２１８",
+  "total": "￥２３３，３９８"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>電卓 12桁</td><td>２０</td><td>１２０</td><td>２，４００</td></tr><tr><td>液晶モニター 24インチ</td><td>２</td><td>１，２００</td><td>２，４００</td></tr><tr><td>設置作業費</td><td>１３</td><td>１２，８００</td><td>１６６，４００</td></tr><tr><td>外付けHDD 2TB</td><td>５</td><td>４８０</td><td>２，４００</td></tr><tr><td>保守サポート 月額</td><td>１０</td><td>１２０</td><td>１，２００</td></tr><tr><td>ホワイトボードマーカー</td><td>６</td><td>４８０</td><td>２，８８０</td></tr><tr><td>出張技術料</td><td>９</td><td>１，５００</td><td>１３，５００</td></tr><tr><td>デスクライト LED</td><td>３</td><td>１，５００</td><td>４，５００</td></tr><tr><td>ラベルシール A4 20枚</td><td>１１</td><td>１，５００</td><td>１６，５００</td></tr></tbody></table>"
+}

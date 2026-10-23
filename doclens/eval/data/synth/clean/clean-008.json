@@ -1,0 +1,90 @@
+{
+ "id": "clean-008",
+ "variant": "clean",
+ "layout": "c",
+ "date_style": "western",
+ "money_style": "yen_sign",
+ "fields": {
+  "invoice_number": "R8-8657",
+  "issue_date": "2026-08-13",
+  "due_date": "2026-09-27",
+  "issuer": "株式会社佐々木食品",
+  "recipient": "有限会社渡辺鉱業",
+  "subtotal": 421320,
+  "tax": 42103,
+  "total": 463423
+ },
+ "line_items": [
+  {
+   "name": "オフィスチェア用キャスター",
+   "quantity": 17,
+   "unit_price": 3800,
+   "amount": 64600,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "ラベルシール A4 20枚",
+   "quantity": 16,
+   "unit_price": 1500,
+   "amount": 24000,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "外付けHDD 2TB",
+   "quantity": 7,
+   "unit_price": 5000,
+   "amount": 35000,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "ドリンクバー用シロップ",
+   "quantity": 3,
+   "unit_price": 480,
+   "amount": 1440,
+   "tax_rate": 0.08
+  },
+  {
+   "name": "設置作業費",
+   "quantity": 18,
+   "unit_price": 12800,
+   "amount": 230400,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "ステープラー針 10箱",
+   "quantity": 1,
+   "unit_price": 120,
+   "amount": 120,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "データ移行作業",
+   "quantity": 10,
+   "unit_price": 3800,
+   "amount": 38000,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "液晶モニター 24インチ",
+   "quantity": 2,
+   "unit_price": 2480,
+   "amount": 4960,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "コピー用紙 A4 500枚",
+   "quantity": 6,
+   "unit_price": 3800,
+   "amount": 22800,
+   "tax_rate": 0.1
+  }
+ ],
+ "shown": {
+  "issue_date": "2026/08/13",
+  "due_date": "2026/09/27",
+  "subtotal": "¥421,320",
+  "tax": "¥42,103",
+  "total": "¥463,423"
+ },
+ "table_html": "<table><thead><tr><td>品名</td><td>数量</td><td>単価</td><td>税率</td><td>金額</td></tr></thead><tbody><tr><td>オフィスチェア用キャスター</td><td>17</td><td>3,800</td><td>10%</td><td>64,600</td></tr><tr><td>ラベルシール A4 20枚</td><td>16</td><td>1,500</td><td>10%</td><td>24,000</td></tr><tr><td>外付けHDD 2TB</td><td>7</td><td>5,000</td><td>10%</td><td>35,000</td></tr><tr><td>ドリンクバー用シロップ</td><td>3</td><td>480</td><td>8%(軽減)</td><td>1,440</td></tr><tr><td>設置作業費</td><td>18</td><td>12,800</td><td>10%</td><td>230,400</td></tr><tr><td>ステープラー針 10箱</td><td>1</td><td>120</td><td>10%</td><td>120</td></tr><tr><td>データ移行作業</td><td>10</td><td>3,800</td><td>10%</td><td>38,000</td></tr><tr><td>液晶モニター 24インチ</td><td>2</td><td>2,480</td><td>10%</td><td>4,960</td></tr><tr><td>コピー用紙 A4 500枚</td><td>6</td><td>3,800</td><td>10%</td><td>22,800</td></tr></tbody></table>"
+}

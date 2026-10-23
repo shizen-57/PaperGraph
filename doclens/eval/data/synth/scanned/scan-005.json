@@ -1,0 +1,83 @@
+{
+ "id": "scan-005",
+ "variant": "scanned",
+ "layout": "c",
+ "date_style": "fullwidth",
+ "money_style": "en",
+ "fields": {
+  "invoice_number": "INV-2026-4259",
+  "issue_date": "2026-02-26",
+  "due_date": "2026-03-12",
+  "issuer": "中村鉱業株式会社",
+  "recipient": "池田通信合同会社",
+  "subtotal": 144360,
+  "tax": 14072,
+  "total": 158432
+ },
+ "line_items": [
+  {
+   "name": "ステープラー針 10箱",
+   "quantity": 19,
+   "unit_price": 250,
+   "amount": 4750,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "ミネラルウォーター 2L ×6本",
+   "quantity": 6,
+   "unit_price": 250,
+   "amount": 1500,
+   "tax_rate": 0.08
+  },
+  {
+   "name": "保守サポート 月額",
+   "quantity": 13,
+   "unit_price": 250,
+   "amount": 3250,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "電卓 12桁",
+   "quantity": 12,
+   "unit_price": 250,
+   "amount": 3000,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "インクカートリッジ 黒",
+   "quantity": 2,
+   "unit_price": 12800,
+   "amount": 25600,
+   "tax_rate": 0.1
+  },
+  {
+   "name": "オレンジジュース 1L ×12本",
+   "quantity": 16,
+   "unit_price": 980,
+   "amount": 15680,
+   "tax_rate": 0.08
+  },
+  {
+   "name": "お茶 500ml ×24本",
+   "quantity": 1,
+   "unit_price": 980,
+   "amount": 980,
+   "tax_rate": 0.08
+  },
+  {
+   "name": "コピー用紙 A4 500枚",
+   "quantity": 7,
+   "unit_price": 12800,
+   "amount": 89600,
+   "tax_rate": 0.1
+  }
+ ],
+ "shown": {
+  "issue_date": "２０２６年２月２６日",
+  "due_date": "２０２６年３月１２日",
+  "subtotal": "144,360円",
+  "tax": "14,072円",
+  "total": "158,432円"
+ },
+ "table_html": "<table><thead><tr><td>品名</td><td>数量</td><td>単価</td><td>税率</td><td>金額</td></tr></thead><tbody><tr><td>ステープラー針 10箱</td><td>19</td><td>250</td><td>10%</td><td>4,750</td></tr><tr><td>ミネラルウォーター 2L ×6本</td><td>6</td><td>250</td><td>8%(軽減)</td><td>1,500</td></tr><tr><td>保守サポート 月額</td><td>13</td><td>250</td><td>10%</td><td>3,250</td></tr><tr><td>電卓 12桁</td><td>12</td><td>250</td><td>10%</td><td>3,000</td></tr><tr><td>インクカートリッジ 黒</td><td>2</td><td>12,800</td><td>10%</td><td>25,600</td></tr><tr><td>オレンジジュース 1L ×12本</td><td>16</td><td>980</td><td>8%(軽減)</td><td>15,680</td></tr><tr><td>お茶 500ml ×24本</td><td>1</td><td>980</td><td>8%(軽減)</td><td>980</td></tr><tr><td>コピー用紙 A4 500枚</td><td>7</td><td>12,800</td><td>10%</td><td>89,600</td></tr></tbody></table>"
+}

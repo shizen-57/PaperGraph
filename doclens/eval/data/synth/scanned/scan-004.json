@@ -1,0 +1,62 @@
+{
+ "id": "scan-004",
+ "variant": "scanned",
+ "layout": "b",
+ "date_style": "era",
+ "money_style": "en",
+ "fields": {
+  "invoice_number": "No.202605-120",
+  "issue_date": "2026-05-17",
+  "due_date": "2026-05-31",
+  "issuer": "株式会社長谷川運輸",
+  "recipient": "清水食品株式会社",
+  "subtotal": 1027000,
+  "tax": 102700,
+  "total": 1129700
+ },
+ "line_items": [
+  {
+   "name": "シュレッダー用オイル",
+   "quantity": 4,
+   "unit_price": 3800,
+   "amount": 15200,
+   "tax_rate": null
+  },
+  {
+   "name": "外付けHDD 2TB",
+   "quantity": 19,
+   "unit_price": 24800,
+   "amount": 471200,
+   "tax_rate": null
+  },
+  {
+   "name": "ライセンス更新料",
+   "quantity": 16,
+   "unit_price": 24800,
+   "amount": 396800,
+   "tax_rate": null
+  },
+  {
+   "name": "ステープラー針 10箱",
+   "quantity": 12,
+   "unit_price": 250,
+   "amount": 3000,
+   "tax_rate": null
+  },
+  {
+   "name": "ラベルシール A4 20枚",
+   "quantity": 11,
+   "unit_price": 12800,
+   "amount": 140800,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "令和8年5月17日",
+  "due_date": "令和8年5月31日",
+  "subtotal": "1,027,000円",
+  "tax": "102,700円",
+  "total": "1,129,700円"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>シュレッダー用オイル</td><td>4</td><td>3,800</td><td>15,200</td></tr><tr><td>外付けHDD 2TB</td><td>19</td><td>24,800</td><td>471,200</td></tr><tr><td>ライセンス更新料</td><td>16</td><td>24,800</td><td>396,800</td></tr><tr><td>ステープラー針 10箱</td><td>12</td><td>250</td><td>3,000</td></tr><tr><td>ラベルシール A4 20枚</td><td>11</td><td>12,800</td><td>140,800</td></tr></tbody></table>"
+}

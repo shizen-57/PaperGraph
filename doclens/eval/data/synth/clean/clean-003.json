@@ -1,0 +1,62 @@
+{
+ "id": "clean-003",
+ "variant": "clean",
+ "layout": "a",
+ "date_style": "western",
+ "money_style": "yen_sign",
+ "fields": {
+  "invoice_number": "INV-2026-1472",
+  "issue_date": "2026-09-11",
+  "due_date": "2026-10-26",
+  "issuer": "松本建設株式会社",
+  "recipient": "吉田水産株式会社",
+  "subtotal": 84680,
+  "tax": 8468,
+  "total": 93148
+ },
+ "line_items": [
+  {
+   "name": "LANケーブル 5m",
+   "quantity": 10,
+   "unit_price": 480,
+   "amount": 4800,
+   "tax_rate": null
+  },
+  {
+   "name": "外付けHDD 2TB",
+   "quantity": 7,
+   "unit_price": 480,
+   "amount": 3360,
+   "tax_rate": null
+  },
+  {
+   "name": "電卓 12桁",
+   "quantity": 13,
+   "unit_price": 1500,
+   "amount": 19500,
+   "tax_rate": null
+  },
+  {
+   "name": "ステープラー針 10箱",
+   "quantity": 19,
+   "unit_price": 980,
+   "amount": 18620,
+   "tax_rate": null
+  },
+  {
+   "name": "インクカートリッジ 黒",
+   "quantity": 3,
+   "unit_price": 12800,
+   "amount": 38400,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "2026/09/11",
+  "due_date": "2026/10/26",
+  "subtotal": "¥84,680",
+  "tax": "¥8,468",
+  "total": "¥93,148"
+ },
+ "table_html": "<table><thead><tr><td>品名</td><td>数量</td><td>単価</td><td>金額</td></tr></thead><tbody><tr><td>LANケーブル 5m</td><td>10</td><td>480</td><td>4,800</td></tr><tr><td>外付けHDD 2TB</td><td>7</td><td>480</td><td>3,360</td></tr><tr><td>電卓 12桁</td><td>13</td><td>1,500</td><td>19,500</td></tr><tr><td>ステープラー針 10箱</td><td>19</td><td>980</td><td>18,620</td></tr><tr><td>インクカートリッジ 黒</td><td>3</td><td>12,800</td><td>38,400</td></tr></tbody></table>"
+}

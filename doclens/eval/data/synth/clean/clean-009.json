@@ -1,0 +1,55 @@
+{
+ "id": "clean-009",
+ "variant": "clean",
+ "layout": "a",
+ "date_style": "western",
+ "money_style": "yen_sign",
+ "fields": {
+  "invoice_number": "INV-2026-4562",
+  "issue_date": "2026-05-09",
+  "due_date": "2026-06-23",
+  "issuer": "清水水産有限会社",
+  "recipient": "山下ガス合同会社",
+  "subtotal": 163360,
+  "tax": 16336,
+  "total": 179696
+ },
+ "line_items": [
+  {
+   "name": "キーボード 日本語配列",
+   "quantity": 9,
+   "unit_price": 3800,
+   "amount": 34200,
+   "tax_rate": null
+  },
+  {
+   "name": "保守サポート 月額",
+   "quantity": 5,
+   "unit_price": 24800,
+   "amount": 124000,
+   "tax_rate": null
+  },
+  {
+   "name": "ワイヤレスマウス",
+   "quantity": 3,
+   "unit_price": 120,
+   "amount": 360,
+   "tax_rate": null
+  },
+  {
+   "name": "オフィスチェア用キャスター",
+   "quantity": 4,
+   "unit_price": 1200,
+   "amount": 4800,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "2026/05/09",
+  "due_date": "2026/06/23",
+  "subtotal": "¥163,360",
+  "tax": "¥16,336",
+  "total": "¥179,696"
+ },
+ "table_html": "<table><thead><tr><td>品名</td><td>数量</td><td>単価</td><td>金額</td></tr></thead><tbody><tr><td>キーボード 日本語配列</td><td>9</td><td>3,800</td><td>34,200</td></tr><tr><td>保守サポート 月額</td><td>5</td><td>24,800</td><td>124,000</td></tr><tr><td>ワイヤレスマウス</td><td>3</td><td>120</td><td>360</td></tr><tr><td>オフィスチェア用キャスター</td><td>4</td><td>1,200</td><td>4,800</td></tr></tbody></table>"
+}
