@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DocView from "@/components/DocView";
 import Notice from "@/components/Notice";
-import { ApiError, getDocument, getDocuments } from "@/lib/api";
+import { ApiError, getDocument, getDocuments, getExtraction } from "@/lib/api";
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ q?: string; el?: string }> };
 
@@ -9,9 +9,9 @@ export default async function DocPage({ params, searchParams }: Props) {
   const { id } = await params;
   const { q, el } = await searchParams; // el: an element to highlight on open (from a citation elsewhere)
   try {
-    const [doc, all] = await Promise.all([getDocument(id), getDocuments()]);
+    const [doc, all, extraction] = await Promise.all([getDocument(id), getDocuments(), getExtraction(id)]);
     const titles = Object.fromEntries(all.map((d) => [d.id, d.title]));
-    return <DocView doc={doc} titles={titles} initialElement={el} initialQuestion={q} />;
+    return <DocView doc={doc} titles={titles} extraction={extraction} initialElement={el} initialQuestion={q} />;
   } catch (e) {
     const notFound = e instanceof ApiError && e.status === 404;
     return (

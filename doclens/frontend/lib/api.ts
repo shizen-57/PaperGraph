@@ -1,5 +1,5 @@
 import type {
-  Answer, CompareResult, DocumentDetail, DocumentSummary, Filters, Graph, Job, SpaceSummary,
+  Answer, CompareResult, DocType, DocumentDetail, DocumentSummary, EvalRun, Extraction, Filters, Graph, Job, SpaceSummary,
 } from "./types";
 
 // Server components call FastAPI directly; the browser goes through the /api rewrite in next.config.ts.
@@ -38,6 +38,15 @@ const post = <T>(path: string, body: unknown) =>
 export const getSpace = () => request<SpaceSummary>(`/spaces/${SPACE}`);
 export const getDocuments = () => request<DocumentSummary[]>(`/spaces/${SPACE}/documents`);
 export const getDocument = (id: string) => request<DocumentDetail>(`/documents/${encodeURIComponent(id)}`);
+/** null when the document hasn't been extracted yet. */
+export const getExtraction = (id: string) =>
+  request<Extraction>(`/documents/${encodeURIComponent(id)}/extraction`).catch((e) => {
+    if (e instanceof ApiError && e.status === 404) return null;
+    throw e;
+  });
+export const extractDocument = (id: string, type: DocType, extractor: "llm" | "rules") =>
+  request<Extraction>(`/documents/${encodeURIComponent(id)}/extract?type=${type}&extractor=${extractor}`, { method: "POST" });
+export const getEvalRuns = () => request<EvalRun[]>("/eval");
 export const getGraph = () => request<Graph>(`/spaces/${SPACE}/graph`);
 export const getEval = () => request<Record<string, any>>(`/spaces/${SPACE}/eval`);
 export const getJob = (id: string) => request<Job>(`/jobs/${id}`);
