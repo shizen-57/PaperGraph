@@ -9,6 +9,10 @@ ClaimType = Literal["contribution", "limitation", "method", "dataset", "result",
 RelationType = Literal["supersedes", "cites", "same_topic", "feedback_on"]
 Verification = Literal["verified", "unverified"]
 ConfidenceLabel = Literal["High", "Medium", "Low", "Unverified", "Insufficient"]
+FieldKind = Literal["text", "date", "amount", "number", "percent"]
+FieldStatus = Literal["verified", "unverified", "missing"]  # missing: the document doesn't state it, nothing to verify
+CheckStatus = Literal["pass", "fail", "skipped"]
+DocType = Literal["invoice", "spec_sheet", "financial_report"]
 
 
 class BBox(BaseModel):
@@ -251,3 +255,44 @@ class VLMResult(BaseModel):
     kind: Literal["chart", "figure"]
     summary: str  # for figures: description plus any visible labels
     table: Table | None = None  # charts only: the values read off the chart
+
+
+# --- Structured extraction (extract.py) ---
+
+class Cited(BaseModel):
+    """One value as the LLM returns it: copied exactly as printed, with the quote and element it came from."""
+    value: str | None = None  # null when the document doesn't state it
+    quote: str = ""  # copied EXACTLY from the element, containing the value
+    element_id: str = ""
+
+
+class ExtractedField(BaseModel):
+    """A Cited value after code has normalised it (normalize_ja.py) and verified it (verify.py)."""
+    name: str  # "total", or "line_items[2].amount"
+    kind: FieldKind
+    raw: str | None  # as printed
+    value: str | int | float | None  # normalised: ISO date, yen as int, ...
+    tax: Literal["included", "excluded"] | None = None
+    quote: str
+    page: int | None
+    element_id: str | None
+    bbox: BBox | None
+    quote_match: float  # 0..1, see verify.quote_score
+    value_in_quote: bool
+    status: FieldStatus
+
+
+class Check(BaseModel):
+    name: str
+    status: CheckStatus
+    message: str
+    fields: list[str] = []  # names of the ExtractedFields involved, so the UI can mark them
+
+
+class Extraction(BaseModel):
+    doc_id: str
+    doc_type: DocType
+    fields: list[ExtractedField]
+    checks: list[Check]
+    model: str
+    seconds: float
