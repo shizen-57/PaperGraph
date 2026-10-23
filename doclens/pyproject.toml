@@ -1,3 +1,4 @@
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+markers = ["slow: renders documents with Chromium (a few seconds); deselect with -m 'not slow'"]
