@@ -67,3 +67,18 @@ def test_render_lists_missing_gpu_work_as_not_run(tmp_path):
 def test_deck_section():
     deck = {"deck_summary": {"decks": 2, "slides": 6, "fact_recall": 1.0, "cell_recall": 0.9}}
     assert "**100% of key facts** and **90% of table cells**" in rt.deck_section([deck]) and "Not run yet" in rt.deck_section([])
+
+
+def test_headline_comes_from_the_llm_run(tmp_path):
+    assert "none have been run" in rt.headline([run()])  # rules only: no LLM run to quote
+    llm = run("docling", "llm")
+    llm["config"]["llm"] = "qwen-x"
+    llm["summary"]["all"]["n_docs"] = 24
+    llm["summary"]["all"]["evidence"] |= {"wrong": 67, "predicted": 316, "docs_with_a_wrong_value": 24}
+    text = rt.headline([run(), llm])
+    assert "24 synthetic Japanese invoices" in text and "qwen-x" in text and "**0.90**" in text and "**0.40**" in text
+    assert "predicted 67 wrong values out of 316" in text and "**50%**" in text and "**75%**" in text
+    readme = tmp_path / "R.md"
+    readme.write_text("a <!-- headline:start -->x<!-- headline:end --> b")
+    rt.write_into(readme, "H", "headline")
+    assert readme.read_text() == "a <!-- headline:start -->\nH\n<!-- headline:end --> b"
