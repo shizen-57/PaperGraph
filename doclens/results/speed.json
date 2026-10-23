@@ -1,0 +1,27 @@
+{
+ "parse": {
+  "seconds": 0.0,
+  "pages": 0,
+  "sec_per_page": null
+ },
+ "chunk": {
+  "seconds": 0.0,
+  "pages": 0,
+  "sec_per_page": null
+ },
+ "embed": {
+  "seconds": 0.0,
+  "pages": 0,
+  "sec_per_page": null
+ },
+ "relations": {
+  "seconds": 0.0,
+  "pages": null,
+  "sec_per_page": null
+ },
+ "claims": {
+  "seconds": 0.0,
+  "pages": 0,
+  "sec_per_page": null
+ }
+}

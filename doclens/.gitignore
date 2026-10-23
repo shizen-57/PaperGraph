@@ -1,0 +1,11 @@
+.cache/
+.venv/
+__pycache__/
+*.pyc
+
+# the knowledge space: public papers are re-downloaded from data/sources.csv; private material never leaves the machine
+data/space/
+
+# rebuilt by `python -m backend.ingest`; eval.json, answers.jsonl and speed.json are committed
+results/doclens.db*
+results/emb/

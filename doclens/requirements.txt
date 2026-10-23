@@ -1,0 +1,12 @@
+# API + tests (laptop CPU). The Kaggle notebook also installs docling and vllm.
+fastapi
+python-multipart
+uvicorn
+pydantic>=2
+numpy
+sentence-transformers
+openai
+pypdfium2
+pillow
+pytest
+httpx

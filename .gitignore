@@ -1,0 +1,17 @@
+.remember/
+avatar/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.tsbuildinfo
+.pytest_cache/
+doclens/.cache/
+doclens/.pytest_cache/
+doclens/data/space/
+doclens/results/doclens.db*
+doclens/results/emb/
+doclens/frontend/node_modules/
+doclens/frontend/.next/
+doclens_v1_archive/
+interview_prep.md
+job_posting.md
