@@ -3,6 +3,8 @@ import os
 
 import openai
 
+from backend import offline
+
 
 class LLMUnavailable(Exception):
     pass
@@ -13,6 +15,10 @@ def chat(messages: list[dict], schema: dict | None = None, max_tokens: int = 102
     """One chat completion. With `schema`, the server is asked for JSON matching it (vLLM guided decoding).
     `model` and `base_url` override LLM_MODEL / LLM_BASE_URL (a second server, e.g. the VLM parser's)."""
     model = model or os.environ.get("LLM_MODEL")
+    try:
+        offline.check_url(base_url or os.environ.get("LLM_BASE_URL"))
+    except offline.OfflineError as e:
+        raise LLMUnavailable(str(e)) from e
     if not model:
         raise LLMUnavailable("LLM_MODEL is not set")
     client = openai.OpenAI(

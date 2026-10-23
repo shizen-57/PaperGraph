@@ -14,6 +14,7 @@ import os
 import platform
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from backend import extract, extract_rules, llm, parse  # noqa: E402
+from backend import extract, extract_rules, llm, offline, parse  # noqa: E402
 from backend.schemas import Element, Extraction  # noqa: E402
 from eval import metrics  # noqa: E402
 
@@ -59,6 +60,19 @@ def git_commit() -> str | None:
         return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or None
     except OSError:
         return None
+
+
+def sample_vram(device: int, stop: threading.Event, peak: list[int]) -> None:
+    """Poll nvidia-smi for the memory in use on one GPU. Needed when the model runs in a separate vLLM server:
+    torch in this process can't see it. The figure includes whatever the server reserved (weights + KV cache)."""
+    while not stop.is_set():
+        try:
+            out = subprocess.run(["nvidia-smi", f"--id={device}", "--query-gpu=memory.used", "--format=csv,noheader,nounits"],
+                                 capture_output=True, text=True, timeout=5).stdout
+            peak[0] = max(peak[0], int(out.strip().splitlines()[0]))
+        except (OSError, ValueError, IndexError, subprocess.SubprocessError):
+            pass
+        stop.wait(0.5)
 
 
 def documents(data: Path, variants: list[str], limit: int | None) -> list[Path]:
@@ -147,11 +161,14 @@ def main():
     ap.add_argument("--variants", default="clean,scanned")
     ap.add_argument("--limit", type=int, help="documents per variant (smoke tests)")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--vram-device", type=int, action="append", default=[],
+                    help="GPU index to sample with nvidia-smi (for models served by vLLM); repeatable, the peaks are summed")
     ap.add_argument("--reuse-parse", action="store_true", help="replay cached parse output and its recorded timings")
     ap.add_argument("--note", action="append", default=[], help="free text stored with the results; repeatable")
     args = ap.parse_args()
     if args.llm:
         os.environ["LLM_MODEL"] = args.llm
+    offline.enforce()
 
     hw = hardware()
     docs = documents(args.data, args.variants.split(","), args.limit)
@@ -168,6 +185,11 @@ def main():
     if not args.reuse_parse and args.parser in ("docling", "vlm"):  # model load must not count towards pages/sec
         parse.PARSERS[args.parser](docs[0], "warmup")
 
+    stop = threading.Event()
+    smi_peaks = {d: [0] for d in args.vram_device}
+    samplers = [threading.Thread(target=sample_vram, args=(d, stop, smi_peaks[d]), daemon=True) for d in args.vram_device]
+    for t in samplers:
+        t.start()
     rows = []
     for i, pdf in enumerate(docs, 1):
         rows.append(run_doc(pdf, args, vram))
@@ -175,7 +197,12 @@ def main():
         print(f"[{i}/{len(docs)}] {pdf.stem}: parse {r['parse_seconds']}s, extract {r['extract_seconds']}s, "
               f"F1 {metrics.f1(r['tp'], r['n_pred'], r['n_gold'])}{'  ERROR ' + r['error'] if r['error'] else ''}", flush=True)
 
-    peak = round(vram.cuda.max_memory_allocated() / 2**20) if vram else None
+    stop.set()
+    smi = sum(p[0] for p in smi_peaks.values()) or None
+    torch_peak = round(vram.cuda.max_memory_allocated() / 2**20) if vram else None
+    peak = smi if smi else torch_peak
+    vram_source = (f"nvidia-smi memory.used on GPU {args.vram_device} (includes vLLM's reserved KV cache)" if smi
+                   else "torch.cuda.max_memory_allocated in the eval process" if torch_peak else None)
     usd = float(os.environ["GPU_HOURLY_USD"]) if os.environ.get("GPU_HOURLY_USD") else None
     summary = {v: summarise([r for r in rows if r["variant"] == v], usd, bool(hw["gpu"]), peak) for v in args.variants.split(",")}
     summary["all"] = summarise(rows, usd, bool(hw["gpu"]), peak)
@@ -184,6 +211,7 @@ def main():
             "name": args.out.stem, "parser": args.parser, "parser_version": versions(args.parser), "extractor": args.extractor,
             "llm": os.environ.get("LLM_MODEL") if args.extractor == "llm" else None,
             "hardware": hw, "gpu_hourly_usd": usd if hw["gpu"] else None, "reuse_parse": args.reuse_parse,
+            "vram_source": vram_source,
             "dataset": {"path": str(args.data.relative_to(ROOT)) if args.data.is_relative_to(ROOT) else str(args.data),
                         "n_docs": len(docs), "variants": args.variants.split(",")},
             "date": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "git_commit": git_commit(), "notes": args.note,

@@ -100,3 +100,26 @@ def test_cost_and_recall():
     assert metrics.cost_per_1k_pages(1.8, 0.35) == pytest.approx(0.175)
     assert metrics.recall_at_k([["a", "b"], ["c", "d"]], [{"b"}, {"z"}], k=2) == 0.5
     assert metrics.recall_at_k([["a", "b"]], [{"b"}], k=1) == 0.0
+
+
+def test_vram_sampler_keeps_the_peak(monkeypatch):
+    import subprocess
+    import threading
+    from types import SimpleNamespace
+
+    from eval import run_eval
+
+    readings = iter(["1200\n", "5400\n", "3100\n"])
+    stop, calls, peak = threading.Event(), [], [0]
+
+    def run(cmd, **kw):
+        calls.append(cmd)
+        try:
+            return SimpleNamespace(stdout=next(readings))
+        except StopIteration:  # out of readings: end the loop
+            stop.set()
+            return SimpleNamespace(stdout="")
+    monkeypatch.setattr(subprocess, "run", run)
+    monkeypatch.setattr(stop, "wait", lambda t: None)  # don't sleep in a test
+    run_eval.sample_vram(1, stop, peak)
+    assert peak[0] == 5400 and "--id=1" in calls[0]

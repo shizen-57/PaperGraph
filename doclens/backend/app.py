@@ -8,7 +8,7 @@ from typing import Literal
 from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 
-from backend import answer, compare, extract, llm, parse
+from backend import answer, compare, extract, llm, offline, parse
 from backend.crops import render_crop
 from backend.db import DB, RESULTS, ROOT, dump, read_json
 from backend.ingest import elements_of, ensure_space, ingest
@@ -24,6 +24,7 @@ MAX_UPLOAD_BYTES = 50 * 1024 * 1024
 
 def create_app(results: Path = RESULTS, cache: Path = ROOT / ".cache" / "crops", default: Space | None = DEFAULT_SPACE,
                eval_dir: Path = ROOT / "eval" / "results") -> FastAPI:
+    offline.enforce()  # OFFLINE=1: no network beyond this machine and the LAN
     db = DB(results / "doclens.db")
     if default and not db.rows("SELECT 1 FROM spaces WHERE id=?", (default.id,)):
         ensure_space(db, default)

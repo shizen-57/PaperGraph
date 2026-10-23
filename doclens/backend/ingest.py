@@ -13,7 +13,7 @@ import time
 from collections.abc import Callable
 from pathlib import Path
 
-from backend import chunk, claims, llm, parse, relations, search, vlm
+from backend import chunk, claims, llm, offline, parse, relations, search, vlm
 from backend.db import DB, RESULTS, dump, emb_path, read_json, write_emb, write_json
 from backend.schemas import Chunk, Document, Element, Space
 from backend.walk import SourceFile, walk
@@ -151,6 +151,7 @@ def main():
     ap.add_argument("--name", default="Thesis research")
     ap.add_argument("--stages", default="", help="comma-separated stages to force-rerun: parse,vlm,chunk,embed,relations,claims")
     args = ap.parse_args()
+    offline.enforce()
     db = DB(RESULTS / "doclens.db")
     space = Space(id=args.space, name=args.name, root=str(args.root.resolve()))
     for line in ingest(db, space, force=[s for s in args.stages.split(",") if s],
