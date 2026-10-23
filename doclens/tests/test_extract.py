@@ -135,9 +135,9 @@ def test_llm_schema_is_tight_enough_for_constrained_decoding():
     """Optional keys and unbounded strings let a small model skip `value` and loop in a string until max_tokens."""
     schema = extract.InvoiceOut.model_json_schema()
     cited = schema["$defs"]["Cited"]
-    assert cited["required"] == ["value", "quote", "element_id"]
+    assert cited["required"] == ["value", "element_id", "quote"]
     assert all("maxLength" in p or "anyOf" in p for p in cited["properties"].values())
-    assert cited["properties"]["quote"]["maxLength"] <= 400 and schema["properties"]["line_items"]["maxItems"] == 30
+    assert cited["properties"]["quote"]["maxLength"] <= 160 and schema["properties"]["line_items"]["maxItems"] == 30
     assert "required" in schema["$defs"]["LineItem"] and set(schema["required"]) >= {"total", "line_items"}
 
 

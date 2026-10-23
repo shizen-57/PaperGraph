@@ -260,12 +260,13 @@ class VLMResult(BaseModel):
 # --- Structured extraction (extract.py) ---
 
 class Cited(BaseModel):
-    """One value as the LLM returns it: copied exactly as printed, with the quote and element it came from.
-    All three keys are required and bounded: with optional keys and unbounded strings a constrained decoder lets a
-    small model skip `value` and loop inside a string until it runs out of tokens."""
+    """One value as the LLM returns it: copied exactly as printed, with the element it is in and the quote proving it.
+    All keys are required and bounded: with optional keys and unbounded strings a constrained decoder lets a small model
+    skip `value` and loop inside a string until it runs out of tokens. element_id comes before quote on purpose: the
+    model picks the element first, then copies one line from it instead of rambling across the prompt."""
     value: str | None = PField(max_length=200)  # null when the document doesn't state it
-    quote: str = PField(max_length=400)  # copied EXACTLY from the element, containing the value
     element_id: str = PField(max_length=12)
+    quote: str = PField(max_length=160)  # ONE line or table row copied EXACTLY from that element, containing the value
 
 
 def not_stated() -> Cited:

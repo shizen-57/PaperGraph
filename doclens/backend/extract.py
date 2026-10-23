@@ -41,8 +41,8 @@ class LineItem(BaseModel):
     unit_price: str | None = PField(max_length=40, description="Unit price, as printed")
     amount: str | None = PField(max_length=40, description="Line amount, as printed")
     tax_rate: str | None = PField(max_length=40, description="Tax rate of this line if printed, e.g. '10%' or '8%'; else null")
-    quote: str = PField(max_length=400, description="The whole table row, copied EXACTLY")
     element_id: str = PField(max_length=12)
+    quote: str = PField(max_length=160, description="The table row of this item only, copied EXACTLY")
 
 
 LINE_KINDS: dict[str, FieldKind] = {"name": "text", "quantity": "number", "unit_price": "amount", "amount": "amount",
@@ -84,8 +84,8 @@ The document is given as <element id="..." page="..."> blocks. Tables are Markdo
 Rules:
 1. For every field return `value` copied EXACTLY as printed (keep symbols and notation, e.g. ¥1,234 or 令和8年10月24日). \
 Never convert, calculate or guess. If the document does not state a field, return null for value and an empty quote.
-2. `quote` is the shortest span copied EXACTLY from ONE element that contains the value (for a table, the row). \
-Never put ids, page numbers or tags in a quote. `element_id` is that element's id, e.g. e3.
+2. `element_id` is the id of the element that contains the value, e.g. e3. `quote` is ONE line (for a table: ONE row) of that \
+element copied EXACTLY, containing the value, under 100 characters. Never copy the header row, several rows, ids or tags into a quote.
 3. Return JSON that matches the schema, nothing else."""
 
 
