@@ -10,18 +10,19 @@ def run(parser="docling", extractor="rules", clean=0.9, scanned=0.4, gpu=None):
             "config": {"parser": parser, "extractor": extractor, "llm": None, "hardware": {"gpu": gpu, "cores": 4, "cpu": "x"},
                        "dataset": {"n_docs": 24}},
             "summary": {"clean": {"field_f1": clean}, "scanned": {"field_f1": scanned},
-                        "all": {"teds": 0.95, "parse": {"pages_per_sec": 0.17}, "peak_vram_mb": None, "evidence": ev,
+                        "all": {"teds": 0.95, "n_docs": 24, "parse": {"pages_per_sec": 0.17, "seconds": 48.0}, "extract": {"seconds": 24.0},
+                                "peak_vram_mb": None, "evidence": ev,
                                 "cost_per_1k_pages_parse_usd": None, "field_accuracy_by_field": {"total": 0.8, "tax": 1.0}}}}
 
 
 def test_numbers_come_from_the_results_and_missing_ones_are_dashes():
     t = rt.arena_table([run()])
-    assert "| Docling + rules (regex) | CPU, 4 cores | 0.90 | 0.40 | 0.95 | 0.17 | — | — |" in t
+    assert "| Docling + rules (regex) | CPU, 4 cores | 0.90 | 0.40 | 0.95 | 0.17 | 3.0 | — | — |" in t
 
 
 def test_unrun_gpu_configurations_are_marked_not_run():
     t = rt.arena_table([run()])
-    assert "PaddleOCR-VL" in t and t.count("not run") >= 3 * 6
+    assert "PaddleOCR-VL" in t and t.count("not run") >= 3 * 7
     have = [run("vlm", "llm", gpu="Tesla T4") | {"_stem": "qwen-vl-qwen2.5-7b"}]
     assert "Qwen2.5-VL-7B zero-shot" not in rt.arena_table(have)  # a result file replaces its pending row
 

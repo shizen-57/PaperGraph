@@ -123,6 +123,8 @@ def run_doc(pdf: Path, args, vram) -> dict:
         "tp": tp, "n_pred": n_pred, "n_gold": n_gold, "correct": metrics.field_correct(pred, gold),
         "teds": metrics.teds(items_html, gt["table_html"]), "table_found": items_html is not None,
         "judge": metrics.judge(ex, gold), "pred": pred, "gold": gold, "checks": [c.model_dump() for c in ex.checks],
+        "fields": [{"name": f.name, "raw": f.raw, "status": f.status, "quote_match": f.quote_match,
+                    "value_in_quote": f.value_in_quote, "quote": f.quote[:200], "page": f.page} for f in ex.fields],
         "error": error,
     }
 

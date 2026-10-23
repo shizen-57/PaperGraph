@@ -53,9 +53,16 @@ def where(run: dict) -> str:
     return hw["gpu"] or f"CPU, {hw['cores']} cores"
 
 
+def end_to_end(summary: dict) -> float | None:
+    """Seconds per document for parse + extraction together (the parse figure alone hides an LLM that dominates it)."""
+    if not summary or not summary.get("n_docs"):
+        return None
+    return (summary["parse"]["seconds"] + summary["extract"]["seconds"]) / summary["n_docs"]
+
+
 def arena_table(runs: list[dict]) -> str:
-    head = ("| Parser + extractor | Hardware | Field F1 (clean) | Field F1 (scanned) | Table TEDS | Pages/s | Peak VRAM | $/1k pages |\n"
-            "|---|---|---|---|---|---|---|---|\n")
+    head = ("| Parser + extractor | Hardware | Field F1 (clean) | Field F1 (scanned) | Table TEDS | Parse pages/s | End-to-end s/doc | Peak VRAM | $/1k pages |\n"
+            "|---|---|---|---|---|---|---|---|---|\n")
     rows = []
     have = {r["_stem"] for r in runs}
     for r in runs:
@@ -63,10 +70,10 @@ def arena_table(runs: list[dict]) -> str:
         al = s.get("all", {})
         rows.append(f"| {name_of(r)} | {where(r)} | {fmt(s.get('clean', {}).get('field_f1'))} | "
                     f"{fmt(s['scanned']['field_f1']) if 'scanned' in s else 'not in this run'} | {fmt(al.get('teds'))} | "
-                    f"{fmt(al.get('parse', {}).get('pages_per_sec'))} | "
+                    f"{fmt(al.get('parse', {}).get('pages_per_sec'))} | {fmt(end_to_end(al), 1)} | "
                     f"{'—' if al.get('peak_vram_mb') is None else str(al['peak_vram_mb']) + ' MB'} | "
                     f"{'—' if al.get('cost_per_1k_pages_parse_usd') is None else '$' + str(al['cost_per_1k_pages_parse_usd'])} |")
-    rows += [f"| {label} | GPU | not run | not run | not run | not run | not run | not run |"
+    rows += [f"| {label} | GPU | not run | not run | not run | not run | not run | not run | not run |"
              for label, stem in PENDING if stem not in have]
     return head + "\n".join(rows)
 
