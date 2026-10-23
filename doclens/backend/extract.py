@@ -1,0 +1,222 @@
+"""Structured extraction: the LLM copies values with their quotes, code normalises and verifies them.
+
+The Pydantic models below do two jobs: their JSON schema is what the LLM is asked to return (guided decoding),
+and each field's `kind` says how normalize_ja turns the copied text into a typed value. A value is `verified`
+only if its quote is found in the document AND the value appears in that quote (verify.py).
+
+    extraction = extract("inv-001", "invoice", elements)      # needs LLM_MODEL; extract_rules.py is the no-LLM baseline
+"""
+import os
+import re
+import time
+from typing import Any
+
+from pydantic import BaseModel, Field as PField, ValidationError
+
+from backend import consistency, llm, normalize_ja, verify
+from backend.schemas import Cited, DocType, Element, ExtractedField, Extraction, FieldKind, QuoteCheck
+
+MAX_CHARS = 40_000  # about a 20k-token budget
+MAX_ELEMENT_CHARS = 6_000
+
+
+def F(kind: FieldKind, description: str) -> Any:
+    return PField(description=description, json_schema_extra={"kind": kind})
+
+
+class Invoice(BaseModel):
+    invoice_number: Cited = F("text", "Invoice number (請求書番号 / 請求番号 / Invoice No.)")
+    issue_date: Cited = F("date", "Date of issue (発行日 / 請求日)")
+    due_date: Cited = F("date", "Payment due date (支払期限 / お支払期限)")
+    issuer: Cited = F("text", "Company that issued the invoice (請求元 / 発行元)")
+    recipient: Cited = F("text", "Company the invoice is addressed to (請求先 / 御中)")
+    subtotal: Cited = F("amount", "Subtotal before tax (小計)")
+    tax: Cited = F("amount", "Consumption tax amount (消費税)")
+    total: Cited = F("amount", "Total amount due (合計 / ご請求金額)")
+
+
+class LineItem(BaseModel):
+    name: str | None = PField(description="Item name, as printed")
+    quantity: str | None = PField(description="Quantity, as printed")
+    unit_price: str | None = PField(description="Unit price, as printed")
+    amount: str | None = PField(description="Line amount, as printed")
+    tax_rate: str | None = PField(description="Tax rate of this line if printed, e.g. '10%' or '8%'; else null")
+    quote: str = PField(description="The whole table row, copied EXACTLY")
+    element_id: str
+
+
+LINE_KINDS: dict[str, FieldKind] = {"name": "text", "quantity": "number", "unit_price": "amount", "amount": "amount",
+                                    "tax_rate": "percent"}
+
+
+class InvoiceOut(Invoice):
+    line_items: list[LineItem] = PField(description="One entry per row of the items table, in order")
+
+
+class SpecSheet(BaseModel):
+    product_name: Cited = F("text", "Product name (製品名 / 品名)")
+    model_number: Cited = F("text", "Model or part number (型番 / 型式)")
+    manufacturer: Cited = F("text", "Manufacturer (メーカー / 製造元)")
+    rated_voltage: Cited = F("text", "Rated or input voltage (定格電圧), with unit")
+    rated_current: Cited = F("text", "Rated current (定格電流), with unit")
+    power: Cited = F("text", "Power or wattage (消費電力 / 出力), with unit")
+    weight: Cited = F("text", "Weight (質量 / 重量), with unit")
+    dimensions: Cited = F("text", "Outer dimensions (外形寸法 / サイズ), with unit")
+    operating_temperature: Cited = F("text", "Operating temperature range (使用温度範囲), with unit")
+
+
+class FinancialReport(BaseModel):
+    company_name: Cited = F("text", "Company name (会社名)")
+    fiscal_period_end: Cited = F("date", "End of the fiscal period (決算期末 / 2026年3月期)")
+    unit: Cited = F("text", "Unit the amounts are stated in, e.g. 百万円 (単位)")
+    revenue: Cited = F("amount", "Net sales / revenue (売上高)")
+    operating_income: Cited = F("amount", "Operating income (営業利益)")
+    ordinary_income: Cited = F("amount", "Ordinary income (経常利益)")
+    net_income: Cited = F("amount", "Net income attributable to owners of parent (親会社株主に帰属する当期純利益)")
+    total_assets: Cited = F("amount", "Total assets (総資産)")
+
+
+DOC_TYPES: dict[str, type[BaseModel]] = {"invoice": InvoiceOut, "spec_sheet": SpecSheet, "financial_report": FinancialReport}
+
+SYSTEM = """You extract structured data from a business document in Japanese or English. \
+The document is given as elements: [element_id pPAGE] text. Tables are Markdown.
+
+Rules:
+1. For every field return `value` copied EXACTLY as printed (keep symbols and notation, e.g. ¥1,234 or 令和8年10月24日). \
+Never convert, calculate or guess. If the document does not state a field, return null for value and an empty quote.
+2. `quote` is the shortest span copied EXACTLY from ONE element that contains the value (for a table, the row). \
+`element_id` is that element's id.
+3. Return JSON that matches the schema, nothing else."""
+
+
+class ExtractionError(Exception):
+    pass
+
+
+def render(elements: list[Element]) -> str:
+    out, total = [], 0
+    for e in elements:
+        if e.type == "caption" and not e.text.strip():
+            continue
+        line = f"[{e.id} p{e.page}] {e.text[:MAX_ELEMENT_CHARS]}"
+        if total + len(line) > MAX_CHARS:
+            break
+        out.append(line)
+        total += len(line)
+    return "\n".join(out)
+
+
+def _fenced(text: str) -> str:
+    m = re.search(r"```(?:json)?\s*(.*?)```", text, re.S)
+    return (m.group(1) if m else text).strip()
+
+
+def ask_llm(doc_type: str, elements: list[Element], model: type[BaseModel] | None = None) -> BaseModel:
+    """One structured LLM call. If the JSON doesn't validate, the error is shown to the model once and it retries."""
+    model = model or DOC_TYPES[doc_type]
+    messages = [{"role": "system", "content": SYSTEM},
+                {"role": "user", "content": f"Document type: {doc_type}\n\nElements:\n{render(elements)}"}]
+    error = None
+    for _ in range(2):
+        raw = llm.chat(messages, schema=model.model_json_schema(), max_tokens=3000)
+        try:
+            return model.model_validate_json(_fenced(raw))
+        except (ValidationError, ValueError) as e:
+            error = e
+            messages += [{"role": "assistant", "content": raw},
+                         {"role": "user", "content": f"That JSON was invalid:\n{str(e)[:1500]}\nReturn corrected JSON only."}]
+    raise ExtractionError(f"the model returned invalid JSON twice: {str(error)[:300]}")
+
+
+# --- normalise + verify ---
+
+def normalise(kind: FieldKind, raw: str | None) -> tuple[str | int | float | None, str | None]:
+    """(typed value, tax flag). None when the text can't be read as that kind."""
+    if raw is None or not raw.strip():
+        return None, None
+    if kind == "date":
+        return normalize_ja.parse_date(raw), None
+    if kind == "amount":
+        a = normalize_ja.parse_amount(raw)
+        return (a.value, a.tax) if a else (None, None)
+    if kind == "number":
+        return normalize_ja.parse_number(raw), None
+    if kind == "percent":
+        return normalize_ja.parse_percent(raw), None
+    return " ".join(raw.split()), None
+
+
+def make_field(name: str, kind: FieldKind, raw: str | None, quote: str, element_id: str,
+               elements: list[Element], located: QuoteCheck | None = None) -> ExtractedField:
+    if raw is None or not raw.strip():
+        return ExtractedField(name=name, kind=kind, raw=None, value=None, quote="", page=None, element_id=None, bbox=None,
+                              quote_match=0.0, value_in_quote=False, status="missing")
+    chk = located or verify.locate(quote, elements, prefer=element_id)
+    value, tax = normalise(kind, raw)
+    # The value must be in the quote AND in the element the quote was found in. The second half matters: fuzzy
+    # matching accepts a quote with one digit changed (1,200 for 1,000), so a model could edit the quote to fit its value.
+    source = next((e.text for e in elements if e.id == chk.element_id), "")
+    in_quote = verify.value_in_quote(raw, quote) and verify.value_in_quote(raw, source)
+    ok = chk.found and in_quote and value is not None
+    return ExtractedField(
+        name=name, kind=kind, raw=raw, value=value, tax=tax, quote=quote, page=chk.page, element_id=chk.element_id,
+        bbox=chk.bbox, quote_match=chk.score, value_in_quote=in_quote, status="verified" if ok else "unverified",
+    )
+
+
+def build_fields(out: BaseModel, elements: list[Element]) -> list[ExtractedField]:
+    fields: list[ExtractedField] = []
+    for name, info in type(out).model_fields.items():
+        v = getattr(out, name)
+        if name == "line_items":
+            for i, row in enumerate(v):
+                chk = verify.locate(row.quote, elements, prefer=row.element_id)  # one lookup per row
+                for col, kind in LINE_KINDS.items():
+                    fields.append(make_field(f"line_items[{i}].{col}", kind, getattr(row, col), row.quote, row.element_id,
+                                             elements, located=chk))
+        else:
+            kind = (info.json_schema_extra or {})["kind"]
+            fields.append(make_field(name, kind, v.value, v.quote, v.element_id, elements))
+    return fields
+
+
+def apply_report_unit(fields: list[ExtractedField]) -> None:
+    """Amounts in a financial report are usually stated in 百万円 (a header, not part of each number)."""
+    unit = next((f for f in fields if f.name == "unit" and f.raw), None)
+    mult = normalize_ja.unit_multiplier(unit.raw) if unit else 1
+    if mult == 1:
+        return
+    for f in fields:
+        if f.kind == "amount" and isinstance(f.value, (int, float)) and not re.search(r"[円万億兆]", f.raw or ""):
+            f.value = f.value * mult
+
+
+def to_values(fields: list[ExtractedField]) -> dict:
+    """Flat dict of normalised values, line items regrouped: what consistency.check_invoice and eval compare."""
+    values: dict = {}
+    rows: dict[int, dict] = {}
+    for f in fields:
+        m = re.fullmatch(r"line_items\[(\d+)\]\.(\w+)", f.name)
+        if m:
+            rows.setdefault(int(m.group(1)), {})[m.group(2)] = f.value
+        else:
+            values[f.name] = f.value
+    if rows:
+        values["line_items"] = [rows[i] for i in sorted(rows)]
+    return values
+
+
+def finish(doc_id: str, doc_type: DocType, out: BaseModel, elements: list[Element], model: str, t0: float) -> Extraction:
+    fields = build_fields(out, elements)
+    if doc_type == "financial_report":
+        apply_report_unit(fields)
+    checks = consistency.check_invoice(to_values(fields)) if doc_type == "invoice" else []
+    return Extraction(doc_id=doc_id, doc_type=doc_type, fields=fields, checks=checks, model=model,
+                      seconds=round(time.perf_counter() - t0, 2))
+
+
+def extract(doc_id: str, doc_type: DocType, elements: list[Element]) -> Extraction:
+    t0 = time.perf_counter()
+    out = ask_llm(doc_type, elements)
+    return finish(doc_id, doc_type, out, elements, os.environ.get("LLM_MODEL", ""), t0)
+

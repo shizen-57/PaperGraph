@@ -41,3 +41,17 @@ def test_confidence_bands():
 
 def test_coverage():
     assert coverage("A is true [1]. B is true. C [2].") == 2 / 3
+
+
+def test_value_in_quote():
+    from backend.verify import value_in_quote
+    assert value_in_quote("¥1,100", "合計 ¥1,100 (税込)")
+    assert value_in_quote("1100", "合計 ¥1,100")  # commas may differ
+    assert value_in_quote("令和8年10月24日", "発行日:令和８年１０月２４日")  # NFKC
+    assert not value_in_quote("100", "合計 1,100")  # a thousands group is not a number of its own
+    assert not value_in_quote("10", "合計 1,100円")
+    assert not value_in_quote("1,100", "合計 11,100円")
+    assert value_in_quote("10", "税率 10%")
+    assert value_in_quote("1", "商品B 1 2,000 2,000") and value_in_quote("2,000", "商品B 1 2,000 2,000")
+    assert not value_in_quote("2", "商品B 1 2,000 2,000")
+    assert not value_in_quote(None, "anything") and not value_in_quote("x", "")
