@@ -1,0 +1,63 @@
+import json
+
+from eval import render_tables as rt
+
+
+def run(parser="docling", extractor="rules", clean=0.9, scanned=0.4, gpu=None):
+    ev = {"predicted": 100, "wrong": 10, "hallucination_catch_rate": 0.5, "false_alarm_rate": 0.1,
+          "docs_with_a_wrong_value": 4, "wrong_docs_caught_by_either": 0.75}
+    return {"_stem": f"{parser}-{extractor}",
+            "config": {"parser": parser, "extractor": extractor, "llm": None, "hardware": {"gpu": gpu, "cores": 4, "cpu": "x"},
+                       "dataset": {"n_docs": 24}},
+            "summary": {"clean": {"field_f1": clean}, "scanned": {"field_f1": scanned},
+                        "all": {"teds": 0.95, "parse": {"pages_per_sec": 0.17}, "peak_vram_mb": None, "evidence": ev,
+                                "cost_per_1k_pages_parse_usd": None, "field_accuracy_by_field": {"total": 0.8, "tax": 1.0}}}}
+
+
+def test_numbers_come_from_the_results_and_missing_ones_are_dashes():
+    t = rt.arena_table([run()])
+    assert "| Docling + rules (regex) | CPU, 4 cores | 0.90 | 0.40 | 0.95 | 0.17 | — | — |" in t
+
+
+def test_unrun_gpu_configurations_are_marked_not_run():
+    t = rt.arena_table([run()])
+    assert "PaddleOCR-VL" in t and t.count("not run") >= 3 * 6
+    have = [run("vlm", "llm", gpu="Tesla T4") | {"_stem": "qwen-vl-qwen2.5-7b"}]
+    assert "Qwen2.5-VL-7B zero-shot" not in rt.arena_table(have)  # a result file replaces its pending row
+
+
+def test_evidence_and_field_tables():
+    assert "| 50% | 10% | 4 | 75% |" in rt.evidence_table([run()])
+    assert "| 80% | 100% |" in rt.field_table([run()])
+
+
+def test_write_into_replaces_only_the_marked_block(tmp_path):
+    readme = tmp_path / "README.md"
+    readme.write_text("before\n<!-- results:start -->\nold\n<!-- results:end -->\nafter\n", encoding="utf-8")
+    rt.write_into(readme, "NEW TABLE")
+    assert readme.read_text(encoding="utf-8") == "before\n<!-- results:start -->\nNEW TABLE\n<!-- results:end -->\nafter\n"
+
+
+def test_load_skips_non_run_files(tmp_path):
+    (tmp_path / "a.json").write_text(json.dumps({"summary": {}, "config": {}}))
+    (tmp_path / "b.json").write_text(json.dumps([1, 2]))
+    assert [r["_stem"] for r in rt.load(tmp_path)] == ["a"]
+
+
+def test_other_result_shapes_and_their_not_run_notices(tmp_path):
+    assert "Not run yet" in rt.chart_section([]) and "Not run yet" in rt.direct_section([]) and "Not run yet" in rt.router_section([])
+    chart = {"config": {"vlm": "vlm-x"}, "chart_summary": {k: {"n": 6, "valid_rate": 1.0, "mean_relative_error": e, "coverage": 0.9}
+                                                           for k, e in (("all", 0.12), ("with_data_labels", 0.02), ("without_data_labels", 0.22))}}
+    assert "| vlm-x | 6 | 100% | 12% | 2% | 22% | 90% |" in rt.chart_section([chart])
+    direct = {"config": {"model": "invoice-lora"}, "direct_summary": {
+        "clean": {"field_f1": 0.9}, "scanned": {"field_f1": 0.7},
+        "all": {"valid_json_rate": 1.0, "docs_all_fields_correct": 10, "n_docs": 24, "docs_failing_an_arithmetic_check": 3, "seconds_per_doc": 4.2}}}
+    assert "| invoice-lora | 100% | 0.90 | 0.70 | 10/24 | 3 | 4.2 |" in rt.direct_section([direct])
+    router = {"router_summary": {"all": {"pages": 24, "correct": 24, "reasons": {"scanned": 12}},
+                                 "clean": {"pages": 12, "to_vlm": 0}, "scanned": {"pages": 12, "to_vlm": 12}}}
+    assert "12/12 scanned pages" in rt.router_section([router]) and "0/12 clean pages" in rt.router_section([router])
+
+
+def test_render_lists_missing_gpu_work_as_not_run(tmp_path):
+    out = rt.render([run()], tmp_path)
+    assert out.count("Not run yet") == 3 and "**Router (F2)**" in out
