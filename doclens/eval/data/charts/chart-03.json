@@ -1,0 +1,19 @@
+{
+ "title": "Units shipped by region",
+ "x_label": "Region",
+ "y_label": "Units",
+ "kind": "grouped",
+ "data_labels": false,
+ "series": {
+  "Model A": {
+   "EMEA": 900,
+   "APAC": 380,
+   "AMER": 27
+  },
+  "Model B": {
+   "EMEA": 310,
+   "APAC": 200,
+   "AMER": 62
+  }
+ }
+}
