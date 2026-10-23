@@ -1,4 +1,4 @@
-# API + tests (laptop CPU). The Kaggle notebook also installs docling and vllm.
+# API, tests and the evaluation harness (laptop CPU). Docling, vLLM and the VLM parsers are optional: see requirements-extra.txt
 fastapi
 python-multipart
 uvicorn
@@ -10,3 +10,8 @@ pypdfium2
 pillow
 pytest
 httpx
+# eval/metrics.py (TEDS) and chart re-plotting
+rapidfuzz
+apted
+lxml
+matplotlib

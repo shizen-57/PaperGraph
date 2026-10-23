@@ -1,0 +1,13 @@
+# Optional. Install what you use.
+
+# parsers
+docling            # PARSER=docling: layout, tables, OCR; also the only parser for PPTX and image input
+pytesseract        # PARSER=tesseract (also needs the tesseract binary with the jpn language pack: apt install tesseract-ocr tesseract-ocr-jpn)
+
+# regenerating the synthetic eval data (eval/data is committed, so this is only needed to change it)
+faker
+jinja2
+playwright         # then: playwright install chromium
+augraphy
+
+# GPU work on Kaggle (notebooks/): pip install vllm; LoRA training: transformers peft bitsandbytes accelerate
