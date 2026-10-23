@@ -1,0 +1,42 @@
+{
+ "id": "deck-en",
+ "facts": [
+  "Product roadmap 2026",
+  "grew 18% to $4.2M",
+  "14 March 2026",
+  "Churn fell to 2.1%",
+  "Quarterly results"
+ ],
+ "table": [
+  [
+   "Quarter",
+   "Revenue",
+   "Profit"
+  ],
+  [
+   "Q1",
+   "900",
+   "80"
+  ],
+  [
+   "Q2",
+   "1,050",
+   "120"
+  ],
+  [
+   "Q3",
+   "1,100",
+   "130"
+  ]
+ ],
+ "chart": {
+  "title": "Revenue by quarter",
+  "series": {
+   "Revenue": {
+    "Q1": 900,
+    "Q2": 1050,
+    "Q3": 1100
+   }
+  }
+ }
+}

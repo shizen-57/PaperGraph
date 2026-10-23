@@ -141,6 +141,15 @@ def router_section(runs: list[dict]) -> str:
             f"Reasons: {', '.join(f'{k} ×{v}' for k, v in s['all']['reasons'].items()) or 'none'}.")
 
 
+def deck_section(runs: list[dict]) -> str:
+    if not runs:
+        return "_Not run yet: `python eval/run_decks.py`._"
+    s = runs[0]["deck_summary"]
+    return (f"{s['decks']} synthetic decks ({s['slides']} slides: bullets, a table and a chart each), read by Docling's PPTX backend: "
+            f"**{pct(s['fact_recall'])} of key facts** and **{pct(s['cell_recall'])} of table cells** recovered. "
+            f"Charts come out as figures without values.")
+
+
 def render(runs: list[dict], results: Path = RESULTS) -> str:
     if not runs:
         return "_No results yet: run `python eval/run_eval.py` (see below)._"
@@ -150,6 +159,7 @@ def render(runs: list[dict], results: Path = RESULTS) -> str:
             f"{arena_table(runs)}\n\n**Does the evidence check catch wrong values?**\n\n{evidence_table(runs)}\n\n"
             f"**Exact-match accuracy per field**\n\n{field_table(runs)}\n\n"
             f"**Router (F2)**\n\n{router_section(load_kind('router_summary', results))}\n\n"
+            f"**PowerPoint input (F5)**\n\n{deck_section(load_kind('deck_summary', results))}\n\n"
             f"**Chart → table (F6)**\n\n{chart_section(load_kind('chart_summary', results))}\n\n"
             f"**LoRA fine-tune, image → JSON (F8)**\n\n{direct_section(load_kind('direct_summary', results))}")
 

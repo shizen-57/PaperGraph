@@ -60,4 +60,9 @@ def test_other_result_shapes_and_their_not_run_notices(tmp_path):
 
 def test_render_lists_missing_gpu_work_as_not_run(tmp_path):
     out = rt.render([run()], tmp_path)
-    assert out.count("Not run yet") == 3 and "**Router (F2)**" in out
+    assert out.count("Not run yet") == 4 and "**Router (F2)**" in out and "**PowerPoint input (F5)**" in out
+
+
+def test_deck_section():
+    deck = {"deck_summary": {"decks": 2, "slides": 6, "fact_recall": 1.0, "cell_recall": 0.9}}
+    assert "**100% of key facts** and **90% of table cells**" in rt.deck_section([deck]) and "Not run yet" in rt.deck_section([])
