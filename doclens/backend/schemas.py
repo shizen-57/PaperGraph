@@ -4,7 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, Field as PField
 
 ElementType = Literal["text", "table", "figure", "chart", "caption"]
-FileType = Literal["pdf", "md", "txt"]
+FileType = Literal["pdf", "image", "pptx", "md", "txt"]
 ClaimType = Literal["contribution", "limitation", "method", "dataset", "result", "future_work"]
 RelationType = Literal["supersedes", "cites", "same_topic", "feedback_on"]
 Verification = Literal["verified", "unverified"]
@@ -296,3 +296,11 @@ class Extraction(BaseModel):
     checks: list[Check]
     model: str
     seconds: float
+
+
+class ParseResult(BaseModel):
+    parser: str
+    title: str | None
+    pages: int
+    page_sizes: list[tuple[float, float]]
+    elements: list[Element]

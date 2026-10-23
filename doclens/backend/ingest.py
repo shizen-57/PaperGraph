@@ -38,7 +38,7 @@ def save_elements(db: DB, doc_id: str, els: list[Element]) -> None:
 
 
 def delete_doc(db: DB, results: Path, doc_id: str) -> None:
-    for table in ("documents", "elements", "chunks", "claims"):
+    for table in ("documents", "elements", "chunks", "claims", "extractions"):
         db.exec(f"DELETE FROM {table} WHERE {'id' if table == 'documents' else 'doc_id'}=?", (doc_id,))
     emb_path(results, doc_id).unlink(missing_ok=True)
 
@@ -48,10 +48,7 @@ def elements_of(db: DB, doc_id: str) -> list[Element]:
 
 
 def parse_file(f: SourceFile, space_id: str) -> tuple[Document, list[Element]]:
-    if f.file_type == "pdf":
-        els, sizes, title = parse.parse_pdf(f.path, f.doc_id)
-    else:
-        (els, title), sizes = parse.parse_text(f.path, f.doc_id, markdown=f.file_type == "md"), []
+    els, sizes, title = parse.parse_path(f.path, f.doc_id, f.file_type)
     text = " ".join(e.text for e in els[:200])
     doc = Document(
         id=f.doc_id, space_id=space_id, title=title or f.path.stem.replace("_", " "), path=f.rel, folder=f.folder,
@@ -122,6 +119,7 @@ def ingest(db: DB, space: Space, results: Path = RESULTS, force: list[str] | Non
                 doc, els = parse_file(f, space.id)
                 save_elements(db, doc.id, els)
                 db.exec("DELETE FROM claims WHERE doc_id=?", (doc.id,))
+                db.exec("DELETE FROM extractions WHERE doc_id=?", (doc.id,))  # boxes and element ids changed
                 save_doc(db, doc)
                 parsed += 1
                 pages += doc.pages

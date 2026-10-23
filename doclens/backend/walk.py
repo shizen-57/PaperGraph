@@ -4,7 +4,9 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-SUPPORTED = {".pdf": "pdf", ".md": "md", ".markdown": "md", ".txt": "txt"}
+SUPPORTED = {".pdf": "pdf", ".pptx": "pptx", ".md": "md", ".markdown": "md", ".txt": "txt",
+             ".png": "image", ".jpg": "image", ".jpeg": "image", ".tif": "image", ".tiff": "image", ".bmp": "image",
+             ".webp": "image"}
 _YEAR = re.compile(r"(?<!\d)(19|20)\d{2}(?!\d)")
 _VERSION = re.compile(r"[ _-]v(\d+)$", re.I)
 

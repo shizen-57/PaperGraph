@@ -1,9 +1,13 @@
 """Files → Element[]. PDFs go through Docling (boxes converted to top-left origin here, once); md/txt are split
 into paragraphs. Every element carries its section path, e.g. "3 Method > 3.2 Client selection"."""
+import hashlib
+import importlib.util
+import os
 import re
 from functools import lru_cache
 from pathlib import Path
 
+from backend.db import ROOT
 from backend.schemas import BBox, Element, Table
 
 MAX_TABLE_ROWS = 40  # bigger tables are split into row groups, header repeated
@@ -116,6 +120,129 @@ def parse_pdf(path: Path, doc_id: str) -> tuple[list[Element], list[tuple[float,
     return elements, sizes, title
 
 
+# --- PDF text layer (pdfium): no models, no GPU. The cheap baseline, and the fallback when Docling isn't installed ---
+
+def _lines(segments: list[tuple[float, float, float, float, str]]) -> list[list[tuple[float, float, float, float, str]]]:
+    """Group word boxes (x0, y0, x1, y1, text; top-left origin) into visual lines, each sorted left to right.
+    Tall glyphs define the lines; small ones (commas, full stops) join the line whose box contains them."""
+    heights = sorted(s[3] - s[1] for s in segments)
+    median = heights[len(heights) // 2] if heights else 0
+    lines: list[list] = []
+    small = []
+    for seg in sorted(segments, key=lambda s: ((s[1] + s[3]) / 2, s[0])):
+        if seg[3] - seg[1] < 0.6 * median:
+            small.append(seg)
+            continue
+        mid, h = (seg[1] + seg[3]) / 2, seg[3] - seg[1]
+        if lines and abs(mid - (lines[-1][0][1] + lines[-1][0][3]) / 2) <= 0.5 * h:
+            lines[-1].append(seg)
+        else:
+            lines.append([seg])
+    for seg in small:
+        mid = (seg[1] + seg[3]) / 2
+        home = next((ln for ln in lines if min(s[1] for s in ln) <= mid <= max(s[3] for s in ln)), None)
+        if home is not None:
+            home.append(seg)
+        else:
+            lines.append([seg])
+    return sorted((sorted(line) for line in lines), key=lambda ln: min(s[1] for s in ln))
+
+
+def _join(line: list) -> str:
+    """Text of one line. Neighbouring glyph boxes closer than half a line height are one word (CJK glyph boxes sit
+    close together and carry no spaces); a wider gap is a space (a column gap, or a letter-spaced title)."""
+    out = line[0][4]
+    for a, b in zip(line, line[1:]):
+        wide = b[0] - a[2] >= 0.5 * max(a[3] - a[1], b[3] - b[1])
+        out += (" " if wide and not out.endswith(" ") and not b[4].startswith(" ") else "") + b[4]
+    return " ".join(out.split())
+
+
+def _is_row(line: list) -> bool:
+    """A line with three or more words separated by wide gaps is a table row (or a form field), never prose."""
+    height = max(s[3] - s[1] for s in line)
+    return sum(b[0] - a[2] > 1.5 * height for a, b in zip(line, line[1:])) >= 2
+
+
+def parse_pdf_textlayer(path: Path, doc_id: str) -> tuple[list[Element], list[tuple[float, float]], str | None]:
+    """Text elements from the PDF's own text layer. Table-like lines stay one element each (so a row can be quoted and
+    highlighted); prose lines are merged into paragraphs. Scanned pages have no text layer and yield nothing."""
+    import pypdfium2 as pdfium
+
+    pdf = pdfium.PdfDocument(str(path))
+    elements: list[Element] = []
+    sizes: list[tuple[float, float]] = []
+    try:
+        for n, page in enumerate(pdf, 1):
+            w, h = page.get_size()
+            sizes.append((w, h))
+            tp = page.get_textpage()
+            segs = []
+            for i in range(tp.count_rects()):
+                left, bottom, right, top = tp.get_rect(i)
+                text = tp.get_text_bounded(left, bottom, right, top)
+                if text.strip():
+                    segs.append((left, h - top, right, h - bottom, text))
+            para: list[list] = []
+
+            def add(group: list[list]):
+                flat = [s for line in group for s in line]
+                elements.append(Element(
+                    id=f"e{len(elements)}", doc_id=doc_id, type="text", page=n,
+                    bbox=BBox(x0=min(s[0] for s in flat), y0=min(s[1] for s in flat),
+                              x1=max(s[2] for s in flat), y1=max(s[3] for s in flat)),
+                    text="\n".join(_join(line) for line in group)))
+
+            for line in _lines(segs):
+                height = max(s[3] - s[1] for s in line)
+                if _is_row(line):
+                    if para:
+                        add(para)
+                        para = []
+                    add([line])
+                    continue
+                if para and line[0][1] - max(s[3] for s in para[-1]) > 0.8 * height:  # a gap: new paragraph
+                    add(para)
+                    para = []
+                para.append(line)
+            if para:
+                add(para)
+    finally:
+        pdf.close()
+    return elements, sizes, None
+
+
+PARSERS = {"docling": parse_pdf, "pdfium": parse_pdf_textlayer}
+
+
+class ParserUnavailable(Exception):
+    pass
+
+
+def default_parser() -> str:
+    """PARSER=docling|pdfium; otherwise Docling when it is installed."""
+    return os.environ.get("PARSER") or ("docling" if importlib.util.find_spec("docling") else "pdfium")
+
+
+def parse_cached(path: Path, doc_id: str, parser: str | None = None, cache: Path = ROOT / ".cache" / "parse"):
+    """parse_pdf with a cache keyed on the file's sha256 and the parser, so a document is parsed once."""
+    import json
+
+    parser = parser or default_parser()
+    with open(path, "rb") as f:
+        key = f"{hashlib.file_digest(f, 'sha256').hexdigest()}-{parser}.json"
+    hit = cache / key
+    if hit.exists():
+        data = json.loads(hit.read_text(encoding="utf-8"))
+        return ([Element.model_validate({**e, "doc_id": doc_id}) for e in data["elements"]],
+                [tuple(s) for s in data["sizes"]], data["title"])
+    elements, sizes, title = PARSERS[parser](path, doc_id)
+    cache.mkdir(parents=True, exist_ok=True)
+    hit.write_text(json.dumps({"elements": [e.model_dump() for e in elements], "sizes": sizes, "title": title},
+                              ensure_ascii=False), encoding="utf-8")
+    return elements, sizes, title
+
+
 # --- Markdown / plain text ---
 
 def _md_table(lines: list[str]) -> Table | None:
@@ -162,3 +289,20 @@ def parse_text(path: Path, doc_id: str, markdown: bool) -> tuple[list[Element], 
             buf.append(ln)
     flush()
     return elements, title
+
+
+def parse_path(path: Path, doc_id: str, file_type: str, parser: str | None = None):
+    """Any supported file → (elements, page sizes, title). Images and PPTX need Docling (OCR / slide structure)."""
+    if file_type in ("md", "txt"):
+        els, title = parse_text(path, doc_id, markdown=file_type == "md")
+        return els, [], title
+    parser = parser or default_parser()
+    if file_type == "pdf":
+        if parser not in PARSERS:
+            raise ParserUnavailable(f"Unknown parser {parser!r}; choose from {sorted(PARSERS)}")
+        if parser == "docling" and importlib.util.find_spec("docling") is None:
+            raise ParserUnavailable("PARSER=docling but docling is not installed: pip install docling")
+        return parse_cached(path, doc_id, parser)
+    if importlib.util.find_spec("docling") is None:
+        raise ParserUnavailable(f"{file_type} input needs Docling (slide structure / OCR): pip install docling")
+    return parse_cached(path, doc_id, "docling")
