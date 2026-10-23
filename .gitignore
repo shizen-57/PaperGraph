@@ -15,3 +15,13 @@ doclens/frontend/.next/
 doclens_v1_archive/
 interview_prep.md
 job_posting.md
+
+# private planning notes and agent instructions: kept on disk, never committed
+/AGENTS.md
+/*_plan.md
+/doclens_overview.md
+/framer-design.md
+/backend.md
+/frontend.md
+*.env
+.env
