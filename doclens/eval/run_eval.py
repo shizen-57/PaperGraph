@@ -93,7 +93,10 @@ def run_doc(pdf: Path, args, vram) -> dict:
     error = None
     t = time.perf_counter()
     try:
-        ex = (extract_rules.extract if args.extractor == "rules" else extract.extract)(pdf.stem, "invoice", elements)
+        if not elements:  # nothing was parsed (e.g. a text-layer parser on a scan): no LLM call on an empty document
+            ex, error = empty(pdf.stem, "no text parsed"), "no text parsed"
+        else:
+            ex = (extract_rules.extract if args.extractor == "rules" else extract.extract)(pdf.stem, "invoice", elements)
     except (llm.LLMUnavailable, extract.ExtractionError) as e:  # a failed extraction scores as all-missing
         error, ex = f"{type(e).__name__}: {e}"[:300], empty(pdf.stem, "error")
     extract_s = time.perf_counter() - t

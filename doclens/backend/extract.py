@@ -79,13 +79,13 @@ class FinancialReport(BaseModel):
 DOC_TYPES: dict[str, type[BaseModel]] = {"invoice": InvoiceOut, "spec_sheet": SpecSheet, "financial_report": FinancialReport}
 
 SYSTEM = """You extract structured data from a business document in Japanese or English. \
-The document is given as elements: [element_id pPAGE] text. Tables are Markdown.
+The document is given as <element id="..." page="..."> blocks. Tables are Markdown.
 
 Rules:
 1. For every field return `value` copied EXACTLY as printed (keep symbols and notation, e.g. ¥1,234 or 令和8年10月24日). \
 Never convert, calculate or guess. If the document does not state a field, return null for value and an empty quote.
 2. `quote` is the shortest span copied EXACTLY from ONE element that contains the value (for a table, the row). \
-`element_id` is that element's id.
+Never put ids, page numbers or tags in a quote. `element_id` is that element's id, e.g. e3.
 3. Return JSON that matches the schema, nothing else."""
 
 
@@ -110,7 +110,7 @@ def render(elements: list[Element]) -> str:
     for e in elements:
         if e.type == "caption" and not e.text.strip():
             continue
-        line = f"[{e.id} p{e.page}] {e.text[:MAX_ELEMENT_CHARS]}"
+        line = f'<element id="{e.id}" page="{e.page}">\n{e.text[:MAX_ELEMENT_CHARS]}\n</element>'
         if total + len(line) > MAX_CHARS:
             break
         out.append(line)
@@ -158,11 +158,20 @@ def normalise(kind: FieldKind, raw: str | None) -> tuple[str | int | float | Non
     return " ".join(raw.split()), None
 
 
+_MARKER = re.compile(r"^\s*(?:\[e\d+\s+p\d+\]|<element[^>]*>)\s*|\s*</element>\s*$")
+
+
+def clean_quote(quote: str) -> str:
+    """Drop an element marker the model copied from the prompt: it is prompt text, not document text."""
+    return _MARKER.sub("", quote)
+
+
 def make_field(name: str, kind: FieldKind, raw: str | None, quote: str, element_id: str,
                elements: list[Element], located: QuoteCheck | None = None) -> ExtractedField:
     if raw is None or not raw.strip():
         return ExtractedField(name=name, kind=kind, raw=None, value=None, quote="", page=None, element_id=None, bbox=None,
                               quote_match=0.0, value_in_quote=False, status="missing")
+    quote = clean_quote(quote)
     chk = located or verify.locate(quote, elements, prefer=element_id)
     value, tax = normalise(kind, raw)
     # The value must be in the quote AND in the element the quote was found in. The second half matters: fuzzy

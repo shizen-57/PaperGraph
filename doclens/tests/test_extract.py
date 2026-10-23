@@ -146,4 +146,10 @@ def test_prompt_carries_a_field_guide(say):
     replies.append(reply())
     extract.extract("inv", "invoice", ELEMENTS)
     user = calls[0][-1]["content"]
-    assert "- total: Total amount due" in user and "line_items:" in user and "[e2 p1]" in user
+    assert "- total: Total amount due" in user and "line_items:" in user and '<element id="e2" page="1">' in user
+
+
+def test_a_copied_element_marker_is_not_held_against_the_quote(say):
+    say[0].append(reply(total=cited("¥3,300", "[e3 p1] 合計 ¥3,300", "e3")))
+    t = by_name(extract.extract("inv", "invoice", ELEMENTS))["total"]
+    assert t.quote == "合計 ¥3,300" and t.status == "verified"
