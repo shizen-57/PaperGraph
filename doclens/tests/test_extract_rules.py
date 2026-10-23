@@ -63,3 +63,9 @@ def test_text_layer_of_the_committed_synthetic_invoices(name):
              v[f"line_items[{i}].amount"]) for i in range(len(gt["line_items"]))]
     assert rows == [(r["name"], r["quantity"], r["unit_price"], r["amount"]) for r in gt["line_items"]]
     assert {c.status for c in ex.checks} == {"pass"}
+
+
+def test_a_label_alone_is_not_a_value():
+    """Docling can put 'Invoice No.' and its value in different elements; punctuation must not be returned as the number."""
+    ex = extract_rules.extract("d", "invoice", els("Invoice No.", "No.202610-887"))
+    assert {f.name: f.status for f in ex.fields}["invoice_number"] == "missing"

@@ -18,7 +18,7 @@ SEP = r"[\s:：|]*"
 COMPANY = r"(?:株式会社|有限会社|合同会社)[^\s\d|]{1,12}|[^\s\d|]{1,12}(?:株式会社|有限会社|合同会社)"
 
 LABELS = {
-    "invoice_number": [rf"(?:請求書番号|請求番号|請求書No\.?|Invoice\s*No\.?|Invoice\s*Number){SEP}([^\s|]+)"],
+    "invoice_number": [rf"(?:請求書番号|請求番号|請求書No\.?|Invoice\s*No\.?|Invoice\s*Number){SEP}([^\s|]*[0-9A-Za-z][^\s|]*)"],
     "issue_date": [rf"(?:発行日|請求日|Date of issue|Issue date|Invoice date|Date){SEP}({DATE})"],
     "due_date": [rf"(?:支払期限|お支払期限|お支払期日|支払期日|Payment due|Due date|Due){SEP}({DATE})"],
     "subtotal": [rf"(?:小計|Subtotal|Sub-total){SEP}({AMT})"],
