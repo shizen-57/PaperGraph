@@ -260,10 +260,16 @@ class VLMResult(BaseModel):
 # --- Structured extraction (extract.py) ---
 
 class Cited(BaseModel):
-    """One value as the LLM returns it: copied exactly as printed, with the quote and element it came from."""
-    value: str | None = None  # null when the document doesn't state it
-    quote: str = ""  # copied EXACTLY from the element, containing the value
-    element_id: str = ""
+    """One value as the LLM returns it: copied exactly as printed, with the quote and element it came from.
+    All three keys are required and bounded: with optional keys and unbounded strings a constrained decoder lets a
+    small model skip `value` and loop inside a string until it runs out of tokens."""
+    value: str | None = PField(max_length=200)  # null when the document doesn't state it
+    quote: str = PField(max_length=400)  # copied EXACTLY from the element, containing the value
+    element_id: str = PField(max_length=12)
+
+
+def not_stated() -> Cited:
+    return Cited(value=None, quote="", element_id="")
 
 
 class ExtractedField(BaseModel):

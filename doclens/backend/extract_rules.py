@@ -8,7 +8,7 @@ import re
 import time
 
 from backend import extract as base
-from backend.schemas import Cited, DocType, Element, Extraction
+from backend.schemas import Cited, DocType, Element, Extraction, not_stated
 
 D = "0-9０-９"
 DATE = (rf"(?:(?:令和|平成|昭和)\s*[{D}元]+\s*年\s*[{D}]+\s*月\s*[{D}]+\s*日|[RHS][{D}]+[./][{D}]+[./][{D}]+"
@@ -44,7 +44,7 @@ def lines_of(elements: list[Element]) -> list[tuple[str, str]]:
 
 
 def header_fields(lines: list[tuple[str, str]]) -> dict[str, Cited]:
-    found = {k: Cited() for k in LABELS}
+    found = {k: not_stated() for k in LABELS}
     for name, patterns in LABELS.items():
         for pat in patterns:
             hits = [(eid, m) for eid, ln in lines if (m := re.search(pat, ln))]
@@ -57,7 +57,7 @@ def header_fields(lines: list[tuple[str, str]]) -> dict[str, Cited]:
 
 def parties(lines: list[tuple[str, str]]) -> tuple[Cited, Cited]:
     """Recipient: the company before 御中/様, or the line after 'Bill to'. Issuer: the first other company name."""
-    recipient, recipient_line = Cited(), None
+    recipient, recipient_line = not_stated(), None
     for i, (eid, ln) in enumerate(lines):
         m = re.search(rf"({COMPANY})\s*(?:御中|様)", ln)
         if m:
@@ -68,7 +68,7 @@ def parties(lines: list[tuple[str, str]]) -> tuple[Cited, Cited]:
             if m2:
                 recipient, recipient_line = Cited(value=m2.group(), quote=m2.group(), element_id=lines[i + 1][0]), i + 1
                 break
-    issuer = Cited()
+    issuer = not_stated()
     for i, (eid, ln) in enumerate(lines):
         if i == recipient_line:
             continue

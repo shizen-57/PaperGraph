@@ -36,13 +36,13 @@ class Invoice(BaseModel):
 
 
 class LineItem(BaseModel):
-    name: str | None = PField(description="Item name, as printed")
-    quantity: str | None = PField(description="Quantity, as printed")
-    unit_price: str | None = PField(description="Unit price, as printed")
-    amount: str | None = PField(description="Line amount, as printed")
-    tax_rate: str | None = PField(description="Tax rate of this line if printed, e.g. '10%' or '8%'; else null")
-    quote: str = PField(description="The whole table row, copied EXACTLY")
-    element_id: str
+    name: str | None = PField(max_length=200, description="Item name, as printed")
+    quantity: str | None = PField(max_length=40, description="Quantity, as printed")
+    unit_price: str | None = PField(max_length=40, description="Unit price, as printed")
+    amount: str | None = PField(max_length=40, description="Line amount, as printed")
+    tax_rate: str | None = PField(max_length=40, description="Tax rate of this line if printed, e.g. '10%' or '8%'; else null")
+    quote: str = PField(max_length=400, description="The whole table row, copied EXACTLY")
+    element_id: str = PField(max_length=12)
 
 
 LINE_KINDS: dict[str, FieldKind] = {"name": "text", "quantity": "number", "unit_price": "amount", "amount": "amount",
@@ -50,7 +50,7 @@ LINE_KINDS: dict[str, FieldKind] = {"name": "text", "quantity": "number", "unit_
 
 
 class InvoiceOut(Invoice):
-    line_items: list[LineItem] = PField(description="One entry per row of the items table, in order")
+    line_items: list[LineItem] = PField(max_length=30, description="One entry per row of the items table, in order")
 
 
 class SpecSheet(BaseModel):
@@ -93,6 +93,18 @@ class ExtractionError(Exception):
     pass
 
 
+def field_guide(model: type[BaseModel]) -> str:
+    """What each field means, from the model's own descriptions (a small model can't guess from names alone)."""
+    lines = []
+    for name, info in model.model_fields.items():
+        if name == "line_items":
+            row = "; ".join(f"{k}: {v.description}" for k, v in LineItem.model_fields.items() if v.description)
+            lines.append(f"- line_items: {info.description}. Each entry: {row}.")
+        else:
+            lines.append(f"- {name}: {info.description}")
+    return "\n".join(lines)
+
+
 def render(elements: list[Element]) -> str:
     out, total = [], 0
     for e in elements:
@@ -115,7 +127,7 @@ def ask_llm(doc_type: str, elements: list[Element], model: type[BaseModel] | Non
     """One structured LLM call. If the JSON doesn't validate, the error is shown to the model once and it retries."""
     model = model or DOC_TYPES[doc_type]
     messages = [{"role": "system", "content": SYSTEM},
-                {"role": "user", "content": f"Document type: {doc_type}\n\nElements:\n{render(elements)}"}]
+                {"role": "user", "content": f"Document type: {doc_type}\n\nFields:\n{field_guide(model)}\n\nElements:\n{render(elements)}"}]
     error = None
     for _ in range(2):
         raw = llm.chat(messages, schema=model.model_json_schema(), max_tokens=3000)

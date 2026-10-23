@@ -129,3 +129,21 @@ def test_to_values_regroups_line_items(say):
     say[0].append(reply())
     v = extract.to_values(extract.extract("inv", "invoice", ELEMENTS).fields)
     assert v["total"] == 3300 and v["line_items"][0] == {"name": "商品A", "quantity": 2, "unit_price": 500, "amount": 1000, "tax_rate": None}
+
+
+def test_llm_schema_is_tight_enough_for_constrained_decoding():
+    """Optional keys and unbounded strings let a small model skip `value` and loop in a string until max_tokens."""
+    schema = extract.InvoiceOut.model_json_schema()
+    cited = schema["$defs"]["Cited"]
+    assert cited["required"] == ["value", "quote", "element_id"]
+    assert all("maxLength" in p or "anyOf" in p for p in cited["properties"].values())
+    assert cited["properties"]["quote"]["maxLength"] <= 400 and schema["properties"]["line_items"]["maxItems"] == 30
+    assert "required" in schema["$defs"]["LineItem"] and set(schema["required"]) >= {"total", "line_items"}
+
+
+def test_prompt_carries_a_field_guide(say):
+    replies, calls = say
+    replies.append(reply())
+    extract.extract("inv", "invoice", ELEMENTS)
+    user = calls[0][-1]["content"]
+    assert "- total: Total amount due" in user and "line_items:" in user and "[e2 p1]" in user
