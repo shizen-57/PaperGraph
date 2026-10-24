@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))  # so `python eval/render_tables.py` can import eval.failures
 RESULTS = ROOT / "eval" / "results"
 
 # (label, result file stem written by notebooks/kaggle_arena.ipynb). No file, no numbers.
@@ -23,11 +24,17 @@ PENDING = [
 
 
 def fmt(x, digits=2, suffix=""):
+    if x is not None and x != 0 and abs(x) < 0.1:
+        digits = max(digits, 3)  # 0.004 pages/s must not read as 0.00
     return "—" if x is None else f"{x:.{digits}f}{suffix}"
 
 
 def pct(x):
     return "—" if x is None else f"{x * 100:.0f}%"
+
+
+def pct1(x):
+    return "—" if x is None else f"{x * 100:.1f}%"
 
 
 def load(results: Path = RESULTS) -> list[dict]:
@@ -43,7 +50,7 @@ def load(results: Path = RESULTS) -> list[dict]:
 def name_of(run: dict, runs: list[dict] | None = None) -> str:
     c = run["config"]
     parser = {"docling": "Docling", "pdfium": "PDF text layer (pdfium)", "tesseract": "Tesseract jpn+eng",
-              "vlm": "VLM", "router": "Router"}.get(c["parser"], c["parser"])
+              "vlm": f"VLM ({c['vlm']})" if c.get("vlm") else "VLM", "router": "Router"}.get(c["parser"], c["parser"])
     extractor = "rules (regex)" if c["extractor"] == "rules" else (c.get("llm") or "LLM")
     label = f"{parser} + {extractor}"
     variants = c["dataset"].get("variants") or []
@@ -162,8 +169,8 @@ def chart_section(runs: list[dict]) -> str:
     rows = []
     for r in runs:
         s = r["chart_summary"]
-        rows.append(f"| {r['config']['vlm']} | {s['all']['n']} | {pct(s['all']['valid_rate'])} | {pct(s['all']['mean_relative_error'])} | "
-                    f"{pct(s['with_data_labels']['mean_relative_error'])} | {pct(s['without_data_labels']['mean_relative_error'])} | "
+        rows.append(f"| {r['config']['vlm']} | {s['all']['n']} | {pct(s['all']['valid_rate'])} | {pct1(s['all']['mean_relative_error'])} | "
+                    f"{pct1(s['with_data_labels']['mean_relative_error'])} | {pct1(s['without_data_labels']['mean_relative_error'])} | "
                     f"{pct(s['all']['coverage'])} |")
     return head + "\n".join(rows)
 
@@ -203,14 +210,24 @@ def deck_section(runs: list[dict]) -> str:
             f"Charts come out as figures without values.")
 
 
-def render(runs: list[dict], results: Path = RESULTS) -> str:
+def cause_table(results: Path = RESULTS) -> str:
+    """Wrong and missing values grouped by cause (eval/failures.py writes failures-*.json next to the runs)."""
+    from eval import failures
+    found = [json.loads(f.read_text(encoding="utf-8")) for f in sorted(results.glob("failures-*.json"))]
+    return failures.markdown(found) if found else "_Not run yet: `python eval/failures.py eval/results/*.json`._"
+
+
+def render(runs: list[dict], results: Path = RESULTS, full: bool = False) -> str:
+    """`full` adds the per-field accuracy and the failure causes (REPORT.md); the README keeps the short version."""
     if not runs:
         return "_No results yet: run `python eval/run_eval.py` (see below)._"
     first = runs[0]["config"]
     n = first["dataset"]["n_docs"]
+    detail = (f"**Exact-match accuracy per field**\n\n{field_table(runs)}\n\n"
+              f"**Why values are wrong, by cause** (header fields and line-item rows; heuristics, see `eval/failures.py`)\n\n{cause_table(results)}\n\n") if full else ""
     return (f"**Parsers and extractors** on {n} synthetic Japanese invoices (clean text-layer PDFs and scanned image-only PDFs).\n\n"
             f"{arena_table(runs)}\n\n{same_documents_table(runs)}\n\n**Does the evidence check catch wrong values?**\n\n{evidence_table(runs)}\n\n"
-            f"**Exact-match accuracy per field**\n\n{field_table(runs)}\n\n"
+            f"{detail}"
             f"**Router (F2)**\n\n{router_section(load_kind('router_summary', results))}\n\n"
             f"**PowerPoint input (F5)**\n\n{deck_section(load_kind('deck_summary', results))}\n\n"
             f"**Chart → table (F6)**\n\n{chart_section(load_kind('chart_summary', results))}\n\n"
@@ -243,9 +260,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", type=Path, default=RESULTS)
     ap.add_argument("--write", type=Path, help="README to update in place")
+    ap.add_argument("--full", action="store_true", help="include per-field accuracy and failure causes (for REPORT.md)")
     args = ap.parse_args()
     runs = load(args.results)
-    tables = render(runs, args.results)
+    tables = render(runs, args.results, args.full)
     if args.write:
         write_into(args.write, tables)
         if "<!-- headline:start -->" in args.write.read_text(encoding="utf-8"):

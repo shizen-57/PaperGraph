@@ -212,6 +212,7 @@ def main():
         "config": {
             "name": args.out.stem, "parser": args.parser, "parser_version": versions(args.parser), "extractor": args.extractor,
             "llm": os.environ.get("LLM_MODEL") if args.extractor == "llm" else None,
+            "vlm": os.environ.get("VLM_MODEL") if args.parser in ("vlm", "router") else None,
             "hardware": hw, "gpu_hourly_usd": usd if hw["gpu"] else None, "reuse_parse": args.reuse_parse,
             "vram_source": vram_source,
             "dataset": {"path": str(args.data.relative_to(ROOT)) if args.data.is_relative_to(ROOT) else str(args.data),

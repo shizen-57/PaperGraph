@@ -51,7 +51,7 @@ def test_other_result_shapes_and_their_not_run_notices(tmp_path):
     assert "Not run yet" in rt.chart_section([]) and "Not run yet" in rt.direct_section([]) and "Not run yet" in rt.router_section([])
     chart = {"config": {"vlm": "vlm-x"}, "chart_summary": {k: {"n": 6, "valid_rate": 1.0, "mean_relative_error": e, "coverage": 0.9}
                                                            for k, e in (("all", 0.12), ("with_data_labels", 0.02), ("without_data_labels", 0.22))}}
-    assert "| vlm-x | 6 | 100% | 12% | 2% | 22% | 90% |" in rt.chart_section([chart])
+    assert "| vlm-x | 6 | 100% | 12.0% | 2.0% | 22.0% | 90% |" in rt.chart_section([chart])
     direct = {"config": {"model": "invoice-lora"}, "direct_summary": {
         "clean": {"field_f1": 0.9}, "scanned": {"field_f1": 0.7},
         "all": {"valid_json_rate": 1.0, "docs_all_fields_correct": 10, "n_docs": 24, "docs_failing_an_arithmetic_check": 3, "seconds_per_doc": 4.2}}}
@@ -63,6 +63,7 @@ def test_other_result_shapes_and_their_not_run_notices(tmp_path):
 
 def test_render_lists_missing_gpu_work_as_not_run(tmp_path):
     out = rt.render([run()], tmp_path)
+    assert "Exact-match accuracy per field" not in out and "Why values are wrong" in rt.render([run()], tmp_path, full=True)
     assert out.count("Not run yet") == 4 and "**Router (F2)**" in out and "**PowerPoint input (F5)**" in out
 
 
@@ -111,3 +112,10 @@ def test_same_documents_table_rescoring_other_runs_on_the_sample():
     t = rt.same_documents_table([full, sample])
     assert "clean-0, scan-0" in t and "| Docling + rules (regex) | 0.90 | 0.50 | 2.00 | 3.0 |" in t and "(sample: 2 docs) | 0.60 | 0.40 |" in t
     assert rt.same_documents_table([full]) == ""
+
+
+def test_small_numbers_keep_their_digits_and_the_vlm_is_named():
+    assert rt.fmt(0.004) == "0.004" and rt.fmt(0.0) == "0.00" and rt.fmt(0.17) == "0.17"
+    v = run("vlm", "llm")
+    v["config"]["vlm"] = "qwen-vl-x"
+    assert rt.name_of(v).startswith("VLM (qwen-vl-x) + ")

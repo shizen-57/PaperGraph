@@ -29,7 +29,8 @@
    "the VLM parsed in its own pass (both models do not fit in memory together); parse timings are from that pass and are replayed here",
    "extractor: Qwen2.5-3B-Instruct Q4_K_M, as in the other LLM runs",
    "arithmetic checks re-scored on the stored predictions after the tax_rate fallback was fixed (tax between 8% and 10% of the subtotal passes when lines carry no rate); evidence results untouched"
-  ]
+  ],
+  "vlm": "qwen2.5-vl-3b-instruct-q4_k_m"
  },
  "summary": {
   "clean": {
