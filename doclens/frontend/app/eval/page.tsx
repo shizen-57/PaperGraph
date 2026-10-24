@@ -5,7 +5,7 @@ import type { EvalRun } from "@/lib/types";
 // Shows only what the eval scripts wrote: results/eval.json (python -m backend.eval) and eval/results/*.json
 // (python eval/run_eval.py). Nothing here is typed in by hand.
 const pct = (x: number | null | undefined) => (x == null ? "—" : `${(x * 100).toFixed(1)}%`);
-const num = (x: number | null | undefined, digits = 2) => (x == null ? "—" : x.toFixed(digits));
+const num = (x: number | null | undefined, digits = 2) => (x == null ? "—" : x.toFixed(x !== 0 && Math.abs(x) < 0.1 ? 3 : digits));
 const ms = (x: number | null | undefined) => (x == null ? "—" : `${(x / 1000).toFixed(1)} s`);
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
