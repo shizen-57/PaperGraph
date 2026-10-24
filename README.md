@@ -75,7 +75,7 @@ _Not run yet: needs a GPU (`notebooks/kaggle_lora.ipynb`)._
 ## What makes it different
 
 - **An evidence check on every value.** The model returns a value, the element it is in and a quote. The value is `verified` only if the quote is found in that element *and* the value is in the quote *and* in the element. (The last rule matters: fuzzy matching alone accepted a quote with one digit changed to fit a wrong value.) Verified fields are green in the UI, unverified ones red.
-- **A router that spends the expensive model only where it is needed.** Docling reads pages that have a text layer; pages that are scanned, contain a broken table or a figure, or whose fields fail verification go to a vision-language model.
+- **A router that spends the expensive model only where it is needed** (`PARSER=router`). Docling reads pages that have a text layer; pages that are scanned, contain a broken table or a figure, or whose fields fail verification go to a vision-language model. Its routing decisions are measured below; the accuracy-versus-GPU-seconds comparison needs a GPU and has not been run.
 - **Japanese handled in code, not by the LLM.** The model copies a value as printed; `backend/normalize_ja.py` turns `令和8年10月24日` into `2026-10-24`, `1億2,000万円` into `120000000`, `△1,234` into `-1234`, and attaches 税込/税抜 to an amount.
 - **Arithmetic checks.** Line amounts, subtotal, subtotal + tax = total, tax at 10% or 8% per rate group, issue date ≤ due date. They catch wrong numbers that have a real quote behind them.
 
@@ -90,11 +90,13 @@ The app runs on a laptop CPU; GPU work (VLM parsers, vLLM, quantisation, LoRA) r
 ```bash
 cd doclens
 pip install -r requirements.txt
-python eval/run_eval.py --parser pdfium --extractor rules --out eval/results/pdfium-rules.json   # seconds, no model, no network
-python -m backend.demo && uvicorn backend.app:app --port 8000 & (cd frontend && NEXT_PUBLIC_SPACE=demo npm install && NEXT_PUBLIC_SPACE=demo npm run dev)
+python eval/run_eval.py --parser pdfium --extractor rules --out eval/results/pdfium-rules.json   # seconds; no model, no network
+python -m backend.demo                       # four synthetic invoices, parsed and extracted into a demo space
+uvicorn backend.app:app --port 8000 &        # the API
+cd frontend && NEXT_PUBLIC_SPACE=demo npm install && NEXT_PUBLIC_SPACE=demo npm run dev
 ```
 
-Open <http://localhost:3000/docs>, pick an invoice, click a field. For LLM extraction set `LLM_BASE_URL`, `LLM_API_KEY` and `LLM_MODEL` (any OpenAI-compatible server; see [`.env.example`](doclens/.env.example)); for Docling, scans, images and PPTX: `pip install -r requirements-extra.txt`. `pytest` runs the tests (about 190, no GPU or network). Developer guide: [doclens/README.md](doclens/README.md).
+The eval command rewrites a committed result with your own timings (pass another `--out` to keep it). Open <http://localhost:3000/docs>, pick an invoice, click a field. For LLM extraction set `LLM_BASE_URL`, `LLM_API_KEY` and `LLM_MODEL` (any OpenAI-compatible server; see [`.env.example`](doclens/.env.example)); for Docling, scans, images and PPTX: `pip install -r requirements-extra.txt`. `pytest` runs the tests (about 190, no GPU or network). Developer guide: [doclens/README.md](doclens/README.md).
 
 ## Failure cases
 
