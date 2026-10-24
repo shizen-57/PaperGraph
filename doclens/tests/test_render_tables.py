@@ -97,3 +97,17 @@ def test_sample_and_single_variant_runs_are_labelled():
     assert rt.name_of(full, runs) == "Docling + rules (regex)"
     assert rt.name_of(sample, runs).endswith("(sample: 6 docs)")
     assert rt.name_of(clean_only, runs).endswith("(clean only)")
+
+
+def test_same_documents_table_rescoring_other_runs_on_the_sample():
+    def doc(i, variant, tp):
+        return {"id": i, "variant": variant, "tp": tp, "n_pred": 10, "n_gold": 10, "pages": 1, "parse_seconds": 2.0, "extract_seconds": 3.0}
+    full = run()
+    full["config"]["dataset"] = {"n_docs": 4, "variants": ["clean", "scanned"]}
+    full["documents"] = [doc("clean-0", "clean", 9), doc("clean-1", "clean", 1), doc("scan-0", "scanned", 5), doc("scan-1", "scanned", 5)]
+    sample = run("vlm", "llm")
+    sample["config"]["dataset"] = {"n_docs": 2, "variants": ["clean", "scanned"]}
+    sample["documents"] = [doc("clean-0", "clean", 6), doc("scan-0", "scanned", 4)]
+    t = rt.same_documents_table([full, sample])
+    assert "clean-0, scan-0" in t and "| Docling + rules (regex) | 0.90 | 0.50 | 2.00 | 3.0 |" in t and "(sample: 2 docs) | 0.60 | 0.40 |" in t
+    assert rt.same_documents_table([full]) == ""

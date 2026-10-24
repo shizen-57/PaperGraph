@@ -86,6 +86,39 @@ def arena_table(runs: list[dict]) -> str:
     return head + "\n".join(rows)
 
 
+def same_documents_table(runs: list[dict]) -> str:
+    """When a run covers only a sample, every other run is re-scored on exactly those documents, so the comparison is fair."""
+    full = max((r["config"]["dataset"]["n_docs"] / max(len(r["config"]["dataset"].get("variants") or [1]), 1) for r in runs), default=0)
+    samples = [r for r in runs if r["config"]["dataset"]["n_docs"] / max(len(r["config"]["dataset"].get("variants") or [1]), 1) < full]
+    if not samples:
+        return ""
+    ids = {d["id"] for d in samples[0]["documents"]}
+    out = [f"On the {len(ids)} documents the sample run covers ({', '.join(sorted(ids))}):\n",
+           "| Run | Field F1 (clean) | Field F1 (scanned) | Parse s/page | Extract s/doc |\n|---|---|---|---|---|"]
+    for r in runs:
+        cells, sec = [], {}
+        for variant in ("clean", "scanned"):
+            rows = [d for d in r["documents"] if d["id"] in ids and d["variant"] == variant]
+            if rows:
+                tp, npred, ngold = (sum(d[k] for d in rows) for k in ("tp", "n_pred", "n_gold"))
+                cells.append(fmt(metrics_f1(tp, npred, ngold)))
+            else:
+                cells.append("—")
+        rows = [d for d in r["documents"] if d["id"] in ids]
+        if not rows:
+            continue
+        parse_s = sum(d["parse_seconds"] for d in rows) / sum(d["pages"] for d in rows)
+        out.append(f"| {name_of(r, runs)} | {cells[0]} | {cells[1]} | {parse_s:.2f} | {sum(d['extract_seconds'] for d in rows) / len(rows):.1f} |")
+    return "\n".join(out)
+
+
+def metrics_f1(tp: int, n_pred: int, n_gold: int) -> float | None:
+    if not n_pred or not n_gold:
+        return 0.0 if (n_pred or n_gold) else None
+    p, r = tp / n_pred, tp / n_gold
+    return 2 * p * r / (p + r) if p + r else 0.0
+
+
 def evidence_table(runs: list[dict]) -> str:
     head = ("| Run | Values predicted | Wrong | Wrong values flagged by the evidence check | Right values flagged anyway | "
             "Documents with a wrong value | …caught by evidence or arithmetic |\n|---|---|---|---|---|---|---|\n")
@@ -176,7 +209,7 @@ def render(runs: list[dict], results: Path = RESULTS) -> str:
     first = runs[0]["config"]
     n = first["dataset"]["n_docs"]
     return (f"**Parsers and extractors** on {n} synthetic Japanese invoices (clean text-layer PDFs and scanned image-only PDFs).\n\n"
-            f"{arena_table(runs)}\n\n**Does the evidence check catch wrong values?**\n\n{evidence_table(runs)}\n\n"
+            f"{arena_table(runs)}\n\n{same_documents_table(runs)}\n\n**Does the evidence check catch wrong values?**\n\n{evidence_table(runs)}\n\n"
             f"**Exact-match accuracy per field**\n\n{field_table(runs)}\n\n"
             f"**Router (F2)**\n\n{router_section(load_kind('router_summary', results))}\n\n"
             f"**PowerPoint input (F5)**\n\n{deck_section(load_kind('deck_summary', results))}\n\n"
