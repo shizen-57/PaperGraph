@@ -33,10 +33,11 @@ def test_total_check_lists_fields():
     assert c.status == "fail" and c.fields == ["subtotal", "tax", "total"]
 
 
-def test_tax_must_be_ten_or_eight_percent():
+def test_tax_must_be_ten_or_eight_percent_or_between():
     assert tax_rate([], 1000, 100).status == "pass"
     assert tax_rate([], 1000, 80).status == "pass"
-    assert tax_rate([], 1000, 90).status == "fail"
+    assert tax_rate([], 1000, 93).status == "pass"  # between: a mixed-rate invoice whose lines have no rate
+    assert tax_rate([], 1000, 150).status == "fail" and tax_rate([], 1000, 30).status == "fail"
 
 
 def test_mixed_rates_are_checked_per_group():

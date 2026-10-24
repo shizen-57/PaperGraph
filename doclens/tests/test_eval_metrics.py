@@ -123,3 +123,16 @@ def test_vram_sampler_keeps_the_peak(monkeypatch):
     monkeypatch.setattr(stop, "wait", lambda t: None)  # don't sleep in a test
     run_eval.sample_vram(1, stop, peak)
     assert peak[0] == 5400 and "--id=1" in calls[0]
+
+
+def test_rescore_reapplies_the_checks_to_stored_predictions():
+    from eval import rescore
+    row = {"id": "d", "variant": "clean", "pages": 1, "parse_seconds": 1.0, "extract_seconds": 2.0, "tp": 1, "n_pred": 1, "n_gold": 1,
+           "correct": {"total": True}, "teds": 1.0, "table_found": True, "error": None,
+           "judge": {"items": [], "check_failed": True}, "checks": [],
+           "pred": {"subtotal": 1000, "tax": 93, "total": 1093, "line_items": []}}
+    run = {"config": {"notes": [], "hardware": {"gpu": None}, "dataset": {"variants": ["clean"]}},
+           "summary": {"all": {"peak_vram_mb": None, "evidence": {}}}, "documents": [row]}
+    out = rescore.rescore(run, "rule changed")
+    assert out["documents"][0]["judge"]["check_failed"] is False  # 9.3% is between 8% and 10%
+    assert out["config"]["notes"] == ["rule changed"] and out["summary"]["all"]["evidence"]["docs_failing_a_consistency_check"] == 0
