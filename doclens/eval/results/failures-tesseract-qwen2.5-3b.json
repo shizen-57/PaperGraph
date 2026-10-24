@@ -1,0 +1,249 @@
+{
+ "config": "tesseract-qwen2.5-3b",
+ "counts": {
+  "clean": {
+   "copy boundary": 6,
+   "role confusion": 14,
+   "present, not extracted": 11,
+   "not in the parsed text": 72,
+   "row lost or merged": 8,
+   "extra row": 14,
+   "wrong choice": 3,
+   "hallucinated": 3
+  },
+  "scanned": {
+   "copy boundary": 7,
+   "not in the parsed text": 91,
+   "role confusion": 6,
+   "wrong choice": 11,
+   "extra row": 10,
+   "present, not extracted": 11,
+   "hallucinated": 3,
+   "row lost or merged": 2
+  }
+ },
+ "header_fields_checked": {
+  "clean": 96,
+  "scanned": 96
+ },
+ "examples": {
+  "copy boundary": [
+   {
+    "id": "clean-000",
+    "field": "issue_date",
+    "pred": "2026-07",
+    "gold": "2026-07-25"
+   },
+   {
+    "id": "clean-002",
+    "field": "invoice_number",
+    "pred": "株式会社青木情報様請求番号No.202607-897",
+    "gold": "No.202607-897"
+   },
+   {
+    "id": "clean-006",
+    "field": "due_date",
+    "pred": "2026-02",
+    "gold": "2026-02-16"
+   },
+   {
+    "id": "clean-008",
+    "field": "invoice_number",
+    "pred": "有限会社渡辺鉱業様請求番号R8-8657",
+    "gold": "R8-8657"
+   },
+   {
+    "id": "clean-008",
+    "field": "issuer",
+    "pred": "株式会社佐々木食品宮城県横浜市中区大京町13丁目18番3 号油井パレス650",
+    "gold": "株式会社佐々木食品"
+   }
+  ],
+  "role confusion": [
+   {
+    "id": "clean-000",
+    "field": "issuer",
+    "pred": "有限会社吉田通信",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "clean-000",
+    "field": "recipient",
+    "pred": "前田電気株式会社",
+    "gold": "有限会社吉田通信"
+   },
+   {
+    "id": "clean-001",
+    "field": "issuer",
+    "pred": "斉藤ガス株式会社",
+    "gold": "合同会社佐々木情報"
+   },
+   {
+    "id": "clean-001",
+    "field": "recipient",
+    "pred": "合同会社佐々木情報",
+    "gold": "斉藤ガス株式会社"
+   },
+   {
+    "id": "clean-002",
+    "field": "issuer",
+    "pred": "株式会社青木情報",
+    "gold": "橋本情報有限会社"
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "clean-000",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 77680
+   },
+   {
+    "id": "clean-003",
+    "field": "tax",
+    "pred": null,
+    "gold": 8468
+   },
+   {
+    "id": "clean-006",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 26240
+   },
+   {
+    "id": "clean-006",
+    "field": "tax",
+    "pred": null,
+    "gold": 2624
+   },
+   {
+    "id": "clean-006",
+    "field": "total",
+    "pred": null,
+    "gold": 28864
+   }
+  ],
+  "not in the parsed text": [
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-003",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-002",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-002",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-003",
+    "field": "line_items"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "clean-002",
+    "field": "recipient",
+    "pred": "橋本情報有限会社神奈川県川崎市宮前区鶴ヶ丘29丁目3 番20号シティ西神田423",
+    "gold": "株式会社青木情報"
+   },
+   {
+    "id": "clean-011",
+    "field": "issuer",
+    "pred": "有限会社鈴木ガス様",
+    "gold": "石川水産有限会社"
+   },
+   {
+    "id": "clean-011",
+    "field": "tax",
+    "pred": 36846,
+    "gold": 37135
+   },
+   {
+    "id": "scan-000",
+    "field": "recipient",
+    "pred": "コー421",
+    "gold": "有限会社吉田通信"
+   },
+   {
+    "id": "scan-000",
+    "field": "subtotal",
+    "pred": 776809,
+    "gold": 77680
+   }
+  ],
+  "hallucinated": [
+   {
+    "id": "clean-003",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-005",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-008",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-002",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-003",
+    "field": "tax",
+    "pred": 28468,
+    "gold": 8468
+   }
+  ]
+ }
+}

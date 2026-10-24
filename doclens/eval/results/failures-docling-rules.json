@@ -1,0 +1,135 @@
+{
+ "config": "docling-rules",
+ "counts": {
+  "clean": {
+   "present, not extracted": 12,
+   "not in the parsed text": 4
+  },
+  "scanned": {
+   "present, not extracted": 31,
+   "not in the parsed text": 46,
+   "row lost or merged": 43,
+   "role confusion": 1,
+   "extra row": 2,
+   "wrong choice": 1
+  }
+ },
+ "header_fields_checked": {
+  "clean": 96,
+  "scanned": 96
+ },
+ "examples": {
+  "present, not extracted": [
+   {
+    "id": "clean-001",
+    "field": "invoice_number",
+    "pred": null,
+    "gold": "No.202610-887"
+   },
+   {
+    "id": "clean-001",
+    "field": "issue_date",
+    "pred": null,
+    "gold": "2026-10-26"
+   },
+   {
+    "id": "clean-001",
+    "field": "due_date",
+    "pred": null,
+    "gold": "2026-11-25"
+   },
+   {
+    "id": "clean-004",
+    "field": "invoice_number",
+    "pred": null,
+    "gold": "No.202605-120"
+   },
+   {
+    "id": "clean-004",
+    "field": "issue_date",
+    "pred": null,
+    "gold": "2026-05-17"
+   }
+  ],
+  "not in the parsed text": [
+   {
+    "id": "clean-001",
+    "field": "issuer",
+    "pred": null,
+    "gold": "合同会社佐々木情報"
+   },
+   {
+    "id": "clean-004",
+    "field": "issuer",
+    "pred": null,
+    "gold": "株式会社長谷川運輸"
+   },
+   {
+    "id": "clean-007",
+    "field": "issuer",
+    "pred": null,
+    "gold": "合同会社山本銀行"
+   },
+   {
+    "id": "clean-010",
+    "field": "issuer",
+    "pred": null,
+    "gold": "株式会社小林食品"
+   },
+   {
+    "id": "scan-000",
+    "field": "issuer",
+    "pred": null,
+    "gold": "前田電気株式会社"
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-001",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-001",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-002",
+    "field": "line_items"
+   }
+  ],
+  "role confusion": [
+   {
+    "id": "scan-007",
+    "field": "issuer",
+    "pred": "松本ガス合同会社",
+    "gold": "合同会社山本銀行"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "scan-007",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-007",
+    "field": "line_items"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "scan-010",
+    "field": "tax",
+    "pred": 21,
+    "gold": 21218
+   }
+  ]
+ }
+}

@@ -1,0 +1,167 @@
+{
+ "config": "tesseract-rules",
+ "counts": {
+  "clean": {
+   "not in the parsed text": 75,
+   "copy boundary": 4,
+   "present, not extracted": 14,
+   "wrong choice": 6,
+   "row lost or merged": 8
+  },
+  "scanned": {
+   "not in the parsed text": 100,
+   "wrong choice": 11,
+   "present, not extracted": 18,
+   "copy boundary": 2,
+   "row lost or merged": 2
+  }
+ },
+ "header_fields_checked": {
+  "clean": 96,
+  "scanned": 96
+ },
+ "examples": {
+  "not in the parsed text": [
+   {
+    "id": "clean-000",
+    "field": "issue_date",
+    "pred": null,
+    "gold": "2026-07-25"
+   },
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "clean-000",
+    "field": "issuer",
+    "pred": "ーー前田電気株式会社",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "clean-003",
+    "field": "issuer",
+    "pred": "ーー松本建設株式会社",
+    "gold": "松本建設株式会社"
+   },
+   {
+    "id": "clean-008",
+    "field": "issuer",
+    "pred": "株式会社佐々木食品宮城県横浜市中",
+    "gold": "株式会社佐々木食品"
+   },
+   {
+    "id": "clean-010",
+    "field": "invoice_number",
+    "pred": "No.",
+    "gold": "No.202606-957"
+   },
+   {
+    "id": "scan-004",
+    "field": "issuer",
+    "pred": "株式会社長谷川運輸高知県西多歴郡",
+    "gold": "株式会社長谷川運輸"
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "clean-001",
+    "field": "recipient",
+    "pred": null,
+    "gold": "斉藤ガス株式会社"
+   },
+   {
+    "id": "clean-003",
+    "field": "tax",
+    "pred": null,
+    "gold": 8468
+   },
+   {
+    "id": "clean-003",
+    "field": "total",
+    "pred": null,
+    "gold": 93148
+   },
+   {
+    "id": "clean-004",
+    "field": "recipient",
+    "pred": null,
+    "gold": "清水食品株式会社"
+   },
+   {
+    "id": "clean-006",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 26240
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "clean-001",
+    "field": "subtotal",
+    "pred": 216,
+    "gold": 216860
+   },
+   {
+    "id": "clean-001",
+    "field": "tax",
+    "pred": 21,
+    "gold": 21686
+   },
+   {
+    "id": "clean-001",
+    "field": "total",
+    "pred": 238,
+    "gold": 238546
+   },
+   {
+    "id": "clean-010",
+    "field": "subtotal",
+    "pred": 212,
+    "gold": 212180
+   },
+   {
+    "id": "clean-010",
+    "field": "tax",
+    "pred": 21,
+    "gold": 21218
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-003",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   }
+  ]
+ }
+}
