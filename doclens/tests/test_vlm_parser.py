@@ -32,3 +32,20 @@ def test_parse_pdf_vlm_renders_every_page_and_wraps_fences(monkeypatch):
     els, sizes, _ = vlm_parser.parse_pdf_vlm(pdf, "d")
     assert len(calls) == 1 and calls[0] > 1000 and sizes[0][0] > 500 and els[0].text == "請求書番号: INV-1"
     assert parse.PARSERS["vlm"]  # reachable as PARSER=vlm
+
+
+HTML = """<html><body>
+<h2>請求書</h2> <p>有限会社吉田通信 御中</p>
+<div class="formula"><img src="x.png"></div>
+<div><p>請求書番号: R8-3579</p><p>発行日: 令和8年7月25日</p></div>
+<table><tr><th>品名</th><th>数量</th></tr><tr><td>商品A</td><td>2</td></tr></table>
+<div>合計 ¥3,300</div></body></html>"""
+
+
+def test_html_answers_become_elements():
+    els: list = []
+    vlm_parser.markdown_elements(HTML, "d", 1, els, parse.Sections())
+    assert [e.text for e in els if e.type == "text"] == ["請求書", "有限会社吉田通信 御中", "請求書番号: R8-3579", "発行日: 令和8年7月25日", "合計 ¥3,300"]
+    table = next(e for e in els if e.type == "table")
+    assert table.table.header == ["品名", "数量"] and table.table.rows == [["商品A", "2"]]
+    assert els[1].heading == "請求書"  # the h2 set the section

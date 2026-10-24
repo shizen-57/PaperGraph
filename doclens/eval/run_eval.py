@@ -184,7 +184,7 @@ def main():
             vram = torch
     except ImportError:
         pass
-    if not args.reuse_parse and args.parser in ("docling", "vlm"):  # model load must not count towards pages/sec
+    if not args.reuse_parse and args.parser in ("docling", "router"):  # in-process models: their load must not count towards pages/sec
         parse.PARSERS[args.parser](docs[0], "warmup")
 
     stop = threading.Event()
