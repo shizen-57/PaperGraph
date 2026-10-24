@@ -9,7 +9,8 @@ def run(parser="docling", extractor="rules", clean=0.9, scanned=0.4, gpu=None):
     return {"_stem": f"{parser}-{extractor}",
             "config": {"parser": parser, "extractor": extractor, "llm": None, "hardware": {"gpu": gpu, "cores": 4, "cpu": "x"},
                        "dataset": {"n_docs": 24}},
-            "summary": {"clean": {"field_f1": clean}, "scanned": {"field_f1": scanned},
+            "summary": {"clean": {"field_f1": clean, "field_accuracy_by_field": {"total": 0.8, "tax": 1.0}},
+                        "scanned": {"field_f1": scanned, "field_accuracy_by_field": {"total": 0.4, "tax": 0.5}},
                         "all": {"teds": 0.95, "n_docs": 24, "parse": {"pages_per_sec": 0.17, "seconds": 48.0}, "extract": {"seconds": 24.0},
                                 "peak_vram_mb": None, "evidence": ev,
                                 "cost_per_1k_pages_parse_usd": None, "field_accuracy_by_field": {"total": 0.8, "tax": 1.0}}}}
@@ -29,7 +30,8 @@ def test_unrun_gpu_configurations_are_marked_not_run():
 
 def test_evidence_and_field_tables():
     assert "| 50% | 10% | 4 | 75% |" in rt.evidence_table([run()])
-    assert "| 80% | 100% |" in rt.field_table([run()])
+    t = rt.field_table([run()])
+    assert "| Docling + rules (regex) | clean | 80% | 100% |" in t and "| scanned | 40% | 50% |" in t
 
 
 def test_write_into_replaces_only_the_marked_block(tmp_path):
@@ -82,3 +84,16 @@ def test_headline_comes_from_the_llm_run(tmp_path):
     readme.write_text("a <!-- headline:start -->x<!-- headline:end --> b")
     rt.write_into(readme, "H", "headline")
     assert readme.read_text() == "a <!-- headline:start -->\nH\n<!-- headline:end --> b"
+
+
+def test_sample_and_single_variant_runs_are_labelled():
+    full = run()
+    full["config"]["dataset"] = {"n_docs": 24, "variants": ["clean", "scanned"]}
+    sample = run("vlm", "llm")
+    sample["config"]["dataset"] = {"n_docs": 6, "variants": ["clean", "scanned"]}
+    clean_only = run("pdfium", "rules")
+    clean_only["config"]["dataset"] = {"n_docs": 12, "variants": ["clean"]}
+    runs = [full, sample, clean_only]
+    assert rt.name_of(full, runs) == "Docling + rules (regex)"
+    assert rt.name_of(sample, runs).endswith("(sample: 6 docs)")
+    assert rt.name_of(clean_only, runs).endswith("(clean only)")
