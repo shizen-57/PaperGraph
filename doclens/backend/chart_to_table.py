@@ -105,18 +105,25 @@ def side_by_side(original_png: bytes, chart: ChartData, out: Path) -> Path:
     return out
 
 
+def _key(x) -> str:
+    """Comparable x label: numbers compare as numbers ('0.0' is '0'), text ignores case and surrounding space."""
+    s = str(x).strip().casefold()
+    n = _as_number(s)
+    return repr(n) if n is not None else s
+
+
 def relative_errors(pred: ChartData, truth: dict[str, dict[str, float]]) -> dict:
     """Score against known values {series: {x: y}}. A true point is matched by series name (or the only series) and x
     label. `mre` is the mean of |pred - true| / |true| over matched points with a non-zero truth; `coverage` is the
     share of true points the model returned at all."""
-    by_name = {s.name.strip().casefold(): {p.x.strip().casefold(): p.y for p in s.points} for s in pred.series}
+    by_name = {s.name.strip().casefold(): {_key(p.x): p.y for p in s.points} for s in pred.series}
     only = next(iter(by_name.values())) if len(by_name) == 1 and len(truth) == 1 else None
     errors, total, found = [], 0, 0
     for name, points in truth.items():
         got = by_name.get(name.strip().casefold(), only) or {}
         for x, y in points.items():
             total += 1
-            g = got.get(str(x).strip().casefold())
+            g = got.get(_key(x))
             if g is None:
                 continue
             found += 1

@@ -60,3 +60,9 @@ def test_synthetic_charts_have_exact_ground_truth(tmp_path):
     gt = json.loads(paths[0].with_suffix(".json").read_text(encoding="utf-8"))
     assert gt["kind"] == "bar" and list(gt["series"]) == ["売上高"] and len(gt["series"]["売上高"]) == 4
     assert json.loads(charts.generate(tmp_path / "again", seed=0)[0].with_suffix(".json").read_text(encoding="utf-8")) == gt  # deterministic
+
+
+def test_numeric_x_labels_match_as_numbers():
+    pred = ct.ChartData(series=[ct.Series(name="s", points=[ct.Point(x="0.0", y=10), ct.Point(x="4.0", y=20), ct.Point(x="2.5", y=99)])])
+    r = ct.relative_errors(pred, {"s": {"0": 10, "4": 20, "8": 30}})
+    assert r["matched"] == 2 and r["mre"] == 0.0 and r["coverage"] == 0.6667  # 2.5 is not 8: still a miss
