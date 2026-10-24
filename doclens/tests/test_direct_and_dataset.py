@@ -37,6 +37,8 @@ def test_direct_output_scores_with_the_same_metrics(monkeypatch):
 
 @pytest.mark.slow
 def test_dataset_builder_writes_images_and_jsonl(tmp_path):
+    for optional in ("faker", "jinja2", "playwright", "augraphy"):  # requirements-extra.txt: only needed to generate data
+        pytest.importorskip(optional)
     from train import build_dataset
     train, val = build_dataset.build(n=3, seed=5, out=tmp_path)
     rows = [json.loads(line) for line in (tmp_path / "train.jsonl").read_text(encoding="utf-8").splitlines()]
