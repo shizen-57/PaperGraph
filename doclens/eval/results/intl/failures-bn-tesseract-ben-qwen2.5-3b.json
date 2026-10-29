@@ -1,0 +1,179 @@
+{
+ "config": "bn-tesseract-ben-qwen2.5-3b",
+ "counts": {
+  "bn": {
+   "not in the parsed text": 11,
+   "wrong choice": 4,
+   "present, not extracted": 4,
+   "row lost or merged": 26,
+   "extra row": 11,
+   "hallucinated": 23,
+   "copy boundary": 1
+  }
+ },
+ "header_fields_checked": {
+  "bn": 48
+ },
+ "examples": {
+  "not in the parsed text": [
+   {
+    "id": "bn-000",
+    "field": "due_date",
+    "pred": null,
+    "gold": "2026-09-15"
+   },
+   {
+    "id": "bn-000",
+    "field": "issuer",
+    "pred": "বর্মন ফুভ প্রোডাক্টস লিমিটেড",
+    "gold": "বর্মন ফুড প্রোডাক্টস লিমিটেড"
+   },
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "recipient",
+    "pred": "পাল ট্রৈভার্স",
+    "gold": "পাল ট্রেডার্স"
+   },
+   {
+    "id": "bn-002",
+    "field": "issuer",
+    "pred": "ホーリー・トレーダーズ",
+    "gold": "হুরাইরা ট্রেডার্স"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "bn-000",
+    "field": "subtotal",
+    "pred": 659640,
+    "gold": 573600
+   },
+   {
+    "id": "bn-003",
+    "field": "subtotal",
+    "pred": 492039,
+    "gold": 427860
+   },
+   {
+    "id": "bn-003",
+    "field": "tax",
+    "pred": 270000,
+    "gold": 64179
+   },
+   {
+    "id": "bn-005",
+    "field": "subtotal",
+    "pred": 1410188,
+    "gold": 1226250
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "bn-000",
+    "field": "tax",
+    "pred": null,
+    "gold": 86040
+   },
+   {
+    "id": "bn-001",
+    "field": "tax",
+    "pred": null,
+    "gold": 40854
+   },
+   {
+    "id": "bn-002",
+    "field": "tax",
+    "pred": null,
+    "gold": 155370
+   },
+   {
+    "id": "bn-005",
+    "field": "tax",
+    "pred": null,
+    "gold": 183938
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   }
+  ],
+  "hallucinated": [
+   {
+    "id": "bn-001",
+    "field": "subtotal",
+    "pred": 3132140,
+    "gold": 272360
+   },
+   {
+    "id": "bn-001",
+    "field": "total",
+    "pred": 3685094,
+    "gold": 313214
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "line_items"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "bn-005",
+    "field": "recipient",
+    "pred": "আচার্য্য সলিউশন",
+    "gold": "আচার্য্য সলিউশনস"
+   }
+  ]
+ }
+}

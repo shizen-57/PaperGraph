@@ -1,0 +1,76 @@
+{
+ "id": "en-001",
+ "variant": "en",
+ "layout": "en",
+ "date_style": 0,
+ "money_style": 1,
+ "fields": {
+  "invoice_number": "INV-2026-3218",
+  "issue_date": "2026-04-15",
+  "due_date": "2026-05-15",
+  "issuer": "Lee PLC",
+  "recipient": "Allen and Sons",
+  "subtotal": 28567,
+  "tax": 2285,
+  "total": 30852
+ },
+ "line_items": [
+  {
+   "name": "USB-C docking station",
+   "quantity": 11,
+   "unit_price": 250,
+   "amount": 2750,
+   "tax_rate": null
+  },
+  {
+   "name": "Cable organiser kit",
+   "quantity": 14,
+   "unit_price": 250,
+   "amount": 3500,
+   "tax_rate": null
+  },
+  {
+   "name": "Standing desk",
+   "quantity": 18,
+   "unit_price": 40,
+   "amount": 720,
+   "tax_rate": null
+  },
+  {
+   "name": "Software licence renewal",
+   "quantity": 13,
+   "unit_price": 25,
+   "amount": 325,
+   "tax_rate": null
+  },
+  {
+   "name": "Cloud hosting, monthly",
+   "quantity": 7,
+   "unit_price": 2400,
+   "amount": 16800,
+   "tax_rate": null
+  },
+  {
+   "name": "Laptop sleeve 15\"",
+   "quantity": 4,
+   "unit_price": 120,
+   "amount": 480,
+   "tax_rate": null
+  },
+  {
+   "name": "27-inch monitor",
+   "quantity": 8,
+   "unit_price": 499,
+   "amount": 3992,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "15 April 2026",
+  "due_date": "15 May 2026",
+  "subtotal": "USD 28,567.00",
+  "tax": "USD 2,285.00",
+  "total": "USD 30,852.00"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>USB-C docking station</td><td>11</td><td>250</td><td>2,750</td></tr><tr><td>Cable organiser kit</td><td>14</td><td>250</td><td>3,500</td></tr><tr><td>Standing desk</td><td>18</td><td>40</td><td>720</td></tr><tr><td>Software licence renewal</td><td>13</td><td>25</td><td>325</td></tr><tr><td>Cloud hosting, monthly</td><td>7</td><td>2,400</td><td>16,800</td></tr><tr><td>Laptop sleeve 15\"</td><td>4</td><td>120</td><td>480</td></tr><tr><td>27-inch monitor</td><td>8</td><td>499</td><td>3,992</td></tr></tbody></table>"
+}

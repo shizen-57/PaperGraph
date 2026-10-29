@@ -1,0 +1,3517 @@
+{
+ "config": {
+  "name": "bn-tesseract-ben-rules",
+  "parser": "tesseract-ben",
+  "parser_version": null,
+  "extractor": "rules",
+  "llm": null,
+  "vlm": null,
+  "hardware": {
+   "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+   "cores": 4,
+   "gpu": null
+  },
+  "gpu_hourly_usd": null,
+  "reuse_parse": false,
+  "vram_source": null,
+  "dataset": {
+   "path": "eval/data/intl",
+   "n_docs": 6,
+   "variants": [
+    "bn"
+   ]
+  },
+  "date": "2026-10-29 22:26 UTC",
+  "git_commit": "e29d74b",
+  "notes": [
+   "rules extractor: English and Bangla labels were added after looking at these two layouts, so treat it as an upper bound",
+   "Tesseract ben+eng at 200 dpi with table ruling lines removed (parse.strip_rules)"
+  ]
+ },
+ "summary": {
+  "bn": {
+   "n_docs": 6,
+   "errors": 0,
+   "field_f1": 0.7654,
+   "field_accuracy": 0.6296,
+   "field_accuracy_by_field": {
+    "invoice_number": 1.0,
+    "issue_date": 1.0,
+    "due_date": 0.6667,
+    "issuer": 0.3333,
+    "recipient": 0.6667,
+    "subtotal": 0.3333,
+    "tax": 0.5,
+    "total": 0.8333,
+    "line_items": 0.3333
+   },
+   "docs_all_fields_correct": 0,
+   "evidence": {
+    "predicted": 76,
+    "wrong": 14,
+    "verified_rate": 1.0,
+    "hallucination_catch_rate": 0.0,
+    "false_alarm_rate": 0.0,
+    "docs_with_a_wrong_value": 6,
+    "consistency_flagged_wrong_docs": 0.5,
+    "docs_failing_a_consistency_check": 3,
+    "wrong_docs_caught_by_either": 0.5
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 7.96,
+    "pages": 6,
+    "pages_per_sec": 0.754,
+    "sec_per_page": 1.326
+   },
+   "extract": {
+    "seconds": 0.04,
+    "sec_per_doc": 0.006
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  },
+  "all": {
+   "n_docs": 6,
+   "errors": 0,
+   "field_f1": 0.7654,
+   "field_accuracy": 0.6296,
+   "field_accuracy_by_field": {
+    "invoice_number": 1.0,
+    "issue_date": 1.0,
+    "due_date": 0.6667,
+    "issuer": 0.3333,
+    "recipient": 0.6667,
+    "subtotal": 0.3333,
+    "tax": 0.5,
+    "total": 0.8333,
+    "line_items": 0.3333
+   },
+   "docs_all_fields_correct": 0,
+   "evidence": {
+    "predicted": 76,
+    "wrong": 14,
+    "verified_rate": 1.0,
+    "hallucination_catch_rate": 0.0,
+    "false_alarm_rate": 0.0,
+    "docs_with_a_wrong_value": 6,
+    "consistency_flagged_wrong_docs": 0.5,
+    "docs_failing_a_consistency_check": 3,
+    "wrong_docs_caught_by_either": 0.5
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 7.96,
+    "pages": 6,
+    "pages_per_sec": 0.754,
+    "sec_per_page": 1.326
+   },
+   "extract": {
+    "seconds": 0.04,
+    "sec_per_doc": 0.006
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  }
+ },
+ "documents": [
+  {
+   "id": "bn-000",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.983,
+   "extract_seconds": 0.021,
+   "n_elements": 12,
+   "tp": 10,
+   "n_pred": 12,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": false,
+    "issuer": false,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "BD-2026-1140",
+    "issue_date": "2026-08-01",
+    "due_date": null,
+    "issuer": "বর্মন ফুভ প্রোডাক্টস লিমিটেড",
+    "recipient": "গঙ্গোপাধ্যায় ট্রেডার্স",
+    "subtotal": 573600,
+    "tax": 86040,
+    "total": 659640,
+    "line_items": [
+     {
+      "name": "এ৪ কাগজ (৫০০ শিট)",
+      "quantity": 16,
+      "unit_price": 12500,
+      "amount": 200000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 4,
+      "unit_price": 1200,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াহটবোও মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়াইফাই রাউটার",
+      "quantity": 1,
+      "unit_price": 4800,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়্যারলেস মাউস",
+      "quantity": 8,
+      "unit_price": 45000,
+      "amount": 360000,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "BD-2026-1140",
+    "issue_date": "2026-08-01",
+    "due_date": "2026-09-15",
+    "issuer": "বর্মন ফুড প্রোডাক্টস লিমিটেড",
+    "recipient": "গঙ্গোপাধ্যায় ট্রেডার্স",
+    "subtotal": 573600,
+    "tax": 86040,
+    "total": 659640,
+    "line_items": [
+     {
+      "name": "এ৪ কাগজ (৫০০ শিট)",
+      "quantity": 16,
+      "unit_price": 12500,
+      "amount": 200000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 4,
+      "unit_price": 1200,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়াইফাই রাউটার",
+      "quantity": 1,
+      "unit_price": 4800,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়্যারলেস মাউস",
+      "quantity": 8,
+      "unit_price": 45000,
+      "amount": 360000,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "5 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (573,600)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (659,640)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "BD-2026-1140",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: BD-2026-1140",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "০১ আগস্ট ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ০১ আগস্ট ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "issuer",
+     "raw": "বর্মন ফুভ প্রোডাক্টস লিমিটেড",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: বর্মন ফুভ প্রোডাক্টস লিমিটেড",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "গঙ্গোপাধ্যায় ট্রেডার্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: গঙ্গোপাধ্যায় ট্রেডার্স",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "৫,৭৩,৬০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "উপমোট ট ৫,৭৩,৬০০",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "৮৬,০৪০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ভ্যাট (১৫%) ট ৮৬,০৪০",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "৬,৫৯,৬৪০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সর্বমোট & ৬,৫৯,৬৪০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "এ৪ কাগজ (৫০০ শিট)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "এ৪ কাগজ (৫০০ শিট) ১৬ ১২,৫০০ ২,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "এ৪ কাগজ (৫০০ শিট) ১৬ ১২,৫০০ ২,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "১২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "এ৪ কাগজ (৫০০ শিট) ১৬ ১২,৫০০ ২,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "২,০০,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "এ৪ কাগজ (৫০০ শিট) ১৬ ১২,৫০০ ২,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "সফটওয়্যার লাইসেন্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৪ ১,২০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "৪",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৪ ১,২০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "১,২০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৪ ১,২০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৪ ১,২০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "হোয়াহটবোও মার্কার (১২টি)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "৪,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ওয়াইফাই রাউটার",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১ ৪,৮০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "১",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১ ৪,৮০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১ ৪,৮০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১ ৪,৮০০ ৪,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "ওয়্যারলেস মাউস",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ৮ ৪৫,০০০ ৩,৬০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ৮ ৪৫,০০০ ৩,৬০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "৪৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ৮ ৪৫,০০০ ৩,৬০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "৩,৬০,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ৮ ৪৫,০০০ ৩,৬০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "bn-001",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.421,
+   "extract_seconds": 0.005,
+   "n_elements": 16,
+   "tp": 14,
+   "n_pred": 16,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "BD-2026-7880",
+    "issue_date": "2026-08-26",
+    "due_date": "2026-09-09",
+    "issuer": "প্রামানিক ব্রাদার্স",
+    "recipient": "পাল ট্রৈভার্স",
+    "subtotal": 9,
+    "tax": null,
+    "total": 313214,
+    "line_items": [
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 3,
+      "unit_price": 2500,
+      "amount": 7500,
+      "tax_rate": null
+     },
+     {
+      "name": "কিবোর্ড",
+      "quantity": 17,
+      "unit_price": 480,
+      "amount": 8160,
+      "tax_rate": null
+     },
+     {
+      "name": "নোটবুক (১০০ পৃষ্ঠা)",
+      "quantity": 18,
+      "unit_price": 1200,
+      "amount": 21600,
+      "tax_rate": null
+     },
+     {
+      "name": "সার্ভার মাসিক ভাড়া",
+      "quantity": 15,
+      "unit_price": 4800,
+      "amount": 72000,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 2,
+      "unit_price": 2500,
+      "amount": 5000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 11,
+      "unit_price": 750,
+      "amount": 8250,
+      "tax_rate": null
+     },
+     {
+      "name": "ডেস্ক ল্যাম্প",
+      "quantity": 15,
+      "unit_price": 4800,
+      "amount": 72000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 7,
+      "unit_price": 150,
+      "amount": 1050,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়াইফাই রাউটার",
+      "quantity": 16,
+      "unit_price": 4800,
+      "amount": 76800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "BD-2026-7880",
+    "issue_date": "2026-08-26",
+    "due_date": "2026-09-09",
+    "issuer": "প্রামানিক ব্রাদার্স",
+    "recipient": "পাল ট্রেডার্স",
+    "subtotal": 272360,
+    "tax": 40854,
+    "total": 313214,
+    "line_items": [
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 3,
+      "unit_price": 2500,
+      "amount": 7500,
+      "tax_rate": null
+     },
+     {
+      "name": "কিবোর্ড",
+      "quantity": 17,
+      "unit_price": 480,
+      "amount": 8160,
+      "tax_rate": null
+     },
+     {
+      "name": "নোটবুক (১০০ পৃষ্ঠা)",
+      "quantity": 18,
+      "unit_price": 1200,
+      "amount": 21600,
+      "tax_rate": null
+     },
+     {
+      "name": "সার্ভার মাসিক ভাড়া",
+      "quantity": 15,
+      "unit_price": 4800,
+      "amount": 72000,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 2,
+      "unit_price": 2500,
+      "amount": 5000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 11,
+      "unit_price": 750,
+      "amount": 8250,
+      "tax_rate": null
+     },
+     {
+      "name": "ডেস্ক ল্যাম্প",
+      "quantity": 15,
+      "unit_price": 4800,
+      "amount": 72000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 7,
+      "unit_price": 150,
+      "amount": 1050,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়াইফাই রাউটার",
+      "quantity": 16,
+      "unit_price": 4800,
+      "amount": 76800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "9 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "fail",
+     "message": "line amounts add up to 272,360, but the subtotal is 9",
+     "fields": [
+      "subtotal"
+     ]
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "BD-2026-7880",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: BD-2026-7880",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "২৬ আগস্ট ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ২৬ আগস্ট ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "০৯ সেপ্টেম্বর ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "পরিশোধের শেষ তারিখ: ০৯ সেপ্টেম্বর ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "প্রামানিক ব্রাদার্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: প্রামানিক ব্রাদার্স",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "পাল ট্রৈভার্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: পাল ট্রৈভার্স",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "৯",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "উপমোট ৯",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "total",
+     "raw": "৩,১৩,২১৪",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সর্বমোট & ৩,১৩,২১৪",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "স্থাপন ও সেটআপ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৩ ২,৫০০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "৩",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৩ ২,৫০০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৩ ২,৫০০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "৭,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৩ ২,৫০০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "কিবোর্ড",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ১৭ ৪৮০ ৮,১৬০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "১৭",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ১৭ ৪৮০ ৮,১৬০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "৪৮০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ১৭ ৪৮০ ৮,১৬০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "৮,১৬০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ১৭ ৪৮০ ৮,১৬০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "নোটবুক (১০০ পৃষ্ঠা)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ১৮ ১,২০০ ২১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "১৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ১৮ ১,২০০ ২১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "১,২০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ১৮ ১,২০০ ২১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "২১,৬০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ১৮ ১,২০০ ২১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "সার্ভার মাসিক ভাড়া",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সার্ভার মাসিক ভাড়া ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "১৫",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সার্ভার মাসিক ভাড়া ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সার্ভার মাসিক ভাড়া ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "৭২,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সার্ভার মাসিক ভাড়া ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "ইউএসবি হাব",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ২ ২,৫০০ ৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "২",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ২ ২,৫০০ ৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ২ ২,৫০০ ৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ২ ২,৫০০ ৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "প্রিন্টারের কালি",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "১১",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "৮,২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "ডেস্ক ল্যাম্প",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ডেস্ক ল্যাম্প ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "১৫",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ডেস্ক ল্যাম্প ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ডেস্ক ল্যাম্প ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "৭২,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ডেস্ক ল্যাম্প ১৫ ৪,৮০০ ৭২,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "সফটওয়্যার লাইসেন্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "৭",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "১৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "১,০৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "ওয়াইফাই রাউটার",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১৬ ৪,৮০০ ৭৬,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১৬ ৪,৮০০ ৭৬,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১৬ ৪,৮০০ ৭৬,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "৭৬,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়াইফাই রাউটার ১৬ ৪,৮০০ ৭৬,৮০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "bn-002",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.167,
+   "extract_seconds": 0.004,
+   "n_elements": 15,
+   "tp": 12,
+   "n_pred": 14,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": false,
+    "recipient": true,
+    "subtotal": false,
+    "tax": true,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "VAT-1670",
+    "issue_date": "2026-05-23",
+    "due_date": "2026-07-07",
+    "issuer": "হুরাইরা ট্রডার্স",
+    "recipient": "দাস এন্টারপ্রাইজ",
+    "subtotal": null,
+    "tax": 155370,
+    "total": null,
+    "line_items": [
+     {
+      "name": "ওয়্যারলেস মাউস",
+      "quantity": 20,
+      "unit_price": 750,
+      "amount": 15000,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াইটবোও মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 9,
+      "unit_price": 2500,
+      "amount": 22500,
+      "tax_rate": null
+     },
+     {
+      "name": "ল্যাপটপ ব্যাগ",
+      "quantity": 7,
+      "unit_price": 150,
+      "amount": 1050,
+      "tax_rate": null
+     },
+     {
+      "name": "নোটবুক (১০০ পৃষ্ঠা)",
+      "quantity": 3,
+      "unit_price": 250,
+      "amount": 750,
+      "tax_rate": null
+     },
+     {
+      "name": "অফিস চেয়ার",
+      "quantity": 17,
+      "unit_price": 45000,
+      "amount": 765000,
+      "tax_rate": null
+     },
+     {
+      "name": "কিবোর্ড",
+      "quantity": 2,
+      "unit_price": 45000,
+      "amount": 90000,
+      "tax_rate": null
+     },
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 11,
+      "unit_price": 12500,
+      "amount": 137500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "VAT-1670",
+    "issue_date": "2026-05-23",
+    "due_date": "2026-07-07",
+    "issuer": "হুরাইরা ট্রেডার্স",
+    "recipient": "দাস এন্টারপ্রাইজ",
+    "subtotal": 1035800,
+    "tax": 155370,
+    "total": 1191170,
+    "line_items": [
+     {
+      "name": "ওয়্যারলেস মাউস",
+      "quantity": 20,
+      "unit_price": 750,
+      "amount": 15000,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 9,
+      "unit_price": 2500,
+      "amount": 22500,
+      "tax_rate": null
+     },
+     {
+      "name": "ল্যাপটপ ব্যাগ",
+      "quantity": 7,
+      "unit_price": 150,
+      "amount": 1050,
+      "tax_rate": null
+     },
+     {
+      "name": "নোটবুক (১০০ পৃষ্ঠা)",
+      "quantity": 3,
+      "unit_price": 250,
+      "amount": 750,
+      "tax_rate": null
+     },
+     {
+      "name": "অফিস চেয়ার",
+      "quantity": 17,
+      "unit_price": 45000,
+      "amount": 765000,
+      "tax_rate": null
+     },
+     {
+      "name": "কিবোর্ড",
+      "quantity": 2,
+      "unit_price": 45000,
+      "amount": 90000,
+      "tax_rate": null
+     },
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 11,
+      "unit_price": 12500,
+      "amount": 137500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "8 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "VAT-1670",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: VAT-1670",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "২৩ মে ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ২৩ মে ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "০৭ জুলাই ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "পরিশোধের শেষ তারিখ: ০৭ জুলাই ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "হুরাইরা ট্রডার্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: হুরাইরা ট্রডার্স",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "দাস এন্টারপ্রাইজ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: দাস এন্টারপ্রাইজ",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "tax",
+     "raw": "১,৫৫,৩৭০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ভ্যাট (১৫%) ট ১,৫৫,৩৭০",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "ওয়্যারলেস মাউস",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ২০ ৭৫০ ১৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "২০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ২০ ৭৫০ ১৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ২০ ৭৫০ ১৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "১৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ওয়্যারলেস মাউস ২০ ৭৫০ ১৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "হোয়াইটবোও মার্কার (১২টি)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াইটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াইটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াইটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "৪,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াইটবোও মার্কার (১২টি) ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "প্রিন্টারের কালি",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ৯ ২,৫০০ ২২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "৯",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ৯ ২,৫০০ ২২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ৯ ২,৫০০ ২২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "২২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ৯ ২,৫০০ ২২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ল্যাপটপ ব্যাগ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "৭",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "১৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "১,০৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ৭ ১৫০ ১,০৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "নোটবুক (১০০ পৃষ্ঠা)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ৩ ২৫০ ৭৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "৩",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ৩ ২৫০ ৭৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ৩ ২৫০ ৭৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "নোটবুক (১০০ পৃষ্ঠা) ৩ ২৫০ ৭৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "অফিস চেয়ার",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ১৭ ৪৫,০০০ ৭,৬৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "১৭",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ১৭ ৪৫,০০০ ৭,৬৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "৪৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ১৭ ৪৫,০০০ ৭,৬৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "৭,৬৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ১৭ ৪৫,০০০ ৭,৬৫,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "কিবোর্ড",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ২ ৪৫,০০০ ৯০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "২",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ২ ৪৫,০০০ ৯০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "৪৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ২ ৪৫,০০০ ৯০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "৯০,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "কিবোর্ড ২ ৪৫,০০০ ৯০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "স্থাপন ও সেটআপ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ১১ ১২,৫০০ ১,৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "১১",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ১১ ১২,৫০০ ১,৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "১২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ১১ ১২,৫০০ ১,৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "১,৩৭,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ১১ ১২,৫০০ ১,৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "bn-003",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.22,
+   "extract_seconds": 0.004,
+   "n_elements": 16,
+   "tp": 9,
+   "n_pred": 14,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": false,
+    "recipient": true,
+    "subtotal": false,
+    "tax": false,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": false,
+      "flagged": false
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "BD-2026-6628",
+    "issue_date": "2026-09-19",
+    "due_date": "2026-10-19",
+    "issuer": "ঠাকুর ট্টরডার্স",
+    "recipient": "জাহান ফুড প্রোডাক্টস লিমিটেড",
+    "subtotal": 9,
+    "tax": 964179,
+    "total": 492039,
+    "line_items": [
+     {
+      "name": "মনিটর ২৪ ইঞ্চি",
+      "quantity": 15,
+      "unit_price": 1200,
+      "amount": 18000,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 10,
+      "unit_price": 250,
+      "amount": 2500,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াহটবোও মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 2500,
+      "amount": 40000,
+      "tax_rate": null
+     },
+     {
+      "name": "অফিস চেয়ার",
+      "quantity": 8,
+      "unit_price": 750,
+      "amount": 6000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 14,
+      "unit_price": 4800,
+      "amount": 81600,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "BD-2026-6628",
+    "issue_date": "2026-09-19",
+    "due_date": "2026-10-19",
+    "issuer": "ঠাকুর ট্রেডার্স",
+    "recipient": "জাহান ফুড প্রোডাক্টস লিমিটেড",
+    "subtotal": 427860,
+    "tax": 64179,
+    "total": 492039,
+    "line_items": [
+     {
+      "name": "মনিটর ২৪ ইঞ্চি",
+      "quantity": 15,
+      "unit_price": 1200,
+      "amount": 18000,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 10,
+      "unit_price": 250,
+      "amount": 2500,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": null
+     },
+     {
+      "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+      "quantity": 16,
+      "unit_price": 2500,
+      "amount": 40000,
+      "tax_rate": null
+     },
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 6,
+      "unit_price": 45000,
+      "amount": 270000,
+      "tax_rate": null
+     },
+     {
+      "name": "সার্ভার মাসিক ভাড়া",
+      "quantity": 6,
+      "unit_price": 480,
+      "amount": 2880,
+      "tax_rate": null
+     },
+     {
+      "name": "ওয়াইফাই রাউটার",
+      "quantity": 6,
+      "unit_price": 480,
+      "amount": 2880,
+      "tax_rate": null
+     },
+     {
+      "name": "অফিস চেয়ার",
+      "quantity": 8,
+      "unit_price": 750,
+      "amount": 6000,
+      "tax_rate": null
+     },
+     {
+      "name": "প্রিন্টারের কালি",
+      "quantity": 17,
+      "unit_price": 4800,
+      "amount": 81600,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "fail",
+     "message": "row 6: 14 × 4,800 = 67,200, but the amount is 81,600",
+     "fields": [
+      "line_items[5].amount"
+     ]
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "fail",
+     "message": "line amounts add up to 152,100, but the subtotal is 9",
+     "fields": [
+      "subtotal"
+     ]
+    },
+    {
+     "name": "total_sum",
+     "status": "fail",
+     "message": "subtotal 9 + tax 964,179 = 964,188, but the total is 492,039",
+     "fields": [
+      "subtotal",
+      "tax",
+      "total"
+     ]
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "BD-2026-6628",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: BD-2026-6628",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "১৯ সেপ্টেম্বর ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ১৯ সেপ্টেম্বর ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "১৯ অক্টোবর ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "পরিশোধের শেষ তারিখ: ১৯ অক্টোবর ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "ঠাকুর ট্টরডার্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: ঠাকুর ট্টরডার্স",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "জাহান ফুড প্রোডাক্টস লিমিটেড",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: জাহান ফুড প্রোডাক্টস লিমিটেড",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "৯",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "উপমোট ৯",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "৯৬৪,১৭৯",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ভ্যাট (১৫%) ৯৬৪,১৭৯",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "৪,৯২,০৩৯",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সর্বমোট & ৪,৯২,০৩৯",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "মনিটর ২৪ ইঞ্চি",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১৫ ১,২০০ ১৮,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "১৫",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১৫ ১,২০০ ১৮,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "১,২০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১৫ ১,২০০ ১৮,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "১৮,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১৫ ১,২০০ ১৮,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ইউএসবি হাব",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১০ ২৫০ ২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "১০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১০ ২৫০ ২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১০ ২৫০ ২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১০ ২৫০ ২,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "সফটওয়্যার লাইসেন্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "৪,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৬ ২৫০ ৪,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "হোয়াহটবোও মার্কার (১২টি)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২,৫০০ ৪০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "১৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২,৫০০ ৪০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২,৫০০ ৪০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "৪০,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "হোয়াহটবোও মার্কার (১২টি) ১৬ ২,৫০০ ৪০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "অফিস চেয়ার",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ৮ ৭৫০ ৬,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ৮ ৭৫০ ৬,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ৮ ৭৫০ ৬,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "৬,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "অফিস চেয়ার ৮ ৭৫০ ৬,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "প্রিন্টারের কালি",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১৪ ৪,৮০০ ৮১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "১৪",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১৪ ৪,৮০০ ৮১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "৪,৮০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১৪ ৪,৮০০ ৮১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "৮১,৬০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "প্রিন্টারের কালি ১৪ ৪,৮০০ ৮১,৬০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "bn-004",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.07,
+   "extract_seconds": 0.003,
+   "n_elements": 11,
+   "tp": 9,
+   "n_pred": 10,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": false,
+    "issuer": false,
+    "recipient": true,
+    "subtotal": true,
+    "tax": false,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "VAT-3385",
+    "issue_date": "2026-08-15",
+    "due_date": null,
+    "issuer": "উদ্দিন pu প্রোডাক্টস লিমিটেড",
+    "recipient": "মিত্র এন্টারপ্রাইজ",
+    "subtotal": 57090,
+    "tax": null,
+    "total": 65654,
+    "line_items": [
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 3,
+      "unit_price": 12500,
+      "amount": 37500,
+      "tax_rate": null
+     },
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 8,
+      "unit_price": 480,
+      "amount": 3840,
+      "tax_rate": null
+     },
+     {
+      "name": "মনিটর ২৪ ইঞ্চি",
+      "quantity": 10,
+      "unit_price": 750,
+      "amount": 7500,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 11,
+      "unit_price": 750,
+      "amount": 8250,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "VAT-3385",
+    "issue_date": "2026-08-15",
+    "due_date": "2026-09-29",
+    "issuer": "উদ্দিন ফুড প্রোডাক্টস লিমিটেড",
+    "recipient": "মিত্র এন্টারপ্রাইজ",
+    "subtotal": 57090,
+    "tax": 8564,
+    "total": 65654,
+    "line_items": [
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 3,
+      "unit_price": 12500,
+      "amount": 37500,
+      "tax_rate": null
+     },
+     {
+      "name": "স্থাপন ও সেটআপ",
+      "quantity": 8,
+      "unit_price": 480,
+      "amount": 3840,
+      "tax_rate": null
+     },
+     {
+      "name": "মনিটর ২৪ ইঞ্চি",
+      "quantity": 10,
+      "unit_price": 750,
+      "amount": 7500,
+      "tax_rate": null
+     },
+     {
+      "name": "ইউএসবি হাব",
+      "quantity": 11,
+      "unit_price": 750,
+      "amount": 8250,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "4 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (57,090)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "VAT-3385",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: VAT-3385",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "১৫ আগস্ট ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ১৫ আগস্ট ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "issuer",
+     "raw": "উদ্দিন pu প্রোডাক্টস লিমিটেড",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: উদ্দিন pu প্রোডাক্টস লিমিটেড",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "মিত্র এন্টারপ্রাইজ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: মিত্র এন্টারপ্রাইজ",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "৫৭,০৯০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "উপমোট & ৫৭,০৯০",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "total",
+     "raw": "৬৫,৬৫৪",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সর্বমোট ৬৫,৬৫৪",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "সফটওয়্যার লাইসেন্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৩ ১২,৫০০ ৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "৩",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৩ ১২,৫০০ ৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "১২,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৩ ১২,৫০০ ৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "৩৭,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ৩ ১২,৫০০ ৩৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "স্থাপন ও সেটআপ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৮ ৪৮০ ৩,৮৪০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৮ ৪৮০ ৩,৮৪০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "৪৮০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৮ ৪৮০ ৩,৮৪০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "৩,৮৪০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "স্থাপন ও সেটআপ ৮ ৪৮০ ৩,৮৪০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "মনিটর ২৪ ইঞ্চি",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১০ ৭৫০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "১০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১০ ৭৫০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১০ ৭৫০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "৭,৫০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "মনিটর ২৪ ইঞ্চি ১০ ৭৫০ ৭,৫০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ইউএসবি হাব",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "১১",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "৮,২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ইউএসবি হাব ১১ ৭৫০ ৮,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "bn-005",
+   "variant": "bn",
+   "layout": "bn",
+   "pages": 1,
+   "parse_seconds": 1.094,
+   "extract_seconds": 0.002,
+   "n_elements": 10,
+   "tp": 8,
+   "n_pred": 10,
+   "n_gold": 11,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": false,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "VAT-4928",
+    "issue_date": "2026-03-25",
+    "due_date": "2026-05-09",
+    "issuer": "কুমার এন্টারপ্রাইজ",
+    "recipient": "আচার্য্য সলিউশন",
+    "subtotal": 8,
+    "tax": 183938,
+    "total": 1410188,
+    "line_items": [
+     {
+      "name": "ল্যাপটপ ব্যাগ",
+      "quantity": 20,
+      "unit_price": 45000,
+      "amount": 900000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 15,
+      "unit_price": 750,
+      "amount": 11250,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "VAT-4928",
+    "issue_date": "2026-03-25",
+    "due_date": "2026-05-09",
+    "issuer": "কুমার এন্টারপ্রাইজ",
+    "recipient": "আচার্য্য সলিউশনস",
+    "subtotal": 1226250,
+    "tax": 183938,
+    "total": 1410188,
+    "line_items": [
+     {
+      "name": "অফিস চেয়ার",
+      "quantity": 7,
+      "unit_price": 45000,
+      "amount": 315000,
+      "tax_rate": null
+     },
+     {
+      "name": "ল্যাপটপ ব্যাগ",
+      "quantity": 20,
+      "unit_price": 45000,
+      "amount": 900000,
+      "tax_rate": null
+     },
+     {
+      "name": "সফটওয়্যার লাইসেন্স",
+      "quantity": 15,
+      "unit_price": 750,
+      "amount": 11250,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "2 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "fail",
+     "message": "line amounts add up to 911,250, but the subtotal is 8",
+     "fields": [
+      "subtotal"
+     ]
+    },
+    {
+     "name": "total_sum",
+     "status": "fail",
+     "message": "subtotal 8 + tax 183,938 = 183,946, but the total is 1,410,188",
+     "fields": [
+      "subtotal",
+      "tax",
+      "total"
+     ]
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "VAT-4928",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "চালান নম্বর: VAT-4928",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "২৫ মার্চ ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "তারিখ: ২৫ মার্চ ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "০৯ মে ২০২৬",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "পরিশোধের শেষ তারিখ: ০৯ মে ২০২৬",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "কুমার এন্টারপ্রাইজ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "বিক্রেতা: কুমার এন্টারপ্রাইজ",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "আচার্য্য সলিউশন",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ক্রেতা: আচার্য্য সলিউশন",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "উপমোট ৮",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "১,৮৩,৯৩৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ভ্যাট (১৫%) b ১,৮৩,৯৩৮",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "১৪,১০,১৮৮",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সর্বমোট & ১৪,১০,১৮৮",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "ল্যাপটপ ব্যাগ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ২০ ৪৫,০০০ ৯,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "২০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ২০ ৪৫,০০০ ৯,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "৪৫,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ২০ ৪৫,০০০ ৯,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "৯,০০,০০০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ল্যাপটপ ব্যাগ ২০ ৪৫,০০০ ৯,০০,০০০",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "সফটওয়্যার লাইসেন্স",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৫ ৭৫০ ১১,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "১৫",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৫ ৭৫০ ১১,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "৭৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৫ ৭৫০ ১১,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "১১,২৫০",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "সফটওয়্যার লাইসেন্স ১৫ ৭৫০ ১১,২৫০",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  }
+ ]
+}

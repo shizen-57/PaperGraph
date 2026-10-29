@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% block body %}
+<style>body { font-family: "Noto Sans", "DejaVu Sans", "Liberation Sans", sans-serif } .hdr td { padding: 0 0 0 6mm }</style>
+<div class="row">
+  <div><h1 style="text-align:left;letter-spacing:.12em;margin:0">INVOICE</h1></div>
+  <div style="text-align:right">
+    <table class="hdr" style="width:auto;margin-left:auto">
+      <tr><td>Invoice No.</td><td class="num">{{ s.invoice_number }}</td></tr>
+      <tr><td>Invoice Date</td><td class="num">{{ shown.issue_date }}</td></tr>
+      <tr><td>Due Date</td><td class="num">{{ shown.due_date }}</td></tr>
+    </table>
+  </div>
+</div>
+<div class="mt"><div class="small">From</div><div style="font-size:12pt"><b>{{ s.issuer }}</b></div><div class="small">{{ s.issuer_address }}</div></div>
+<div class="mt"><div class="small">Bill To</div><div style="font-size:12pt"><b>{{ s.recipient }}</b></div><div class="small">{{ s.recipient_address }}</div></div>
+<table class="items mt">
+  <thead><tr>{% for h in header %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for r in rows %}<tr>{% for c in r %}<td{% if loop.index > 1 %} class="num"{% endif %}>{{ c }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table>
+<table class="totals">
+  <tr><td>Subtotal</td><td class="num">{{ fmt.subtotal }}</td></tr>
+  <tr><td>{{ s.tax_label }}</td><td class="num">{{ fmt.tax }}</td></tr>
+  <tr class="grand"><td>Total Due</td><td class="num">{{ fmt.total }}</td></tr>
+</table>
+<p class="mt small">Payment terms: net 30 days. Bank transfer to {{ s.bank }}.</p>
+{% endblock %}

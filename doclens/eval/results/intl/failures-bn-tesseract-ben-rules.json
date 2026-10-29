@@ -1,0 +1,142 @@
+{
+ "config": "bn-tesseract-ben-rules",
+ "counts": {
+  "bn": {
+   "not in the parsed text": 11,
+   "extra row": 4,
+   "wrong choice": 4,
+   "present, not extracted": 3,
+   "row lost or merged": 5,
+   "copy boundary": 1
+  }
+ },
+ "header_fields_checked": {
+  "bn": 48
+ },
+ "examples": {
+  "not in the parsed text": [
+   {
+    "id": "bn-000",
+    "field": "due_date",
+    "pred": null,
+    "gold": "2026-09-15"
+   },
+   {
+    "id": "bn-000",
+    "field": "issuer",
+    "pred": "বর্মন ফুভ প্রোডাক্টস লিমিটেড",
+    "gold": "বর্মন ফুড প্রোডাক্টস লিমিটেড"
+   },
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-001",
+    "field": "recipient",
+    "pred": "পাল ট্রৈভার্স",
+    "gold": "পাল ট্রেডার্স"
+   },
+   {
+    "id": "bn-002",
+    "field": "issuer",
+    "pred": "হুরাইরা ট্রডার্স",
+    "gold": "হুরাইরা ট্রেডার্স"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "bn-000",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-002",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "bn-001",
+    "field": "subtotal",
+    "pred": 9,
+    "gold": 272360
+   },
+   {
+    "id": "bn-003",
+    "field": "subtotal",
+    "pred": 9,
+    "gold": 427860
+   },
+   {
+    "id": "bn-003",
+    "field": "tax",
+    "pred": 964179,
+    "gold": 64179
+   },
+   {
+    "id": "bn-005",
+    "field": "subtotal",
+    "pred": 8,
+    "gold": 1226250
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "bn-001",
+    "field": "tax",
+    "pred": null,
+    "gold": 40854
+   },
+   {
+    "id": "bn-002",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 1035800
+   },
+   {
+    "id": "bn-002",
+    "field": "total",
+    "pred": null,
+    "gold": 1191170
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-003",
+    "field": "line_items"
+   },
+   {
+    "id": "bn-005",
+    "field": "line_items"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "bn-005",
+    "field": "recipient",
+    "pred": "আচার্য্য সলিউশন",
+    "gold": "আচার্য্য সলিউশনস"
+   }
+  ]
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "id": "bn-000",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 0,
+ "money_style": 1,
+ "fields": {
+  "invoice_number": "BD-2026-1140",
+  "issue_date": "2026-08-01",
+  "due_date": "2026-09-15",
+  "issuer": "বর্মন ফুড প্রোডাক্টস লিমিটেড",
+  "recipient": "গঙ্গোপাধ্যায় ট্রেডার্স",
+  "subtotal": 573600,
+  "tax": 86040,
+  "total": 659640
+ },
+ "line_items": [
+  {
+   "name": "এ৪ কাগজ (৫০০ শিট)",
+   "quantity": 16,
+   "unit_price": 12500,
+   "amount": 200000,
+   "tax_rate": null
+  },
+  {
+   "name": "সফটওয়্যার লাইসেন্স",
+   "quantity": 4,
+   "unit_price": 1200,
+   "amount": 4800,
+   "tax_rate": null
+  },
+  {
+   "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+   "quantity": 16,
+   "unit_price": 250,
+   "amount": 4000,
+   "tax_rate": null
+  },
+  {
+   "name": "ওয়াইফাই রাউটার",
+   "quantity": 1,
+   "unit_price": 4800,
+   "amount": 4800,
+   "tax_rate": null
+  },
+  {
+   "name": "ওয়্যারলেস মাউস",
+   "quantity": 8,
+   "unit_price": 45000,
+   "amount": 360000,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "০১ আগস্ট ২০২৬",
+  "due_date": "১৫ সেপ্টেম্বর ২০২৬",
+  "subtotal": "৳ ৫,৭৩,৬০০",
+  "tax": "৳ ৮৬,০৪০",
+  "total": "৳ ৬,৫৯,৬৪০"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>এ৪ কাগজ (৫০০ শিট)</td><td>১৬</td><td>১২,৫০০</td><td>২,০০,০০০</td></tr><tr><td>সফটওয়্যার লাইসেন্স</td><td>৪</td><td>১,২০০</td><td>৪,৮০০</td></tr><tr><td>হোয়াইটবোর্ড মার্কার (১২টি)</td><td>১৬</td><td>২৫০</td><td>৪,০০০</td></tr><tr><td>ওয়াইফাই রাউটার</td><td>১</td><td>৪,৮০০</td><td>৪,৮০০</td></tr><tr><td>ওয়্যারলেস মাউস</td><td>৮</td><td>৪৫,০০০</td><td>৩,৬০,০০০</td></tr></tbody></table>"
+}

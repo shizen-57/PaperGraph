@@ -13,7 +13,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field as PField, ValidationError
 
-from backend import consistency, llm, normalize_ja, verify
+from backend import consistency, llm, normalize_intl, normalize_ja, verify
+from backend.parse import lang_of
 from backend.schemas import Cited, DocType, Element, ExtractedField, Extraction, FieldKind, QuoteCheck
 
 MAX_CHARS = 40_000  # about a 20k-token budget
@@ -93,6 +94,13 @@ class ExtractionError(Exception):
     pass
 
 
+# The examples in SYSTEM and the field guide are Japanese, and a small model followed them: asked about a Bangla invoice, a 3B model
+# answered in Japanese (スタンド＆セットアップ, 2026年8月26日), so every value failed the evidence check. For Bangla the prompt says so.
+# Japanese and English documents get no note, so their prompt (and every committed result) is unchanged.
+LANGUAGE_NOTE = {"bn": "The document is in Bangla (বাংলা). Copy every value in Bangla script exactly as printed, with Bangla digits "
+                       "(১২৩), and never translate or transliterate it into another language or script."}
+
+
 def field_guide(model: type[BaseModel]) -> str:
     """What each field means, from the model's own descriptions (a small model can't guess from names alone)."""
     lines = []
@@ -126,8 +134,10 @@ def _fenced(text: str) -> str:
 def ask_llm(doc_type: str, elements: list[Element], model: type[BaseModel] | None = None) -> BaseModel:
     """One structured LLM call. If the JSON doesn't validate, the error is shown to the model once and it retries."""
     model = model or DOC_TYPES[doc_type]
+    body = render(elements)
+    note = LANGUAGE_NOTE.get(lang_of(body), "")
     messages = [{"role": "system", "content": SYSTEM},
-                {"role": "user", "content": f"Document type: {doc_type}\n\nFields:\n{field_guide(model)}\n\nElements:\n{render(elements)}"}]
+                {"role": "user", "content": f"Document type: {doc_type}\n\n{note + chr(10) + chr(10) if note else ''}Fields:\n{field_guide(model)}\n\nElements:\n{body}"}]
     error = None
     for _ in range(2):
         raw = llm.chat(messages, schema=model.model_json_schema(), max_tokens=3000)
@@ -146,10 +156,10 @@ def normalise(kind: FieldKind, raw: str | None) -> tuple[str | int | float | Non
     """(typed value, tax flag). None when the text can't be read as that kind."""
     if raw is None or not raw.strip():
         return None, None
-    if kind == "date":
-        return normalize_ja.parse_date(raw), None
+    if kind == "date":  # Japanese notation first (it is strict), then English and Bangla month names
+        return normalize_ja.parse_date(raw) or normalize_intl.parse_date(raw), None
     if kind == "amount":
-        a = normalize_ja.parse_amount(raw)
+        a = normalize_ja.parse_amount(raw) or normalize_intl.parse_amount(raw)
         return (a.value, a.tax) if a else (None, None)
     if kind == "number":
         return normalize_ja.parse_number(raw), None
@@ -231,7 +241,8 @@ def finish(doc_id: str, doc_type: DocType, out: BaseModel, elements: list[Elemen
     fields = build_fields(out, elements)
     if doc_type == "financial_report":
         apply_report_unit(fields)
-    checks = consistency.check_invoice(to_values(fields)) if doc_type == "invoice" else []
+    japanese = bool(re.search(r"[぀-ヿ一-鿿]", " ".join(e.text for e in elements)))
+    checks = consistency.check_invoice(to_values(fields), rates=consistency.RATES if japanese else None) if doc_type == "invoice" else []
     return Extraction(doc_id=doc_id, doc_type=doc_type, fields=fields, checks=checks, model=model,
                       seconds=round(time.perf_counter() - t0, 2))
 

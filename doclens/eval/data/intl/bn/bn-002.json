@@ -1,0 +1,83 @@
+{
+ "id": "bn-002",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 0,
+ "money_style": 2,
+ "fields": {
+  "invoice_number": "VAT-1670",
+  "issue_date": "2026-05-23",
+  "due_date": "2026-07-07",
+  "issuer": "হুরাইরা ট্রেডার্স",
+  "recipient": "দাস এন্টারপ্রাইজ",
+  "subtotal": 1035800,
+  "tax": 155370,
+  "total": 1191170
+ },
+ "line_items": [
+  {
+   "name": "ওয়্যারলেস মাউস",
+   "quantity": 20,
+   "unit_price": 750,
+   "amount": 15000,
+   "tax_rate": null
+  },
+  {
+   "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+   "quantity": 16,
+   "unit_price": 250,
+   "amount": 4000,
+   "tax_rate": null
+  },
+  {
+   "name": "প্রিন্টারের কালি",
+   "quantity": 9,
+   "unit_price": 2500,
+   "amount": 22500,
+   "tax_rate": null
+  },
+  {
+   "name": "ল্যাপটপ ব্যাগ",
+   "quantity": 7,
+   "unit_price": 150,
+   "amount": 1050,
+   "tax_rate": null
+  },
+  {
+   "name": "নোটবুক (১০০ পৃষ্ঠা)",
+   "quantity": 3,
+   "unit_price": 250,
+   "amount": 750,
+   "tax_rate": null
+  },
+  {
+   "name": "অফিস চেয়ার",
+   "quantity": 17,
+   "unit_price": 45000,
+   "amount": 765000,
+   "tax_rate": null
+  },
+  {
+   "name": "কিবোর্ড",
+   "quantity": 2,
+   "unit_price": 45000,
+   "amount": 90000,
+   "tax_rate": null
+  },
+  {
+   "name": "স্থাপন ও সেটআপ",
+   "quantity": 11,
+   "unit_price": 12500,
+   "amount": 137500,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "২৩ মে ২০২৬",
+  "due_date": "০৭ জুলাই ২০২৬",
+  "subtotal": "৳ ১০,৩৫,৮০০",
+  "tax": "৳ ১,৫৫,৩৭০",
+  "total": "৳ ১১,৯১,১৭০"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>ওয়্যারলেস মাউস</td><td>২০</td><td>৭৫০</td><td>১৫,০০০</td></tr><tr><td>হোয়াইটবোর্ড মার্কার (১২টি)</td><td>১৬</td><td>২৫০</td><td>৪,০০০</td></tr><tr><td>প্রিন্টারের কালি</td><td>৯</td><td>২,৫০০</td><td>২২,৫০০</td></tr><tr><td>ল্যাপটপ ব্যাগ</td><td>৭</td><td>১৫০</td><td>১,০৫০</td></tr><tr><td>নোটবুক (১০০ পৃষ্ঠা)</td><td>৩</td><td>২৫০</td><td>৭৫০</td></tr><tr><td>অফিস চেয়ার</td><td>১৭</td><td>৪৫,০০০</td><td>৭,৬৫,০০০</td></tr><tr><td>কিবোর্ড</td><td>২</td><td>৪৫,০০০</td><td>৯০,০০০</td></tr><tr><td>স্থাপন ও সেটআপ</td><td>১১</td><td>১২,৫০০</td><td>১,৩৭,৫০০</td></tr></tbody></table>"
+}

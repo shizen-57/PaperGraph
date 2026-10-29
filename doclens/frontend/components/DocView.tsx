@@ -38,7 +38,7 @@ export default function DocView({ doc, titles, extraction, initialElement, initi
           <span className="badge">{doc.folder}/</span>
           {doc.version_label && <span className="badge">{doc.version_label}</span>}
           {doc.year && <span className="badge">{doc.year}</span>}
-          <span className="badge">{doc.lang === "ja" ? "日本語" : "English"}</span>
+          <span className="badge">{doc.lang === "ja" ? "日本語" : doc.lang === "bn" ? "বাংলা" : "English"}</span>
           {(doc.file_type === "pdf" || doc.file_type === "pptx") && <span className="badge">{doc.pages} {doc.file_type === "pptx" ? "slides" : "pages"}</span>}
         </div>
       </header>

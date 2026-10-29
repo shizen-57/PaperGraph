@@ -66,11 +66,13 @@ def total_matches(subtotal, tax, total) -> Check:
                  message=f"subtotal {s:,.0f} + tax {t:,.0f} = {s + t:,.0f}, but the total is {g:,.0f}")
 
 
-def tax_rate(items: list[dict], subtotal, tax) -> Check:
+def tax_rate(items: list[dict], subtotal, tax, allowed: tuple[float, ...] | None = RATES) -> Check:
     """Tax must be 10% or 8% of the base. With a rate on every line, each rate group is checked separately
     (rounding tolerance of 1 yen per group). Otherwise the tax must be 10% or 8% of the subtotal, or anywhere between the two:
     a mixed-rate invoice whose lines carry no rate cannot be pinned down further."""
     t, s = _num(tax), _num(subtotal)
+    if allowed is None:
+        return _skip("tax_rate", "the allowed tax rates are only known for Japan (10% / 8%)")
     if t is None:
         return _skip("tax_rate", "needs the tax amount")
     rates = [_num(it.get("tax_rate")) for it in items]
@@ -79,7 +81,7 @@ def tax_rate(items: list[dict], subtotal, tax) -> Check:
         groups: dict[float, float] = {}
         for r, a in zip(rates, amounts):
             groups[r] = groups.get(r, 0) + a
-        if any(not any(math.isclose(r, k) for k in RATES) for r in groups):
+        if any(not any(math.isclose(r, k) for k in allowed) for r in groups):
             return Check(name="tax_rate", status="fail", fields=["tax"],
                          message=f"line items use rates {sorted(groups)}, expected 10% or 8%")
         expected = sum(base * r for r, base in groups.items())
@@ -89,9 +91,9 @@ def tax_rate(items: list[dict], subtotal, tax) -> Check:
                      message=f"tax by line rate should be about {expected:,.0f}, but the tax is {t:,.0f}")
     if s is None:
         return _skip("tax_rate", "needs the subtotal")
-    if any(_near(s * r, t) for r in RATES):
+    if any(_near(s * r, t) for r in allowed):
         return Check(name="tax_rate", status="pass", message="tax is 10% or 8% of the subtotal")
-    if s * min(RATES) - TOLERANCE <= t <= s * max(RATES) + TOLERANCE:  # without per-line rates a mixed-rate invoice lands in between
+    if s * min(allowed) - TOLERANCE <= t <= s * max(allowed) + TOLERANCE:  # without per-line rates a mixed-rate invoice lands in between
         return Check(name="tax_rate", status="pass", message="tax is between 8% and 10% of the subtotal (mixed rates are possible; per-line rates would settle it)")
     return Check(name="tax_rate", status="fail", fields=["tax", "subtotal"],
                  message=f"tax {t:,.0f} is outside 8% ({s * 0.08:,.0f}) to 10% ({s * 0.10:,.0f}) of {s:,.0f}")
@@ -106,12 +108,13 @@ def dates_in_order(issue_date, due_date) -> Check:
                  message=f"issue date {issue_date} is after the due date {due_date}")
 
 
-def check_invoice(v: dict) -> list[Check]:
+def check_invoice(v: dict, rates: tuple[float, ...] | None = RATES) -> list[Check]:
+    """`rates` are the tax rates the country allows; None skips that one check (the sums still run)."""
     items = v.get("line_items") or []
     return [
         line_amounts(items),
         subtotal_matches_lines(items, v.get("subtotal")),
         total_matches(v.get("subtotal"), v.get("tax"), v.get("total")),
-        tax_rate(items, v.get("subtotal"), v.get("tax")),
+        tax_rate(items, v.get("subtotal"), v.get("tax"), rates),
         dates_in_order(v.get("issue_date"), v.get("due_date")),
     ]

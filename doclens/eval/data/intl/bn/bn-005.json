@@ -1,0 +1,48 @@
+{
+ "id": "bn-005",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 1,
+ "money_style": 0,
+ "fields": {
+  "invoice_number": "VAT-4928",
+  "issue_date": "2026-03-25",
+  "due_date": "2026-05-09",
+  "issuer": "কুমার এন্টারপ্রাইজ",
+  "recipient": "আচার্য্য সলিউশনস",
+  "subtotal": 1226250,
+  "tax": 183938,
+  "total": 1410188
+ },
+ "line_items": [
+  {
+   "name": "অফিস চেয়ার",
+   "quantity": 7,
+   "unit_price": 45000,
+   "amount": 315000,
+   "tax_rate": null
+  },
+  {
+   "name": "ল্যাপটপ ব্যাগ",
+   "quantity": 20,
+   "unit_price": 45000,
+   "amount": 900000,
+   "tax_rate": null
+  },
+  {
+   "name": "সফটওয়্যার লাইসেন্স",
+   "quantity": 15,
+   "unit_price": 750,
+   "amount": 11250,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "২৫ মার্চ ২০২৬",
+  "due_date": "০৯ মে ২০২৬",
+  "subtotal": "৳ ১২,২৬,২৫০",
+  "tax": "৳ ১,৮৩,৯৩৮",
+  "total": "৳ ১৪,১০,১৮৮"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>অফিস চেয়ার</td><td>৭</td><td>৪৫,০০০</td><td>৩,১৫,০০০</td></tr><tr><td>ল্যাপটপ ব্যাগ</td><td>২০</td><td>৪৫,০০০</td><td>৯,০০,০০০</td></tr><tr><td>সফটওয়্যার লাইসেন্স</td><td>১৫</td><td>৭৫০</td><td>১১,২৫০</td></tr></tbody></table>"
+}

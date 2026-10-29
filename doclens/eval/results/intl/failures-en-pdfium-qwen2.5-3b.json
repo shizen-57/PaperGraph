@@ -1,0 +1,98 @@
+{
+ "config": "en-pdfium-qwen2.5-3b",
+ "counts": {
+  "en": {
+   "row lost or merged": 10,
+   "extra row": 6,
+   "copy boundary": 3,
+   "hallucinated": 4
+  }
+ },
+ "header_fields_checked": {
+  "en": 48
+ },
+ "examples": {
+  "row lost or merged": [
+   {
+    "id": "en-001",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "en-001",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-003",
+    "field": "line_items"
+   },
+   {
+    "id": "en-004",
+    "field": "line_items"
+   },
+   {
+    "id": "en-004",
+    "field": "line_items"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "en-002",
+    "field": "invoice_number",
+    "pred": "Invoice No. 99703",
+    "gold": "99703"
+   },
+   {
+    "id": "en-002",
+    "field": "issuer",
+    "pred": "From Keller-Davies",
+    "gold": "Keller-Davies"
+   },
+   {
+    "id": "en-002",
+    "field": "recipient",
+    "pred": "Bill To Miller-Salazar",
+    "gold": "Miller-Salazar"
+   }
+  ],
+  "hallucinated": [
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   },
+   {
+    "id": "en-002",
+    "field": "line_items"
+   }
+  ]
+ }
+}

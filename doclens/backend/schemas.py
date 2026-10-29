@@ -57,7 +57,7 @@ class Document(BaseModel):
     folder: str  # first path segment: papers / drafts / supervisor / notes / ...
     file_type: FileType
     file_hash: str
-    lang: Literal["en", "ja"]
+    lang: Literal["en", "ja", "bn"]
     pages: int
     page_sizes: list[tuple[float, float]]  # (width, height) in points per page; [] for md/txt
     year: int | None = None

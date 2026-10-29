@@ -2,7 +2,8 @@
 
 # parsers
 docling            # PARSER=docling: layout, tables, OCR; also the only parser for PPTX and image input
-pytesseract        # PARSER=tesseract (also needs the tesseract binary with the jpn language pack: apt install tesseract-ocr tesseract-ocr-jpn)
+pytesseract        # PARSER=tesseract (also needs the tesseract binary and language packs: apt install tesseract-ocr tesseract-ocr-jpn tesseract-ocr-ben)
+opencv-python-headless  # removes table ruling lines before Bengali OCR (parse.strip_rules); without it Bangla tables come back as noise
 
 # regenerating the synthetic eval data (eval/data is committed, so this is only needed to change it)
 faker

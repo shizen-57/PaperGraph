@@ -153,3 +153,13 @@ def test_a_copied_element_marker_is_not_held_against_the_quote(say):
     say[0].append(reply(total=cited("¥3,300", "[e3 p1] 合計 ¥3,300", "e3")))
     t = by_name(extract.extract("inv", "invoice", ELEMENTS))["total"]
     assert t.quote == "合計 ¥3,300" and t.status == "verified"
+
+
+def test_bangla_documents_get_a_language_note_and_japanese_ones_do_not(say):
+    replies, calls = say
+    replies += [reply(), reply()]
+    bangla = [Element(id="e0", doc_id="b", type="text", page=1, bbox=None, text="চালান নম্বর: BD-2026-1140 তারিখ: ০১ আগস্ট ২০২৬ ক্রেতা: পাল ট্রেডার্স")]
+    extract.extract("b", "invoice", bangla)
+    extract.extract("inv", "invoice", ELEMENTS)
+    assert "never translate" in calls[0][-1]["content"] and "never translate" not in calls[1][-1]["content"]
+    assert calls[1][-1]["content"].startswith("Document type: invoice\n\nFields:")  # no note: the prompt keeps its old layout

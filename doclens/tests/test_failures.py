@@ -9,6 +9,7 @@ def test_present_ignores_separators_and_width():
     assert f.present(85448, text("合計 85,448円")) and f.present(85448, text("合計 ８５，４４８円"))
     assert f.present("2026-10-24", text("令和8年10月24日"), shown="令和8年10月24日")
     assert not f.present(85448, text("合計 85,000円"))
+    assert f.present(573600, text("সর্বমোট ট ৫,৭৩,৬০০")) and f.present("2026-08-01", text("তারিখ: ০১ আগস্ট ২০২৬"), shown="০১ আগস্ট ২০২৬")
 
 
 def test_field_causes():

@@ -64,7 +64,7 @@ def test_other_result_shapes_and_their_not_run_notices(tmp_path):
 def test_render_lists_missing_gpu_work_as_not_run(tmp_path):
     out = rt.render([run()], tmp_path)
     assert "Exact-match accuracy per field" not in out and "Why values are wrong" in rt.render([run()], tmp_path, full=True)
-    assert out.count("Not run yet") == 4 and "**Router (F2)**" in out and "**PowerPoint input (F5)**" in out
+    assert out.count("Not run yet") == 5 and "**Router (F2)**" in out and "**PowerPoint input (F5)**" in out
 
 
 def test_deck_section():
@@ -119,3 +119,14 @@ def test_small_numbers_keep_their_digits_and_the_vlm_is_named():
     v = run("vlm", "llm")
     v["config"]["vlm"] = "qwen-vl-x"
     assert rt.name_of(v).startswith("VLM (qwen-vl-x) + ")
+
+
+def test_languages_section(tmp_path):
+    assert "Not run yet" in rt.languages_section(tmp_path)
+    (tmp_path / "intl").mkdir()
+    r = run("pdfium", "rules")
+    r["config"]["dataset"] = {"n_docs": 6, "variants": ["bn"]}
+    r["summary"]["all"] |= {"n_docs": 6, "field_f1": 0.7654}
+    r["summary"]["all"]["evidence"] |= {"verified_rate": 0.9, "docs_failing_a_consistency_check": 2}
+    (tmp_path / "intl" / "bn-x.json").write_text(json.dumps(r))
+    assert "| Bangla | pdfium | rules (regex) | 6 | 0.77 | 90% | 50% | 2 |" in rt.languages_section(tmp_path)

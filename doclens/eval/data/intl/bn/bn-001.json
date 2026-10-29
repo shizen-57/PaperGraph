@@ -1,0 +1,90 @@
+{
+ "id": "bn-001",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 2,
+ "money_style": 2,
+ "fields": {
+  "invoice_number": "BD-2026-7880",
+  "issue_date": "2026-08-26",
+  "due_date": "2026-09-09",
+  "issuer": "প্রামানিক ব্রাদার্স",
+  "recipient": "পাল ট্রেডার্স",
+  "subtotal": 272360,
+  "tax": 40854,
+  "total": 313214
+ },
+ "line_items": [
+  {
+   "name": "স্থাপন ও সেটআপ",
+   "quantity": 3,
+   "unit_price": 2500,
+   "amount": 7500,
+   "tax_rate": null
+  },
+  {
+   "name": "কিবোর্ড",
+   "quantity": 17,
+   "unit_price": 480,
+   "amount": 8160,
+   "tax_rate": null
+  },
+  {
+   "name": "নোটবুক (১০০ পৃষ্ঠা)",
+   "quantity": 18,
+   "unit_price": 1200,
+   "amount": 21600,
+   "tax_rate": null
+  },
+  {
+   "name": "সার্ভার মাসিক ভাড়া",
+   "quantity": 15,
+   "unit_price": 4800,
+   "amount": 72000,
+   "tax_rate": null
+  },
+  {
+   "name": "ইউএসবি হাব",
+   "quantity": 2,
+   "unit_price": 2500,
+   "amount": 5000,
+   "tax_rate": null
+  },
+  {
+   "name": "প্রিন্টারের কালি",
+   "quantity": 11,
+   "unit_price": 750,
+   "amount": 8250,
+   "tax_rate": null
+  },
+  {
+   "name": "ডেস্ক ল্যাম্প",
+   "quantity": 15,
+   "unit_price": 4800,
+   "amount": 72000,
+   "tax_rate": null
+  },
+  {
+   "name": "সফটওয়্যার লাইসেন্স",
+   "quantity": 7,
+   "unit_price": 150,
+   "amount": 1050,
+   "tax_rate": null
+  },
+  {
+   "name": "ওয়াইফাই রাউটার",
+   "quantity": 16,
+   "unit_price": 4800,
+   "amount": 76800,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "২৬ আগস্ট ২০২৬",
+  "due_date": "০৯ সেপ্টেম্বর ২০২৬",
+  "subtotal": "৳ ২,৭২,৩৬০",
+  "tax": "৳ ৪০,৮৫৪",
+  "total": "৳ ৩,১৩,২১৪"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>স্থাপন ও সেটআপ</td><td>৩</td><td>২,৫০০</td><td>৭,৫০০</td></tr><tr><td>কিবোর্ড</td><td>১৭</td><td>৪৮০</td><td>৮,১৬০</td></tr><tr><td>নোটবুক (১০০ পৃষ্ঠা)</td><td>১৮</td><td>১,২০০</td><td>২১,৬০০</td></tr><tr><td>সার্ভার মাসিক ভাড়া</td><td>১৫</td><td>৪,৮০০</td><td>৭২,০০০</td></tr><tr><td>ইউএসবি হাব</td><td>২</td><td>২,৫০০</td><td>৫,০০০</td></tr><tr><td>প্রিন্টারের কালি</td><td>১১</td><td>৭৫০</td><td>৮,২৫০</td></tr><tr><td>ডেস্ক ল্যাম্প</td><td>১৫</td><td>৪,৮০০</td><td>৭২,০০০</td></tr><tr><td>সফটওয়্যার লাইসেন্স</td><td>৭</td><td>১৫০</td><td>১,০৫০</td></tr><tr><td>ওয়াইফাই রাউটার</td><td>১৬</td><td>৪,৮০০</td><td>৭৬,৮০০</td></tr></tbody></table>"
+}

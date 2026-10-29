@@ -1,0 +1,55 @@
+{
+ "id": "bn-004",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 1,
+ "money_style": 2,
+ "fields": {
+  "invoice_number": "VAT-3385",
+  "issue_date": "2026-08-15",
+  "due_date": "2026-09-29",
+  "issuer": "উদ্দিন ফুড প্রোডাক্টস লিমিটেড",
+  "recipient": "মিত্র এন্টারপ্রাইজ",
+  "subtotal": 57090,
+  "tax": 8564,
+  "total": 65654
+ },
+ "line_items": [
+  {
+   "name": "সফটওয়্যার লাইসেন্স",
+   "quantity": 3,
+   "unit_price": 12500,
+   "amount": 37500,
+   "tax_rate": null
+  },
+  {
+   "name": "স্থাপন ও সেটআপ",
+   "quantity": 8,
+   "unit_price": 480,
+   "amount": 3840,
+   "tax_rate": null
+  },
+  {
+   "name": "মনিটর ২৪ ইঞ্চি",
+   "quantity": 10,
+   "unit_price": 750,
+   "amount": 7500,
+   "tax_rate": null
+  },
+  {
+   "name": "ইউএসবি হাব",
+   "quantity": 11,
+   "unit_price": 750,
+   "amount": 8250,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "১৫ আগস্ট ২০২৬",
+  "due_date": "২৯ সেপ্টেম্বর ২০২৬",
+  "subtotal": "৳ ৫৭,০৯০",
+  "tax": "৳ ৮,৫৬৪",
+  "total": "৳ ৬৫,৬৫৪"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>সফটওয়্যার লাইসেন্স</td><td>৩</td><td>১২,৫০০</td><td>৩৭,৫০০</td></tr><tr><td>স্থাপন ও সেটআপ</td><td>৮</td><td>৪৮০</td><td>৩,৮৪০</td></tr><tr><td>মনিটর ২৪ ইঞ্চি</td><td>১০</td><td>৭৫০</td><td>৭,৫০০</td></tr><tr><td>ইউএসবি হাব</td><td>১১</td><td>৭৫০</td><td>৮,২৫০</td></tr></tbody></table>"
+}

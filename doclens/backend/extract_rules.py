@@ -8,29 +8,34 @@ import re
 import time
 
 from backend import extract as base
+from backend.normalize_intl import MONTHS
 from backend.schemas import Cited, DocType, Element, Extraction, not_stated
 
-D = "0-9０-９"
+D = "0-9０-９০-৯"  # ASCII, full-width and Bangla digits
+_M = "|".join(sorted(map(re.escape, MONTHS), key=len, reverse=True))
 DATE = (rf"(?:(?:令和|平成|昭和)\s*[{D}元]+\s*年\s*[{D}]+\s*月\s*[{D}]+\s*日|[RHS][{D}]+[./][{D}]+[./][{D}]+"
-        rf"|[{D}]{{4}}\s*[年/.\-]\s*[{D}]+\s*[月/.\-]\s*[{D}]+\s*日?)")
-AMT = rf"[¥￥]?\s*[{D}][{D},，]*(?:\.[{D}]+)?\s*円?"
+        rf"|[{D}]{{4}}\s*[年/.\-]\s*[{D}]+\s*[月/.\-]\s*[{D}]+\s*日?"
+        rf"|[{D}]{{1,2}}(?:st|nd|rd|th)?\s+(?i:{_M})\.?\s+[{D}]{{4}}|(?i:{_M})\.?\s+[{D}]{{1,2}}(?:st|nd|rd|th)?,?\s+[{D}]{{4}})")
+AMT = rf"(?:[¥￥$€£৳]|USD|Tk\.?|BDT)?\s*[{D}][{D},，]*(?:\.[{D}]+)?\s*(?:円|টাকা)?"
+OCR_JUNK = r"(?:[টb&]\s*)?"  # Tesseract reads the taka sign ৳ as ট or &; kept outside the captured value
 SEP = r"[\s:：|]*"
 COMPANY = r"(?:株式会社|有限会社|合同会社)[^\s\d|]{1,12}|[^\s\d|]{1,12}(?:株式会社|有限会社|合同会社)"
 
 LABELS = {
-    "invoice_number": [rf"(?:請求書番号|請求番号|請求書No\.?|Invoice\s*No\.?|Invoice\s*Number){SEP}([^\s|]*[0-9A-Za-z][^\s|]*)"],
-    "issue_date": [rf"(?:発行日|請求日|Date of issue|Issue date|Invoice date|Date){SEP}({DATE})"],
-    "due_date": [rf"(?:支払期限|お支払期限|お支払期日|支払期日|Payment due|Due date|Due){SEP}({DATE})"],
-    "subtotal": [rf"(?:小計|Subtotal|Sub-total){SEP}({AMT})"],
-    "tax": [rf"(?:消費税合計|消費税額|税額合計){SEP}({AMT})", rf"(?:消費税|税額|Tax|VAT)\s*(?:[(（][^)）]*[)）])?{SEP}({AMT})"],
-    "total": [rf"(?<![小税])(?:合計金額|合計|ご請求金額|請求金額|\bTotal){SEP}({AMT})"],
+    "invoice_number": [rf"(?:請求書番号|請求番号|請求書No\.?|(?i:invoice\s*(?:no\.?|number|#))|চালান\s*(?:নম্বর|নং)|ইনভয়েস\s*(?:নম্বর|নং)){SEP}([^\s|]*[0-9A-Za-z০-৯][^\s|]*)"],
+    "issue_date": [rf"(?:発行日|請求日|(?i:date of issue|issue date|invoice date)|(?<!(?i:due ))(?i:date)|চালানের\s*তারিখ|(?<!শেষ\s)তারিখ){SEP}({DATE})"],
+    "due_date": [rf"(?:支払期限|お支払期限|お支払期日|支払期日|(?i:payment due|due date|due)|পরিশোধের\s*শেষ\s*তারিখ|শেষ\s*তারিখ){SEP}({DATE})"],
+    "subtotal": [rf"(?:小計|(?i:sub-?\s?total)|উপমোট|সাব-?টোটাল){SEP}{OCR_JUNK}({AMT})"],
+    "tax": [rf"(?:消費税合計|消費税額|税額合計){SEP}({AMT})",
+            rf"(?:消費税|税額|(?i:sales tax|vat|gst|tax)|ভ্যাট|কর)\s*(?:[(（][^)）]*[)）])?{SEP}{OCR_JUNK}({AMT})"],
+    "total": [rf"(?<![小税উপ])(?:合計金額|合計|ご請求金額|請求金額|(?i:\b(?:total due|grand total|amount due|balance due|total))|সর্বমোট|মোট){SEP}{OCR_JUNK}({AMT})"],
 }
 LAST = {"total"}  # appears in a headline box and again at the bottom: take the bottom one
 NAME_COLS = ("品名", "品目", "摘要", "商品名", "Description", "Item")
-COLS = {"quantity": ("数量", "Qty", "Quantity"), "unit_price": ("単価", "Unit Price", "Price"), "tax_rate": ("税率",),
-        "amount": ("金額", "Amount")}
-NUMERIC = re.compile(rf"^[¥￥]?[{D},，.]+円?$|^[{D}]+[%％](?:\(軽減\))?$")
-STOP = re.compile(r"小計|Subtotal|合計|Total")
+COLS = {"quantity": ("数量", "Qty", "Quantity", "পরিমাণ"), "unit_price": ("単価", "Unit Price", "Price", "একক মূল্য"), "tax_rate": ("税率",),
+        "amount": ("金額", "Amount", "মোট")}
+NUMERIC = re.compile(rf"^[¥￥$€£৳]?[{D},，.]+円?$|^[{D}]+[%％](?:\(軽減\))?$")
+STOP = re.compile(r"小計|Subtotal|合計|Total|উপমোট|সর্বমোট")
 
 
 def lines_of(elements: list[Element]) -> list[tuple[str, str]]:
@@ -55,6 +60,26 @@ def header_fields(lines: list[tuple[str, str]]) -> dict[str, Cited]:
     return found
 
 
+PARTY_LABELS = {
+    "issuer": r"(?i:from|seller|supplier|issued\s+by)|বিক্রেতা|প্রেরক",
+    "recipient": r"(?i:bill(?:ed)?\s+to|customer|client)|ক্রেতা|বিল\s*প্রাপক",
+}
+
+
+def labelled_party(lines: list[tuple[str, str]], label: str) -> Cited:
+    """English and Bangla invoices name the parties under a label: the name is after it on the same line, or on the next line."""
+    for i, (eid, ln) in enumerate(lines):
+        m = re.fullmatch(rf"\s*(?:{label})\s*[:：]?\s*(.*?)\s*", ln)
+        if not m:
+            continue
+        if m.group(1):
+            return Cited(value=m.group(1), quote=ln.strip(), element_id=eid)
+        if i + 1 < len(lines):
+            nxt = lines[i + 1]
+            return Cited(value=nxt[1].strip(), quote=nxt[1].strip(), element_id=nxt[0])
+    return not_stated()
+
+
 def parties(lines: list[tuple[str, str]]) -> tuple[Cited, Cited]:
     """Recipient: the company before 御中/様, or the line after 'Bill to'. Issuer: the first other company name."""
     recipient, recipient_line = not_stated(), None
@@ -76,12 +101,16 @@ def parties(lines: list[tuple[str, str]]) -> tuple[Cited, Cited]:
         if m:
             issuer = Cited(value=m.group(), quote=m.group(), element_id=eid)
             break
+    if issuer.value is None:
+        issuer = labelled_party(lines, PARTY_LABELS["issuer"])
+    if recipient.value is None:
+        recipient = labelled_party(lines, PARTY_LABELS["recipient"])
     return issuer, recipient
 
 
 def column_order(header: str) -> list[str] | None:
     """['name', 'quantity', 'unit_price', 'amount'] from a header line, by where each label appears."""
-    if not (re.search(r"数量|Qty|Quantity", header) and re.search(r"金額|Amount", header)):
+    if not (re.search(r"数量|Qty|Quantity|পরিমাণ", header) and re.search(r"金額|Amount|মোট", header)):
         return None
     at = {}
     for col, words in COLS.items():

@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import os
 import re
+import shutil
 from functools import lru_cache
 from pathlib import Path
 
@@ -43,8 +44,11 @@ def table_md(t: Table) -> str:
 
 
 def lang_of(text: str) -> str:
+    """ja / bn / en by script share: Japanese kana and kanji, or Bengali letters, over a tenth of the text."""
+    n = max(len(text), 1)
     cjk = sum("぀" <= ch <= "ヿ" or "一" <= ch <= "鿿" for ch in text)
-    return "ja" if cjk > 0.1 * max(len(text), 1) else "en"
+    bengali = sum("ঀ" <= ch <= "৿" for ch in text)
+    return "ja" if cjk > 0.1 * n else "bn" if bengali > 0.1 * n else "en"
 
 
 # --- PDF (Docling) ---
@@ -150,13 +154,35 @@ def _lines(segments: list[tuple[float, float, float, float, str]]) -> list[list[
     return sorted((sorted(line) for line in lines), key=lambda ln: min(s[1] for s in ln))
 
 
-def _join(line: list) -> str:
+def _dedupe(segs: list) -> list:
+    """Chromium PDFs set in some fonts (Noto) give pdfium overlapping boxes for the same glyphs: 'To' inside 'Total Due', or
+    'Sales Ta' next to 'Tax (8%)'. A box that lies inside a larger one with the same text is dropped; an overlapping prefix is cut in _join."""
+    keep = []
+    for i, s in enumerate(segs):
+        t = s[4].strip()
+        inside = any(
+            j != i and (o[4].strip() != t or j < i) and t in o[4] and s[0] >= o[0] - 1 and s[2] <= o[2] + 1
+            and min(s[3], o[3]) - max(s[1], o[1]) > 0.5 * (s[3] - s[1])
+            for j, o in enumerate(segs))
+        if not inside:
+            keep.append(s)
+    return keep
+
+
+def _join(line: list, spaced: bool = False) -> str:
     """Text of one line. Neighbouring glyph boxes closer than half a line height are one word (CJK glyph boxes sit
-    close together and carry no spaces); a wider gap is a space (a column gap, or a letter-spaced title)."""
+    close together and carry no spaces); a wider gap is a space (a column gap, or a letter-spaced title).
+    With `spaced` (Bengali OCR: its boxes are whole words) every box boundary is a space."""
     out = line[0][4]
     for a, b in zip(line, line[1:]):
-        wide = b[0] - a[2] >= 0.5 * max(a[3] - a[1], b[3] - b[1])
-        out += (" " if wide and not out.endswith(" ") and not b[4].startswith(" ") else "") + b[4]
+        text = b[4]
+        if b[0] < a[2]:  # overlapping boxes: the end of `a` was reported again at the start of `b`
+            for k in range(min(len(a[4].rstrip()), len(text)), 0, -1):
+                if a[4].rstrip().endswith(text[:k]):
+                    text = text[k:]
+                    break
+        wide = spaced or b[0] - a[2] >= 0.5 * max(a[3] - a[1], b[3] - b[1])
+        out += (" " if wide and not out.endswith(" ") and not text.startswith(" ") else "") + text
     return " ".join(out.split())
 
 
@@ -166,9 +192,10 @@ def _is_row(line: list) -> bool:
     return sum(b[0] - a[2] > 1.5 * height for a, b in zip(line, line[1:])) >= 2
 
 
-def _page_elements(elements: list[Element], doc_id: str, page_no: int, segs: list) -> None:
+def _page_elements(elements: list[Element], doc_id: str, page_no: int, segs: list, spaced: bool = False) -> None:
     """Word boxes of one page → elements. Table-like lines stay one element each (so a row can be quoted and
     highlighted); prose lines are merged into paragraphs."""
+    segs = _dedupe(segs)
     para: list[list] = []
 
     def add(group: list[list]):
@@ -176,7 +203,7 @@ def _page_elements(elements: list[Element], doc_id: str, page_no: int, segs: lis
         elements.append(Element(
             id=f"e{len(elements)}", doc_id=doc_id, type="text", page=page_no,
             bbox=BBox(x0=min(s[0] for s in flat), y0=min(s[1] for s in flat), x1=max(s[2] for s in flat), y1=max(s[3] for s in flat)),
-            text="\n".join(_join(line) for line in group)))
+            text="\n".join(_join(line, spaced) for line in group)))
 
     for line in _lines(segs):
         height = max(s[3] - s[1] for s in line)
@@ -222,7 +249,26 @@ def parse_pdf_textlayer(path: Path, doc_id: str) -> tuple[list[Element], list[tu
 _CJK_GAP = re.compile(r"(?<=[\u3000-\u9fff\uff00-\uffef])\s+(?=[\u3000-\u9fff\uff00-\uffef])")
 
 
-def parse_pdf_tesseract(path: Path, doc_id: str, lang: str | None = None, dpi: int = 200) -> tuple[list[Element], list[tuple[float, float]], str | None]:
+def strip_rules(img):
+    """Paint out the long horizontal and vertical lines of ruled tables. Tesseract's Bengali model reads text next to table borders
+    as noise (a whole table came back as `স্প্প্পষ্” 77`); without the lines the same row reads exactly. Needs OpenCV; without it the
+    image is returned unchanged."""
+    try:
+        import cv2
+        import numpy as np
+        from PIL import Image
+    except ImportError:
+        return img
+    a = np.array(img.convert("L"))
+    bw = cv2.threshold(a, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    horizontal = cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (img.width // 12, 1)))
+    vertical = cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (1, img.height // 40)))
+    a[cv2.dilate(cv2.bitwise_or(horizontal, vertical), np.ones((3, 3), np.uint8)) > 0] = 255
+    return Image.fromarray(a).convert("RGB")
+
+
+def parse_pdf_tesseract(path: Path, doc_id: str, lang: str | None = None, dpi: int = 200,
+                        strip_lines: bool = False) -> tuple[list[Element], list[tuple[float, float]], str | None]:
     """Classic OCR baseline: render each page, run Tesseract (TESSERACT_LANG, default jpn+eng; TESSERACT_PSM, default 6).
     Tesseract puts spaces between Japanese characters; they are removed again between two CJK characters."""
     import pypdfium2 as pdfium
@@ -238,12 +284,14 @@ def parse_pdf_tesseract(path: Path, doc_id: str, lang: str | None = None, dpi: i
         for n, page in enumerate(pdf, 1):
             sizes.append(page.get_size())
             img = page.render(scale=scale).to_pil().convert("RGB")
+            if strip_lines:
+                img = strip_rules(img)
             d = pytesseract.image_to_data(img, lang=lang, config=f"--psm {psm}", output_type=pytesseract.Output.DICT)
             segs = [(d["left"][i] / scale, d["top"][i] / scale, (d["left"][i] + d["width"][i]) / scale,
                      (d["top"][i] + d["height"][i]) / scale, d["text"][i])
                     for i in range(len(d["text"])) if d["text"][i].strip() and float(d["conf"][i]) >= 0]
             if segs:
-                _page_elements(elements, doc_id, n, segs)
+                _page_elements(elements, doc_id, n, segs, spaced="ben" in lang)
     finally:
         pdf.close()
     for e in elements:
@@ -261,12 +309,30 @@ def _router(path: Path, doc_id: str):
     return router.parse_pdf_router(path, doc_id)
 
 
+def parse_pdf_tesseract_ben(path: Path, doc_id: str):
+    """Tesseract with the Bengali + English models: the route for Bangla documents (see has_bengali_text)."""
+    return parse_pdf_tesseract(path, doc_id, lang="ben+eng", strip_lines=True)
+
+
 PARSERS = {"docling": parse_pdf, "pdfium": parse_pdf_textlayer, "tesseract": parse_pdf_tesseract, "vlm": _vlm,
-           "router": _router}
+           "router": _router, "tesseract-ben": parse_pdf_tesseract_ben}
 
 
 class ParserUnavailable(Exception):
     pass
+
+
+def has_bengali_text(path: Path) -> bool:
+    """Does the PDF's first page carry Bengali letters in its text layer? Chromium, Word and legacy-font PDFs often give Bangla
+    text with spaces inside words or in another encoding, so such pages are OCR'd instead."""
+    import pypdfium2 as pdfium
+
+    pdf = pdfium.PdfDocument(str(path))
+    try:
+        text = pdf[0].get_textpage().get_text_range()
+    finally:
+        pdf.close()
+    return sum("ঀ" <= ch <= "৿" for ch in text) > 20
 
 
 def default_parser() -> str:
@@ -346,7 +412,10 @@ def parse_path(path: Path, doc_id: str, file_type: str, parser: str | None = Non
     if file_type in ("md", "txt"):
         els, title = parse_text(path, doc_id, markdown=file_type == "md")
         return els, [], title
+    explicit = bool(parser or os.environ.get("PARSER"))
     parser = parser or default_parser()
+    if file_type == "pdf" and not explicit and has_bengali_text(path) and shutil.which("tesseract"):
+        parser = "tesseract-ben"  # a Bangla text layer is not trustworthy (spaces inside words, overlapping boxes): read the page instead
     if file_type == "pdf":
         if parser not in PARSERS:
             raise ParserUnavailable(f"Unknown parser {parser!r}; choose from {sorted(PARSERS)}")

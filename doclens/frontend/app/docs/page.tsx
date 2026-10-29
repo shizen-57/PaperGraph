@@ -41,7 +41,7 @@ export default async function DocsPage() {
                     {d.year && <span className="badge">{d.year}</span>}
                     {d.version_label && <span className="badge">{d.version_label}</span>}
                     <span className="badge">{d.file_type === "pdf" ? `${d.pages} ${d.pages === 1 ? "page" : "pages"}` : d.file_type}</span>
-                    {d.lang === "ja" && <span className="badge">日本語</span>}
+                    <span className="badge">{d.lang === "ja" ? "日本語" : d.lang === "bn" ? "বাংলা" : "English"}</span>
                   </div>
                   <h2>{d.title}</h2>
                   <div className="verify">

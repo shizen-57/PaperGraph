@@ -31,7 +31,7 @@ export type Document = {
   folder: string;
   file_type: "pdf" | "image" | "pptx" | "md" | "txt";
   file_hash: string;
-  lang: "en" | "ja";
+  lang: "en" | "ja" | "bn";
   pages: number;
   page_sizes: [number, number][];
   year: number | null;

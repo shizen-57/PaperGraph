@@ -1,0 +1,90 @@
+{
+ "id": "bn-003",
+ "variant": "bn",
+ "layout": "bn",
+ "date_style": 2,
+ "money_style": 2,
+ "fields": {
+  "invoice_number": "BD-2026-6628",
+  "issue_date": "2026-09-19",
+  "due_date": "2026-10-19",
+  "issuer": "ঠাকুর ট্রেডার্স",
+  "recipient": "জাহান ফুড প্রোডাক্টস লিমিটেড",
+  "subtotal": 427860,
+  "tax": 64179,
+  "total": 492039
+ },
+ "line_items": [
+  {
+   "name": "মনিটর ২৪ ইঞ্চি",
+   "quantity": 15,
+   "unit_price": 1200,
+   "amount": 18000,
+   "tax_rate": null
+  },
+  {
+   "name": "ইউএসবি হাব",
+   "quantity": 10,
+   "unit_price": 250,
+   "amount": 2500,
+   "tax_rate": null
+  },
+  {
+   "name": "সফটওয়্যার লাইসেন্স",
+   "quantity": 16,
+   "unit_price": 250,
+   "amount": 4000,
+   "tax_rate": null
+  },
+  {
+   "name": "হোয়াইটবোর্ড মার্কার (১২টি)",
+   "quantity": 16,
+   "unit_price": 2500,
+   "amount": 40000,
+   "tax_rate": null
+  },
+  {
+   "name": "স্থাপন ও সেটআপ",
+   "quantity": 6,
+   "unit_price": 45000,
+   "amount": 270000,
+   "tax_rate": null
+  },
+  {
+   "name": "সার্ভার মাসিক ভাড়া",
+   "quantity": 6,
+   "unit_price": 480,
+   "amount": 2880,
+   "tax_rate": null
+  },
+  {
+   "name": "ওয়াইফাই রাউটার",
+   "quantity": 6,
+   "unit_price": 480,
+   "amount": 2880,
+   "tax_rate": null
+  },
+  {
+   "name": "অফিস চেয়ার",
+   "quantity": 8,
+   "unit_price": 750,
+   "amount": 6000,
+   "tax_rate": null
+  },
+  {
+   "name": "প্রিন্টারের কালি",
+   "quantity": 17,
+   "unit_price": 4800,
+   "amount": 81600,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "১৯ সেপ্টেম্বর ২০২৬",
+  "due_date": "১৯ অক্টোবর ২০২৬",
+  "subtotal": "৳ ৪,২৭,৮৬০",
+  "tax": "৳ ৬৪,১৭৯",
+  "total": "৳ ৪,৯২,০৩৯"
+ },
+ "table_html": "<table><thead><tr><td>পণ্যের বিবরণ</td><td>পরিমাণ</td><td>একক মূল্য</td><td>মোট</td></tr></thead><tbody><tr><td>মনিটর ২৪ ইঞ্চি</td><td>১৫</td><td>১,২০০</td><td>১৮,০০০</td></tr><tr><td>ইউএসবি হাব</td><td>১০</td><td>২৫০</td><td>২,৫০০</td></tr><tr><td>সফটওয়্যার লাইসেন্স</td><td>১৬</td><td>২৫০</td><td>৪,০০০</td></tr><tr><td>হোয়াইটবোর্ড মার্কার (১২টি)</td><td>১৬</td><td>২,৫০০</td><td>৪০,০০০</td></tr><tr><td>স্থাপন ও সেটআপ</td><td>৬</td><td>৪৫,০০০</td><td>২,৭০,০০০</td></tr><tr><td>সার্ভার মাসিক ভাড়া</td><td>৬</td><td>৪৮০</td><td>২,৮৮০</td></tr><tr><td>ওয়াইফাই রাউটার</td><td>৬</td><td>৪৮০</td><td>২,৮৮০</td></tr><tr><td>অফিস চেয়ার</td><td>৮</td><td>৭৫০</td><td>৬,০০০</td></tr><tr><td>প্রিন্টারের কালি</td><td>১৭</td><td>৪,৮০০</td><td>৮১,৬০০</td></tr></tbody></table>"
+}

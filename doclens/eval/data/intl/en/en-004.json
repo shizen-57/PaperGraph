@@ -1,0 +1,90 @@
+{
+ "id": "en-004",
+ "variant": "en",
+ "layout": "en",
+ "date_style": 1,
+ "money_style": 0,
+ "fields": {
+  "invoice_number": "INV-2026-9688",
+  "issue_date": "2026-08-26",
+  "due_date": "2026-09-25",
+  "issuer": "Walker Group",
+  "recipient": "Page-Nunez",
+  "subtotal": 38529,
+  "tax": 3082,
+  "total": 41611
+ },
+ "line_items": [
+  {
+   "name": "Webcam 1080p",
+   "quantity": 9,
+   "unit_price": 2400,
+   "amount": 21600,
+   "tax_rate": null
+  },
+  {
+   "name": "Network switch 24-port",
+   "quantity": 2,
+   "unit_price": 250,
+   "amount": 500,
+   "tax_rate": null
+  },
+  {
+   "name": "Cable organiser kit",
+   "quantity": 10,
+   "unit_price": 12,
+   "amount": 120,
+   "tax_rate": null
+  },
+  {
+   "name": "Software licence renewal",
+   "quantity": 16,
+   "unit_price": 75,
+   "amount": 1200,
+   "tax_rate": null
+  },
+  {
+   "name": "Laptop sleeve 15\"",
+   "quantity": 18,
+   "unit_price": 250,
+   "amount": 4500,
+   "tax_rate": null
+  },
+  {
+   "name": "USB-C docking station",
+   "quantity": 12,
+   "unit_price": 120,
+   "amount": 1440,
+   "tax_rate": null
+  },
+  {
+   "name": "Printer toner cartridge",
+   "quantity": 16,
+   "unit_price": 499,
+   "amount": 7984,
+   "tax_rate": null
+  },
+  {
+   "name": "27-inch monitor",
+   "quantity": 11,
+   "unit_price": 75,
+   "amount": 825,
+   "tax_rate": null
+  },
+  {
+   "name": "Standing desk",
+   "quantity": 3,
+   "unit_price": 120,
+   "amount": 360,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "Aug 26, 2026",
+  "due_date": "Sep 25, 2026",
+  "subtotal": "$38,529.00",
+  "tax": "$3,082.00",
+  "total": "$41,611.00"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>Webcam 1080p</td><td>9</td><td>2,400</td><td>21,600</td></tr><tr><td>Network switch 24-port</td><td>2</td><td>250</td><td>500</td></tr><tr><td>Cable organiser kit</td><td>10</td><td>12</td><td>120</td></tr><tr><td>Software licence renewal</td><td>16</td><td>75</td><td>1,200</td></tr><tr><td>Laptop sleeve 15\"</td><td>18</td><td>250</td><td>4,500</td></tr><tr><td>USB-C docking station</td><td>12</td><td>120</td><td>1,440</td></tr><tr><td>Printer toner cartridge</td><td>16</td><td>499</td><td>7,984</td></tr><tr><td>27-inch monitor</td><td>11</td><td>75</td><td>825</td></tr><tr><td>Standing desk</td><td>3</td><td>120</td><td>360</td></tr></tbody></table>"
+}

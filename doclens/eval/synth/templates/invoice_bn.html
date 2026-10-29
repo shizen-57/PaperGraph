@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block body %}
+<style>body { font-family: "Noto Sans Bengali", "Noto Sans", sans-serif; font-size: 11pt } h1 { letter-spacing: .2em }</style>
+<h1>কর চালান</h1>
+<div>বিক্রেতা: <b>{{ s.issuer }}</b></div>
+<div class="small">{{ s.issuer_address }}</div>
+<div class="mt">ক্রেতা: <b>{{ s.recipient }}</b></div>
+<div class="small">{{ s.recipient_address }}</div>
+<div class="mt">চালান নম্বর: {{ s.invoice_number }}</div>
+<div>তারিখ: {{ shown.issue_date }}</div>
+<div>পরিশোধের শেষ তারিখ: {{ shown.due_date }}</div>
+<table class="items mt">
+  <thead><tr>{% for h in header %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for r in rows %}<tr>{% for c in r %}<td{% if loop.index > 1 %} class="num"{% endif %}>{{ c }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table>
+<table class="totals">
+  <tr><td>উপমোট</td><td class="num">{{ fmt.subtotal }}</td></tr>
+  <tr><td>{{ s.tax_label }}</td><td class="num">{{ fmt.tax }}</td></tr>
+  <tr class="grand"><td>সর্বমোট</td><td class="num">{{ fmt.total }}</td></tr>
+</table>
+<p class="mt small">পরিশোধ পদ্ধতি: ব্যাংক ট্রান্সফার, {{ s.bank }}</p>
+{% endblock %}

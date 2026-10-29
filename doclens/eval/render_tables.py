@@ -201,6 +201,25 @@ def router_section(runs: list[dict]) -> str:
             f"Reasons: {', '.join(f'{k} ×{v}' for k, v in s['all']['reasons'].items()) or 'none'}.")
 
 
+def languages_section(results: Path = RESULTS) -> str:
+    """English and Bangla runs (eval/results/intl/*.json), next to the Japanese ones above."""
+    runs = [json.loads(f.read_text(encoding="utf-8")) for f in sorted((results / "intl").glob("*.json"))]
+    runs = [r for r in runs if isinstance(r, dict) and "summary" in r]
+    if not runs:
+        return "_Not run yet: `python -m eval.synth.intl`, then `python eval/run_eval.py --data eval/data/intl --variants en|bn`._"
+    head = ("| Language | Parser | Extractor | Documents | Field F1 | Verified | Wrong values flagged | Documents failing an arithmetic check |\n"
+            "|---|---|---|---|---|---|---|---|\n")
+    rows = []
+    for r in runs:
+        c, a = r["config"], r["summary"]["all"]
+        lang = {"en": "English", "bn": "Bangla"}.get(c["dataset"]["variants"][0], c["dataset"]["variants"][0])
+        extractor = "rules (regex)" if c["extractor"] == "rules" else c.get("llm") or "LLM"
+        e = a["evidence"]
+        rows.append(f"| {lang} | {c['parser']} | {extractor} | {a['n_docs']} | {fmt(a['field_f1'])} | {pct(e['verified_rate'])} | "
+                    f"{pct(e['hallucination_catch_rate'])} | {e['docs_failing_a_consistency_check']} |")
+    return head + "\n".join(rows)
+
+
 def deck_section(runs: list[dict]) -> str:
     if not runs:
         return "_Not run yet: `python eval/run_decks.py`._"
@@ -213,7 +232,7 @@ def deck_section(runs: list[dict]) -> str:
 def cause_table(results: Path = RESULTS) -> str:
     """Wrong and missing values grouped by cause (eval/failures.py writes failures-*.json next to the runs)."""
     from eval import failures
-    found = [json.loads(f.read_text(encoding="utf-8")) for f in sorted(results.glob("failures-*.json"))]
+    found = [json.loads(f.read_text(encoding="utf-8")) for f in [*sorted(results.glob("failures-*.json")), *sorted((results / "intl").glob("failures-*.json"))]]
     return failures.markdown(found) if found else "_Not run yet: `python eval/failures.py eval/results/*.json`._"
 
 
@@ -229,6 +248,7 @@ def render(runs: list[dict], results: Path = RESULTS, full: bool = False) -> str
             f"{arena_table(runs)}\n\n{same_documents_table(runs)}\n\n**Does the evidence check catch wrong values?**\n\n{evidence_table(runs)}\n\n"
             f"{detail}"
             f"**Router (F2)**\n\n{router_section(load_kind('router_summary', results))}\n\n"
+            f"**English and Bangla** (6 synthetic invoices each; Bangla pages are read by OCR)\n\n{languages_section(results)}\n\n"
             f"**PowerPoint input (F5)**\n\n{deck_section(load_kind('deck_summary', results))}\n\n"
             f"**Chart → table (F6)**\n\n{chart_section(load_kind('chart_summary', results))}\n\n"
             f"**LoRA fine-tune, image → JSON (F8)**\n\n{direct_section(load_kind('direct_summary', results))}")

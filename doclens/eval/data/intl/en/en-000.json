@@ -1,0 +1,48 @@
+{
+ "id": "en-000",
+ "variant": "en",
+ "layout": "en",
+ "date_style": 1,
+ "money_style": 1,
+ "fields": {
+  "invoice_number": "EN/2026/650",
+  "issue_date": "2026-04-23",
+  "due_date": "2026-05-23",
+  "issuer": "Chang-Fisher",
+  "recipient": "Sheppard-Tucker",
+  "subtotal": 11415,
+  "tax": 913,
+  "total": 12328
+ },
+ "line_items": [
+  {
+   "name": "Cable organiser kit",
+   "quantity": 15,
+   "unit_price": 499,
+   "amount": 7485,
+   "tax_rate": null
+  },
+  {
+   "name": "27-inch monitor",
+   "quantity": 13,
+   "unit_price": 250,
+   "amount": 3250,
+   "tax_rate": null
+  },
+  {
+   "name": "Cloud hosting, monthly",
+   "quantity": 17,
+   "unit_price": 40,
+   "amount": 680,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "Apr 23, 2026",
+  "due_date": "May 23, 2026",
+  "subtotal": "USD 11,415.00",
+  "tax": "USD 913.00",
+  "total": "USD 12,328.00"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>Cable organiser kit</td><td>15</td><td>499</td><td>7,485</td></tr><tr><td>27-inch monitor</td><td>13</td><td>250</td><td>3,250</td></tr><tr><td>Cloud hosting, monthly</td><td>17</td><td>40</td><td>680</td></tr></tbody></table>"
+}

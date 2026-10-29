@@ -24,13 +24,14 @@ import argparse
 import json
 import re
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from backend.norm import norm  # noqa: E402
+from backend.normalize_intl import to_ascii_digits  # noqa: E402
 from eval import metrics  # noqa: E402
 
 CATEGORIES = ["role confusion", "copy boundary", "not in the parsed text", "hallucinated", "normalisation", "present, not extracted", "wrong choice",
@@ -49,9 +50,11 @@ def forms(value, shown: str | None = None) -> list[str]:
 
 
 def present(value, text: str, shown: str | None = None) -> bool:
-    """Is the value in the parsed text? `text` is already normalised; separators are ignored for numbers."""
+    """Is the value in the parsed text? `text` is already normalised; separators are ignored for numbers, and Bangla digits
+    count as the ASCII digits they stand for."""
+    text = to_ascii_digits(text)
     flat = re.sub(r"[,，]", "", text)
-    return any(f in text or re.sub(r"[,，]", "", f) in flat for f in forms(value, shown))
+    return any(to_ascii_digits(f) in text or re.sub(r"[,，]", "", to_ascii_digits(f)) in flat for f in forms(value, shown))
 
 
 def classify_field(name: str, pred, gold, text: str, shown: str | None, raw: str | None, other_gold) -> str | None:
@@ -94,7 +97,7 @@ def classify_rows(pred_rows: list[dict], gold_rows: list[dict], text: str) -> li
 
 def analyse(run: dict, parse_text) -> dict:
     """`parse_text(doc_id) -> str` gives the normalised parsed text of a document."""
-    counts: dict[str, Counter] = {"clean": Counter(), "scanned": Counter()}
+    counts: dict[str, Counter] = defaultdict(Counter)
     examples: dict[str, list] = {}
     n_checked = Counter()
     for d in run["documents"]:
@@ -112,7 +115,7 @@ def analyse(run: dict, parse_text) -> dict:
         for cat in classify_rows(d["pred"].get("line_items") or [], d["gold"].get("line_items") or [], text):
             counts[d["variant"]][cat] += 1
             examples.setdefault(cat, []).append({"id": d["id"], "field": "line_items"})
-    return {"config": run["config"]["name"], "counts": {v: dict(c) for v, c in counts.items()},
+    return {"config": run["config"]["name"], "counts": {v: dict(counts[v]) for v in n_checked},
             "header_fields_checked": dict(n_checked), "examples": {k: v[:5] for k, v in examples.items()}}
 
 
@@ -120,9 +123,9 @@ def markdown(results: list[dict]) -> str:
     head = "| Run | Variant | " + " | ".join(CATEGORIES) + " |\n|---|---|" + "---|" * len(CATEGORIES) + "\n"
     rows = []
     for r in results:
-        for v in ("clean", "scanned"):
-            if v in r["counts"] and r["header_fields_checked"].get(v):
-                rows.append(f"| {r['config']} | {v} | " + " | ".join(str(r["counts"][v].get(c, 0)) for c in CATEGORIES) + " |")
+        for v in r["header_fields_checked"]:
+            if v in r["counts"] or r["header_fields_checked"].get(v):
+                rows.append(f"| {r['config']} | {v} | " + " | ".join(str(r["counts"].get(v, {}).get(c, 0)) for c in CATEGORIES) + " |")
     return head + "\n".join(rows)
 
 
@@ -141,9 +144,10 @@ def main():
         parser = run["config"]["parser"]
         data = ROOT / run["config"]["dataset"]["path"]
 
-        def parse_text(doc_id, parser=parser, data=data):
-            variant = "clean" if doc_id.startswith("clean") else "scanned"
-            elements, _, _ = run_eval.parse_one(parser, data / variant / f"{doc_id}.pdf", reuse=True)
+        variant_of = {d["id"]: d["variant"] for d in run["documents"]}
+
+        def parse_text(doc_id, parser=parser, data=data, variant_of=variant_of):
+            elements, _, _ = run_eval.parse_one(parser, data / variant_of[doc_id] / f"{doc_id}.pdf", reuse=True)
             return norm(" ".join(e.text for e in elements))
 
         res = analyse(run, parse_text)

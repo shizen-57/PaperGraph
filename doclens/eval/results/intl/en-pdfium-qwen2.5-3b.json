@@ -1,0 +1,3960 @@
+{
+ "config": {
+  "name": "en-pdfium-qwen2.5-3b",
+  "parser": "pdfium",
+  "parser_version": "5.13.0",
+  "extractor": "llm",
+  "llm": "qwen2.5-3b-instruct-q4_k_m",
+  "vlm": null,
+  "hardware": {
+   "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+   "cores": 4,
+   "gpu": null
+  },
+  "gpu_hourly_usd": null,
+  "reuse_parse": false,
+  "vram_source": null,
+  "dataset": {
+   "path": "eval/data/intl",
+   "n_docs": 6,
+   "variants": [
+    "en"
+   ]
+  },
+  "date": "2026-10-29 22:44 UTC",
+  "git_commit": "e29d74b",
+  "notes": [
+   "Qwen2.5-3B-Instruct Q4_K_M served by llama-cpp-python on 4 CPU cores; temperature 0, schema-constrained JSON (LLM_SCHEMA_STYLE=llama_cpp)"
+  ]
+ },
+ "summary": {
+  "en": {
+   "n_docs": 6,
+   "errors": 0,
+   "field_f1": 0.8539,
+   "field_accuracy": 0.8704,
+   "field_accuracy_by_field": {
+    "invoice_number": 0.8333,
+    "issue_date": 1.0,
+    "due_date": 1.0,
+    "issuer": 0.8333,
+    "recipient": 0.8333,
+    "subtotal": 1.0,
+    "tax": 1.0,
+    "total": 1.0,
+    "line_items": 0.3333
+   },
+   "docs_all_fields_correct": 2,
+   "evidence": {
+    "predicted": 89,
+    "wrong": 13,
+    "verified_rate": 0.6292,
+    "hallucination_catch_rate": 0.6154,
+    "false_alarm_rate": 0.3289,
+    "docs_with_a_wrong_value": 4,
+    "consistency_flagged_wrong_docs": 1.0,
+    "docs_failing_a_consistency_check": 4,
+    "wrong_docs_caught_by_either": 1.0
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 0.34,
+    "pages": 6,
+    "pages_per_sec": 17.804,
+    "sec_per_page": 0.056
+   },
+   "extract": {
+    "seconds": 864.99,
+    "sec_per_doc": 144.165
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  },
+  "all": {
+   "n_docs": 6,
+   "errors": 0,
+   "field_f1": 0.8539,
+   "field_accuracy": 0.8704,
+   "field_accuracy_by_field": {
+    "invoice_number": 0.8333,
+    "issue_date": 1.0,
+    "due_date": 1.0,
+    "issuer": 0.8333,
+    "recipient": 0.8333,
+    "subtotal": 1.0,
+    "tax": 1.0,
+    "total": 1.0,
+    "line_items": 0.3333
+   },
+   "docs_all_fields_correct": 2,
+   "evidence": {
+    "predicted": 89,
+    "wrong": 13,
+    "verified_rate": 0.6292,
+    "hallucination_catch_rate": 0.6154,
+    "false_alarm_rate": 0.3289,
+    "docs_with_a_wrong_value": 4,
+    "consistency_flagged_wrong_docs": 1.0,
+    "docs_failing_a_consistency_check": 4,
+    "wrong_docs_caught_by_either": 1.0
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 0.34,
+    "pages": 6,
+    "pages_per_sec": 17.804,
+    "sec_per_page": 0.056
+   },
+   "extract": {
+    "seconds": 864.99,
+    "sec_per_doc": 144.165
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  }
+ },
+ "documents": [
+  {
+   "id": "en-000",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.063,
+   "extract_seconds": 110.47,
+   "n_elements": 11,
+   "tp": 11,
+   "n_pred": 11,
+   "n_gold": 11,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": true
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "EN/2026/650",
+    "issue_date": "2026-04-23",
+    "due_date": "2026-05-23",
+    "issuer": "Chang-Fisher",
+    "recipient": "Sheppard-Tucker",
+    "subtotal": 11415,
+    "tax": 913,
+    "total": 12328,
+    "line_items": [
+     {
+      "name": "Cable organiser kit",
+      "quantity": 15,
+      "unit_price": 499,
+      "amount": 7485,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": null
+     },
+     {
+      "name": "Cloud hosting, monthly",
+      "quantity": 17,
+      "unit_price": 40,
+      "amount": 680,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "EN/2026/650",
+    "issue_date": "2026-04-23",
+    "due_date": "2026-05-23",
+    "issuer": "Chang-Fisher",
+    "recipient": "Sheppard-Tucker",
+    "subtotal": 11415,
+    "tax": 913,
+    "total": 12328,
+    "line_items": [
+     {
+      "name": "Cable organiser kit",
+      "quantity": 15,
+      "unit_price": 499,
+      "amount": 7485,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": null
+     },
+     {
+      "name": "Cloud hosting, monthly",
+      "quantity": 17,
+      "unit_price": 40,
+      "amount": 680,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "3 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (11,415)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (12,328)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "EN/2026/650",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. EN/2026/650",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "Apr 23, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date Apr 23, 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "May 23, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date May 23, 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "Chang-Fisher",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From Chang-Fisher",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Sheppard-Tucker",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To Sheppard-Tucker",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "USD 11,415.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal USD 11,415.00",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "USD 913.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Sales Tax (8%) USD 913.00",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "USD 12,328.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total Due USD 12,328.00",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "Cable organiser kit",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 15 499 7,485",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "15",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 15 499 7,485",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "499",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 15 499 7,485",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "7,485",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 15 499 7,485",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "27-inch monitor",
+     "status": "unverified",
+     "quote_match": 0.547,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "13",
+     "status": "unverified",
+     "quote_match": 0.547,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "250",
+     "status": "unverified",
+     "quote_match": 0.547,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "3,250",
+     "status": "unverified",
+     "quote_match": 0.547,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "Cloud hosting, monthly",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCloud hosting, monthly 17 40 680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "17",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCloud hosting, monthly 17 40 680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "40",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCloud hosting, monthly 17 40 680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "680",
+     "status": "unverified",
+     "quote_match": 0.518,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCloud hosting, monthly 17 40 680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "en-001",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.049,
+   "extract_seconds": 137.001,
+   "n_elements": 17,
+   "tp": 14,
+   "n_pred": 15,
+   "n_gold": 15,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "INV-2026-3218",
+    "issue_date": "2026-04-15",
+    "due_date": "2026-05-15",
+    "issuer": "Lee PLC",
+    "recipient": "Allen and Sons",
+    "subtotal": 28567,
+    "tax": 2285,
+    "total": 30852,
+    "line_items": [
+     {
+      "name": "USB-C docking station",
+      "quantity": 11,
+      "unit_price": 250,
+      "amount": 2750,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 14,
+      "unit_price": 250,
+      "amount": 3500,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 18,
+      "unit_price": 40,
+      "amount": 720,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 13,
+      "unit_price": 25,
+      "amount": 325,
+      "tax_rate": null
+     },
+     {
+      "name": "Cloud hosting, monthly",
+      "quantity": 7,
+      "unit_price": 2400,
+      "amount": 16800,
+      "tax_rate": null
+     },
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 15,
+      "unit_price": 120,
+      "amount": 480,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 8,
+      "unit_price": 499,
+      "amount": 3992,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-3218",
+    "issue_date": "2026-04-15",
+    "due_date": "2026-05-15",
+    "issuer": "Lee PLC",
+    "recipient": "Allen and Sons",
+    "subtotal": 28567,
+    "tax": 2285,
+    "total": 30852,
+    "line_items": [
+     {
+      "name": "USB-C docking station",
+      "quantity": 11,
+      "unit_price": 250,
+      "amount": 2750,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 14,
+      "unit_price": 250,
+      "amount": 3500,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 18,
+      "unit_price": 40,
+      "amount": 720,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 13,
+      "unit_price": 25,
+      "amount": 325,
+      "tax_rate": null
+     },
+     {
+      "name": "Cloud hosting, monthly",
+      "quantity": 7,
+      "unit_price": 2400,
+      "amount": 16800,
+      "tax_rate": null
+     },
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 4,
+      "unit_price": 120,
+      "amount": 480,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 8,
+      "unit_price": 499,
+      "amount": 3992,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "fail",
+     "message": "row 6: 15 × 120 = 1,800, but the amount is 480",
+     "fields": [
+      "line_items[5].amount"
+     ]
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (28,567)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (30,852)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-3218",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. INV-2026-3218",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "15 April 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date 15 April 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "15 May 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date 15 May 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "Lee PLC",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From Lee PLC",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Allen and Sons",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To Allen and Sons",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "28,567.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal USD 28,567.00",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "2,285.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Sales Tax (8%) USD 2,285.00",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "30,852.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total Due USD 30,852.00",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "USB-C docking station",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 11 250 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 11 250 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 11 250 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "2,750",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 11 250 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "Cable organiser kit",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cable organiser kit 14 250 3,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "14",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cable organiser kit 14 250 3,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cable organiser kit 14 250 3,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "3,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cable organiser kit 14 250 3,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "Standing desk",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Standing desk 18 40 720",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "18",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Standing desk 18 40 720",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "40",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Standing desk 18 40 720",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "720",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Standing desk 18 40 720",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "Software licence renewal",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Software licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Software licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "25",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Software licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "325",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Software licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "Cloud hosting, monthly",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cloud hosting, monthly 7 2,400 16,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cloud hosting, monthly 7 2,400 16,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "2,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cloud hosting, monthly 7 2,400 16,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "16,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Cloud hosting, monthly 7 2,400 16,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "Laptop sleeve 15\"",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 4 120 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "15",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 4 120 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 4 120 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 4 120 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "27-inch monitor",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "27-inch monitor 8 499 3,992",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "8",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "27-inch monitor 8 499 3,992",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "499",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "27-inch monitor 8 499 3,992",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "3,992",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "27-inch monitor 8 499 3,992",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "en-002",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.054,
+   "extract_seconds": 115.616,
+   "n_elements": 15,
+   "tp": 5,
+   "n_pred": 13,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": false,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[2]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[3]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[4]",
+      "correct": false,
+      "flagged": true
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "Invoice No. 99703",
+    "issue_date": "2026-09-23",
+    "due_date": "2026-10-07",
+    "issuer": "From Keller-Davies",
+    "recipient": "Bill To Miller-Salazar",
+    "subtotal": 51290,
+    "tax": 4103,
+    "total": 55393,
+    "line_items": [
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 15,
+      "unit_price": 13,
+      "amount": 3250,
+      "tax_rate": null
+     },
+     {
+      "name": "Wireless keyboard 7\"",
+      "quantity": 7,
+      "unit_price": 120,
+      "amount": 840,
+      "tax_rate": null
+     },
+     {
+      "name": "Ergonomic office chair 16\"",
+      "quantity": 16,
+      "unit_price": 25,
+      "amount": 400,
+      "tax_rate": null
+     },
+     {
+      "name": "USB-C docking station 17\"",
+      "quantity": 17,
+      "unit_price": 1200,
+      "amount": 20400,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p 11\"",
+      "quantity": 11,
+      "unit_price": 2400,
+      "amount": 26400,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "99703",
+    "issue_date": "2026-09-23",
+    "due_date": "2026-10-07",
+    "issuer": "Keller-Davies",
+    "recipient": "Miller-Salazar",
+    "subtotal": 51290,
+    "tax": 4103,
+    "total": 55393,
+    "line_items": [
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": null
+     },
+     {
+      "name": "Wireless keyboard",
+      "quantity": 7,
+      "unit_price": 120,
+      "amount": 840,
+      "tax_rate": null
+     },
+     {
+      "name": "Ergonomic office chair",
+      "quantity": 16,
+      "unit_price": 25,
+      "amount": 400,
+      "tax_rate": null
+     },
+     {
+      "name": "USB-C docking station",
+      "quantity": 17,
+      "unit_price": 1200,
+      "amount": 20400,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p",
+      "quantity": 11,
+      "unit_price": 2400,
+      "amount": 26400,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "fail",
+     "message": "row 1: 15 × 13 = 195, but the amount is 3,250",
+     "fields": [
+      "line_items[0].amount"
+     ]
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (51,290)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (55,393)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "Invoice No. 99703",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. 99703",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "Invoice Date Sep 23, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date Sep 23, 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "Due Date Oct 7, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date Oct 7, 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "From Keller-Davies",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From Keller-Davies",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Bill To Miller-Salazar",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To Miller-Salazar",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "$51,290",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "$51,290",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "$4,103",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "$4,103",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "$55,393",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "$55,393",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "Laptop sleeve 15\"",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "15",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "3,250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Laptop sleeve 15\" 13 250 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "Wireless keyboard 7\"",
+     "status": "unverified",
+     "quote_match": 0.958,
+     "value_in_quote": false,
+     "quote": "Wireless keyboard 7\" 120 840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 0.958,
+     "value_in_quote": true,
+     "quote": "Wireless keyboard 7\" 120 840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 0.958,
+     "value_in_quote": true,
+     "quote": "Wireless keyboard 7\" 120 840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "840",
+     "status": "verified",
+     "quote_match": 0.958,
+     "value_in_quote": true,
+     "quote": "Wireless keyboard 7\" 120 840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "Ergonomic office chair 16\"",
+     "status": "unverified",
+     "quote_match": 0.964,
+     "value_in_quote": false,
+     "quote": "Ergonomic office chair 16\" 25 400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 0.964,
+     "value_in_quote": true,
+     "quote": "Ergonomic office chair 16\" 25 400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "25",
+     "status": "verified",
+     "quote_match": 0.964,
+     "value_in_quote": true,
+     "quote": "Ergonomic office chair 16\" 25 400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "400",
+     "status": "verified",
+     "quote_match": 0.964,
+     "value_in_quote": true,
+     "quote": "Ergonomic office chair 16\" 25 400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "USB-C docking station 17\"",
+     "status": "unverified",
+     "quote_match": 0.97,
+     "value_in_quote": false,
+     "quote": "USB-C docking station 17\" 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "17",
+     "status": "verified",
+     "quote_match": 0.97,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 17\" 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "1,200",
+     "status": "verified",
+     "quote_match": 0.97,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 17\" 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "20,400",
+     "status": "verified",
+     "quote_match": 0.97,
+     "value_in_quote": true,
+     "quote": "USB-C docking station 17\" 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "Webcam 1080p 11\"",
+     "status": "unverified",
+     "quote_match": 0.96,
+     "value_in_quote": false,
+     "quote": "Webcam 1080p 11\" 2,400 26,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 0.96,
+     "value_in_quote": true,
+     "quote": "Webcam 1080p 11\" 2,400 26,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "2,400",
+     "status": "verified",
+     "quote_match": 0.96,
+     "value_in_quote": true,
+     "quote": "Webcam 1080p 11\" 2,400 26,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "26,400",
+     "status": "verified",
+     "quote_match": 0.96,
+     "value_in_quote": true,
+     "quote": "Webcam 1080p 11\" 2,400 26,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "en-003",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.055,
+   "extract_seconds": 186.754,
+   "n_elements": 19,
+   "tp": 16,
+   "n_pred": 17,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": true
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "INV-2026-7126",
+    "issue_date": "2026-07-19",
+    "due_date": "2026-09-02",
+    "issuer": "Williams-Garcia",
+    "recipient": "Gonzalez-Howard",
+    "subtotal": 33960,
+    "tax": 2717,
+    "total": 36677,
+    "line_items": [
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 15,
+      "unit_price": 7,
+      "amount": 175,
+      "tax_rate": null
+     },
+     {
+      "name": "Whiteboard markers (12 pack)",
+      "quantity": 5,
+      "unit_price": 40,
+      "amount": 200,
+      "tax_rate": null
+     },
+     {
+      "name": "On-site installation",
+      "quantity": 16,
+      "unit_price": 12,
+      "amount": 192,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 1,
+      "unit_price": 40,
+      "amount": 40,
+      "tax_rate": null
+     },
+     {
+      "name": "Desk lamp",
+      "quantity": 12,
+      "unit_price": 2400,
+      "amount": 28800,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 3,
+      "unit_price": 12,
+      "amount": 36,
+      "tax_rate": null
+     },
+     {
+      "name": "Ergonomic office chair",
+      "quantity": 17,
+      "unit_price": 250,
+      "amount": 4250,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p",
+      "quantity": 3,
+      "unit_price": 25,
+      "amount": 75,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 16,
+      "unit_price": 12,
+      "amount": 192,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-7126",
+    "issue_date": "2026-07-19",
+    "due_date": "2026-09-02",
+    "issuer": "Williams-Garcia",
+    "recipient": "Gonzalez-Howard",
+    "subtotal": 33960,
+    "tax": 2717,
+    "total": 36677,
+    "line_items": [
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 7,
+      "unit_price": 25,
+      "amount": 175,
+      "tax_rate": null
+     },
+     {
+      "name": "Whiteboard markers (12 pack)",
+      "quantity": 5,
+      "unit_price": 40,
+      "amount": 200,
+      "tax_rate": null
+     },
+     {
+      "name": "On-site installation",
+      "quantity": 16,
+      "unit_price": 12,
+      "amount": 192,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 1,
+      "unit_price": 40,
+      "amount": 40,
+      "tax_rate": null
+     },
+     {
+      "name": "Desk lamp",
+      "quantity": 12,
+      "unit_price": 2400,
+      "amount": 28800,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 3,
+      "unit_price": 12,
+      "amount": 36,
+      "tax_rate": null
+     },
+     {
+      "name": "Ergonomic office chair",
+      "quantity": 17,
+      "unit_price": 250,
+      "amount": 4250,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p",
+      "quantity": 3,
+      "unit_price": 25,
+      "amount": 75,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 16,
+      "unit_price": 12,
+      "amount": 192,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "fail",
+     "message": "row 1: 15 × 7 = 105, but the amount is 175",
+     "fields": [
+      "line_items[0].amount"
+     ]
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (33,960)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (36,677)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-7126",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. INV-2026-7126",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "Jul 19, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date Jul 19, 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "Sep 2, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date Sep 2, 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "Williams-Garcia",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From Williams-Garcia",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Gonzalez-Howard",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To Gonzalez-Howard",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "$33,960.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal $33,960.00",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "$2,717.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Sales Tax (8%) $2,717.00",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "$36,677.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total Due $36,677.00",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "Laptop sleeve 15\"",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Laptop sleeve 15\" | 15 | 7 | 175",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "15",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Laptop sleeve 15\" | 15 | 7 | 175",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "7",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Laptop sleeve 15\" | 15 | 7 | 175",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "175",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Laptop sleeve 15\" | 15 | 7 | 175",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "Whiteboard markers (12 pack)",
+     "status": "unverified",
+     "quote_match": 0.36,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Whiteboard markers (12 pack) | 5 | 40 | 200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "5",
+     "status": "unverified",
+     "quote_match": 0.36,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Whiteboard markers (12 pack) | 5 | 40 | 200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "40",
+     "status": "unverified",
+     "quote_match": 0.36,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Whiteboard markers (12 pack) | 5 | 40 | 200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "200",
+     "status": "unverified",
+     "quote_match": 0.36,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Whiteboard markers (12 pack) | 5 | 40 | 200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "On-site installation",
+     "status": "unverified",
+     "quote_match": 0.358,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| On-site installation | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "16",
+     "status": "unverified",
+     "quote_match": 0.358,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| On-site installation | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.358,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| On-site installation | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "192",
+     "status": "unverified",
+     "quote_match": 0.358,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| On-site installation | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "27-inch monitor",
+     "status": "unverified",
+     "quote_match": 0.392,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| 27-inch monitor | 1 | 40 | 40",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "1",
+     "status": "unverified",
+     "quote_match": 0.392,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| 27-inch monitor | 1 | 40 | 40",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "40",
+     "status": "unverified",
+     "quote_match": 0.392,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| 27-inch monitor | 1 | 40 | 40",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "40",
+     "status": "unverified",
+     "quote_match": 0.392,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| 27-inch monitor | 1 | 40 | 40",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "Desk lamp",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Desk lamp | 12 | 2,400 | 28,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Desk lamp | 12 | 2,400 | 28,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "2,400",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Desk lamp | 12 | 2,400 | 28,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "28,800",
+     "status": "unverified",
+     "quote_match": 0.382,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Desk lamp | 12 | 2,400 | 28,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "Standing desk",
+     "status": "unverified",
+     "quote_match": 0.403,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Standing desk | 3 | 12 | 36",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "3",
+     "status": "unverified",
+     "quote_match": 0.403,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Standing desk | 3 | 12 | 36",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.403,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Standing desk | 3 | 12 | 36",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "36",
+     "status": "unverified",
+     "quote_match": 0.403,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Standing desk | 3 | 12 | 36",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "Ergonomic office chair",
+     "status": "unverified",
+     "quote_match": 0.353,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Ergonomic office chair | 17 | 250 | 4,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "17",
+     "status": "unverified",
+     "quote_match": 0.353,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Ergonomic office chair | 17 | 250 | 4,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "250",
+     "status": "unverified",
+     "quote_match": 0.353,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Ergonomic office chair | 17 | 250 | 4,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "4,250",
+     "status": "unverified",
+     "quote_match": 0.353,
+     "value_in_quote": true,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Ergonomic office chair | 17 | 250 | 4,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "Webcam 1080p",
+     "status": "unverified",
+     "quote_match": 0.408,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Webcam 1080p | 3 | 25 | 75",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "3",
+     "status": "unverified",
+     "quote_match": 0.408,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Webcam 1080p | 3 | 25 | 75",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "25",
+     "status": "unverified",
+     "quote_match": 0.408,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Webcam 1080p | 3 | 25 | 75",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "75",
+     "status": "unverified",
+     "quote_match": 0.408,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Webcam 1080p | 3 | 25 | 75",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "Printer toner cartridge",
+     "status": "unverified",
+     "quote_match": 0.349,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Printer toner cartridge | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "16",
+     "status": "unverified",
+     "quote_match": 0.349,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Printer toner cartridge | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.349,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Printer toner cartridge | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "192",
+     "status": "unverified",
+     "quote_match": 0.349,
+     "value_in_quote": false,
+     "quote": "| Description | Qty | Unit Price | Amount |\n| --- | --- | --- | ---|\n| Printer toner cartridge | 16 | 12 | 192",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "en-004",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.063,
+   "extract_seconds": 164.06,
+   "n_elements": 17,
+   "tp": 14,
+   "n_pred": 17,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[1]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[4]",
+      "correct": false,
+      "flagged": true
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": true
+     }
+    ],
+    "check_failed": true
+   },
+   "pred": {
+    "invoice_number": "INV-2026-9688",
+    "issue_date": "2026-08-26",
+    "due_date": "2026-09-25",
+    "issuer": "Walker Group",
+    "recipient": "Page-Nunez",
+    "subtotal": 38529,
+    "tax": 3082,
+    "total": 41611,
+    "line_items": [
+     {
+      "name": "Webcam 1080p",
+      "quantity": 1080,
+      "unit_price": 2400,
+      "amount": 21600,
+      "tax_rate": null
+     },
+     {
+      "name": "Network switch 24-port",
+      "quantity": 24,
+      "unit_price": 250,
+      "amount": 500,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 10,
+      "unit_price": 12,
+      "amount": 120,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 16,
+      "unit_price": 75,
+      "amount": 1200,
+      "tax_rate": null
+     },
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 15,
+      "unit_price": 250,
+      "amount": 4500,
+      "tax_rate": null
+     },
+     {
+      "name": "USB-C docking station",
+      "quantity": 12,
+      "unit_price": 120,
+      "amount": 1440,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 16,
+      "unit_price": 499,
+      "amount": 7984,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 11,
+      "unit_price": 75,
+      "amount": 825,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 3,
+      "unit_price": 120,
+      "amount": 360,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-9688",
+    "issue_date": "2026-08-26",
+    "due_date": "2026-09-25",
+    "issuer": "Walker Group",
+    "recipient": "Page-Nunez",
+    "subtotal": 38529,
+    "tax": 3082,
+    "total": 41611,
+    "line_items": [
+     {
+      "name": "Webcam 1080p",
+      "quantity": 9,
+      "unit_price": 2400,
+      "amount": 21600,
+      "tax_rate": null
+     },
+     {
+      "name": "Network switch 24-port",
+      "quantity": 2,
+      "unit_price": 250,
+      "amount": 500,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 10,
+      "unit_price": 12,
+      "amount": 120,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 16,
+      "unit_price": 75,
+      "amount": 1200,
+      "tax_rate": null
+     },
+     {
+      "name": "Laptop sleeve 15\"",
+      "quantity": 18,
+      "unit_price": 250,
+      "amount": 4500,
+      "tax_rate": null
+     },
+     {
+      "name": "USB-C docking station",
+      "quantity": 12,
+      "unit_price": 120,
+      "amount": 1440,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 16,
+      "unit_price": 499,
+      "amount": 7984,
+      "tax_rate": null
+     },
+     {
+      "name": "27-inch monitor",
+      "quantity": 11,
+      "unit_price": 75,
+      "amount": 825,
+      "tax_rate": null
+     },
+     {
+      "name": "Standing desk",
+      "quantity": 3,
+      "unit_price": 120,
+      "amount": 360,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "fail",
+     "message": "row 1: 1080 × 2,400 = 2,592,000, but the amount is 21,600; row 2: 24 × 250 = 6,000, but the amount is 500; row 5: 15 × 250 = 3,750, but the amount is 4,500",
+     "fields": [
+      "line_items[0].amount",
+      "line_items[1].amount",
+      "line_items[4].amount"
+     ]
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (38,529)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (41,611)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-9688",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. INV-2026-9688",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "Aug 26, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date Aug 26, 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "Sep 25, 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date Sep 25, 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "Walker Group",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From Walker Group",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Page-Nunez",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To Page-Nunez",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "$38,529.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal $38,529.00",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "$3,082.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Sales Tax (8%) $3,082.00",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "$41,611.00",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total Due $41,611.00",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "Webcam 1080p",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 1080p $2,400 $21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "1080p",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 1080p $2,400 $21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "$2,400",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 1080p $2,400 $21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "$21,600",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 1080p $2,400 $21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "Network switch 24-port",
+     "status": "unverified",
+     "quote_match": 0.453,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 24-port $250 $500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "24-port",
+     "status": "unverified",
+     "quote_match": 0.453,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 24-port $250 $500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "$250",
+     "status": "unverified",
+     "quote_match": 0.453,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 24-port $250 $500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "$500",
+     "status": "unverified",
+     "quote_match": 0.453,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 24-port $250 $500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "Cable organiser kit",
+     "status": "unverified",
+     "quote_match": 0.537,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 10 12 $120",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "10",
+     "status": "unverified",
+     "quote_match": 0.537,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 10 12 $120",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "$12",
+     "status": "unverified",
+     "quote_match": 0.537,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 10 12 $120",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "$120",
+     "status": "unverified",
+     "quote_match": 0.537,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 10 12 $120",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "Software licence renewal",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 16 75 $1,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "16",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 16 75 $1,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "$75",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 16 75 $1,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "$1,200",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 16 75 $1,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "Laptop sleeve 15\"",
+     "status": "unverified",
+     "quote_match": 0.509,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nLaptop sleeve 15\" 15\" $250 $4,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "15\"",
+     "status": "unverified",
+     "quote_match": 0.509,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nLaptop sleeve 15\" 15\" $250 $4,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "$250",
+     "status": "unverified",
+     "quote_match": 0.509,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nLaptop sleeve 15\" 15\" $250 $4,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "$4,500",
+     "status": "unverified",
+     "quote_match": 0.509,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nLaptop sleeve 15\" 15\" $250 $4,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "USB-C docking station",
+     "status": "unverified",
+     "quote_match": 0.492,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nUSB-C docking station 12 120 $1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.492,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nUSB-C docking station 12 120 $1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "$120",
+     "status": "unverified",
+     "quote_match": 0.492,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nUSB-C docking station 12 120 $1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "$1,440",
+     "status": "unverified",
+     "quote_match": 0.492,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nUSB-C docking station 12 120 $1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "Printer toner cartridge",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 16 499 $7,984",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "16",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 16 499 $7,984",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "$499",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 16 499 $7,984",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "$7,984",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 16 499 $7,984",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "27-inch monitor",
+     "status": "unverified",
+     "quote_match": 0.569,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 11 75 $825",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "11",
+     "status": "unverified",
+     "quote_match": 0.569,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 11 75 $825",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "$75",
+     "status": "unverified",
+     "quote_match": 0.569,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 11 75 $825",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "$825",
+     "status": "unverified",
+     "quote_match": 0.569,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\n27-inch monitor 11 75 $825",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "Standing desk",
+     "status": "unverified",
+     "quote_match": 0.592,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nStanding desk 3 120 $360",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "3",
+     "status": "unverified",
+     "quote_match": 0.592,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nStanding desk 3 120 $360",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "$120",
+     "status": "unverified",
+     "quote_match": 0.592,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nStanding desk 3 120 $360",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "$360",
+     "status": "unverified",
+     "quote_match": 0.592,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nStanding desk 3 120 $360",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "en-005",
+   "variant": "en",
+   "layout": "en",
+   "pages": 1,
+   "parse_seconds": 0.053,
+   "extract_seconds": 151.089,
+   "n_elements": 17,
+   "tp": 16,
+   "n_pred": 16,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": true
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": true
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "INV-2026-0040",
+    "issue_date": "2026-08-16",
+    "due_date": "2026-08-30",
+    "issuer": "Burton-Johnson",
+    "recipient": "Marsh-Wilson",
+    "subtotal": 35080,
+    "tax": 2806,
+    "total": 37886,
+    "line_items": [
+     {
+      "name": "Desk lamp",
+      "quantity": 6,
+      "unit_price": 250,
+      "amount": 1500,
+      "tax_rate": null
+     },
+     {
+      "name": "On-site installation",
+      "quantity": 19,
+      "unit_price": 25,
+      "amount": 475,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 17,
+      "unit_price": 1200,
+      "amount": 20400,
+      "tax_rate": null
+     },
+     {
+      "name": "Network switch 24-port",
+      "quantity": 8,
+      "unit_price": 250,
+      "amount": 2000,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 13,
+      "unit_price": 25,
+      "amount": 325,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 8,
+      "unit_price": 1200,
+      "amount": 9600,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p",
+      "quantity": 12,
+      "unit_price": 25,
+      "amount": 300,
+      "tax_rate": null
+     },
+     {
+      "name": "A4 copy paper (500 sheets)",
+      "quantity": 12,
+      "unit_price": 40,
+      "amount": 480,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-0040",
+    "issue_date": "2026-08-16",
+    "due_date": "2026-08-30",
+    "issuer": "Burton-Johnson",
+    "recipient": "Marsh-Wilson",
+    "subtotal": 35080,
+    "tax": 2806,
+    "total": 37886,
+    "line_items": [
+     {
+      "name": "Desk lamp",
+      "quantity": 6,
+      "unit_price": 250,
+      "amount": 1500,
+      "tax_rate": null
+     },
+     {
+      "name": "On-site installation",
+      "quantity": 19,
+      "unit_price": 25,
+      "amount": 475,
+      "tax_rate": null
+     },
+     {
+      "name": "Cable organiser kit",
+      "quantity": 17,
+      "unit_price": 1200,
+      "amount": 20400,
+      "tax_rate": null
+     },
+     {
+      "name": "Network switch 24-port",
+      "quantity": 8,
+      "unit_price": 250,
+      "amount": 2000,
+      "tax_rate": null
+     },
+     {
+      "name": "Software licence renewal",
+      "quantity": 13,
+      "unit_price": 25,
+      "amount": 325,
+      "tax_rate": null
+     },
+     {
+      "name": "Printer toner cartridge",
+      "quantity": 8,
+      "unit_price": 1200,
+      "amount": 9600,
+      "tax_rate": null
+     },
+     {
+      "name": "Webcam 1080p",
+      "quantity": 12,
+      "unit_price": 25,
+      "amount": 300,
+      "tax_rate": null
+     },
+     {
+      "name": "A4 copy paper (500 sheets)",
+      "quantity": 12,
+      "unit_price": 40,
+      "amount": 480,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "8 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (35,080)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (37,886)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "the allowed tax rates are only known for Japan (10% / 8%)",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-0040",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. INV-2026-0040",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "16 August 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice Date 16 August 2026",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "30 August 2026",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due Date 30 August 2026",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "Burton-Johnson",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "From\nBurton-Johnson\n765 Jared Radial Suite 022, Mathewstad",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "Marsh-Wilson",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Bill To\nMarsh-Wilson",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "$35,080",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal $35,080",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "$2,806",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Sales Tax (8%) $2,806",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "$37,886",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total Due $37,886",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "Desk lamp",
+     "status": "unverified",
+     "quote_match": 0.63,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nDesk lamp 6 250 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "6",
+     "status": "unverified",
+     "quote_match": 0.63,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nDesk lamp 6 250 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "250",
+     "status": "unverified",
+     "quote_match": 0.63,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nDesk lamp 6 250 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "1,500",
+     "status": "unverified",
+     "quote_match": 0.63,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nDesk lamp 6 250 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "On-site installation",
+     "status": "unverified",
+     "quote_match": 0.527,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nOn-site installation 19 25 475",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "19",
+     "status": "unverified",
+     "quote_match": 0.527,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nOn-site installation 19 25 475",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "25",
+     "status": "unverified",
+     "quote_match": 0.527,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nOn-site installation 19 25 475",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "475",
+     "status": "unverified",
+     "quote_match": 0.527,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nOn-site installation 19 25 475",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "Cable organiser kit",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 17 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "17",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 17 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "1,200",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 17 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "20,400",
+     "status": "unverified",
+     "quote_match": 0.508,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nCable organiser kit 17 1,200 20,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "Network switch 24-port",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 8 250 2,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "8",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 8 250 2,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "250",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 8 250 2,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "2,000",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nNetwork switch 24-port 8 250 2,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "Software licence renewal",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "13",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "25",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "325",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nSoftware licence renewal 13 25 325",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "Printer toner cartridge",
+     "status": "unverified",
+     "quote_match": 0.525,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 8 1,200 9,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "8",
+     "status": "unverified",
+     "quote_match": 0.525,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 8 1,200 9,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "1,200",
+     "status": "unverified",
+     "quote_match": 0.525,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 8 1,200 9,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "9,600",
+     "status": "unverified",
+     "quote_match": 0.525,
+     "value_in_quote": true,
+     "quote": "Description Qty Unit Price Amount\nPrinter toner cartridge 8 1,200 9,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "Webcam 1080p",
+     "status": "unverified",
+     "quote_match": 0.617,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 12 25 300",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.617,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 12 25 300",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "25",
+     "status": "unverified",
+     "quote_match": 0.617,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 12 25 300",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "300",
+     "status": "unverified",
+     "quote_match": 0.617,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nWebcam 1080p 12 25 300",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "A4 copy paper (500 sheets)",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nA4 copy paper (500 sheets) 12 40 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "12",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nA4 copy paper (500 sheets) 12 40 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "40",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nA4 copy paper (500 sheets) 12 40 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "480",
+     "status": "unverified",
+     "quote_match": 0.5,
+     "value_in_quote": false,
+     "quote": "Description Qty Unit Price Amount\nA4 copy paper (500 sheets) 12 40 480",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  }
+ ]
+}
