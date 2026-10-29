@@ -1,0 +1,16 @@
+{
+ "title": "Monthly active users",
+ "x_label": "Month",
+ "y_label": "Users (thousands)",
+ "kind": "bar",
+ "data_labels": false,
+ "series": {
+  "Users": {
+   "Jan": 405,
+   "Feb": 94,
+   "Mar": 84,
+   "Apr": 56,
+   "May": 160
+  }
+ }
+}

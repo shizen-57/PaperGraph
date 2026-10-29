@@ -1,0 +1,128 @@
+{
+ "config": "pdfium-qwen2.5-3b",
+ "counts": {
+  "clean": {
+   "role confusion": 14,
+   "copy boundary": 4,
+   "row lost or merged": 32,
+   "extra row": 32,
+   "wrong choice": 1
+  },
+  "scanned": {}
+ },
+ "header_fields_checked": {
+  "clean": 96
+ },
+ "examples": {
+  "role confusion": [
+   {
+    "id": "clean-000",
+    "field": "issuer",
+    "pred": "有限会社吉田通信",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "clean-000",
+    "field": "recipient",
+    "pred": "前田電気株式会社",
+    "gold": "有限会社吉田通信"
+   },
+   {
+    "id": "clean-002",
+    "field": "issuer",
+    "pred": "株式会社青木情報",
+    "gold": "橋本情報有限会社"
+   },
+   {
+    "id": "clean-003",
+    "field": "issuer",
+    "pred": "吉田水産株式会社",
+    "gold": "松本建設株式会社"
+   },
+   {
+    "id": "clean-003",
+    "field": "recipient",
+    "pred": "松本建設株式会社",
+    "gold": "吉田水産株式会社"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "clean-001",
+    "field": "issuer",
+    "pred": "O C 合同会社佐々木情報",
+    "gold": "合同会社佐々木情報"
+   },
+   {
+    "id": "clean-002",
+    "field": "recipient",
+    "pred": "株式会社青木情報 様",
+    "gold": "株式会社青木情報"
+   },
+   {
+    "id": "clean-004",
+    "field": "issuer",
+    "pred": "O C 株式会社長谷川運輸",
+    "gold": "株式会社長谷川運輸"
+   },
+   {
+    "id": "clean-007",
+    "field": "issuer",
+    "pred": "O C 合同会社山本銀行",
+    "gold": "合同会社山本銀行"
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-002",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-001",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-002",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   },
+   {
+    "id": "clean-004",
+    "field": "line_items"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "clean-005",
+    "field": "issuer",
+    "pred": "池田通信合同会社 様",
+    "gold": "中村鉱業株式会社"
+   }
+  ]
+ }
+}

@@ -29,7 +29,7 @@ export type Document = {
   title: string;
   path: string;
   folder: string;
-  file_type: "pdf" | "md" | "txt";
+  file_type: "pdf" | "image" | "pptx" | "md" | "txt";
   file_hash: string;
   lang: "en" | "ja";
   pages: number;
@@ -145,3 +145,38 @@ export type Graph = { nodes: DocumentSummary[]; edges: Relation[] };
 
 /** What a source viewer highlights. `seq` changes on every click so the same spot can be re-flashed. */
 export type Target = { page: number; bbox: BBox | null; elementId: string | null; seq: number };
+
+// --- Structured extraction ---
+
+export type FieldKind = "text" | "date" | "amount" | "number" | "percent";
+export type FieldStatus = "verified" | "unverified" | "missing"; // missing: the document doesn't state it
+export type DocType = "invoice" | "spec_sheet" | "financial_report";
+
+export type ExtractedField = {
+  name: string; // "total" or "line_items[2].amount"
+  kind: FieldKind;
+  raw: string | null; // as printed
+  value: string | number | null; // normalised: ISO date, yen as a number
+  tax: "included" | "excluded" | null;
+  quote: string;
+  page: number | null;
+  element_id: string | null;
+  bbox: BBox | null;
+  quote_match: number;
+  value_in_quote: boolean;
+  status: FieldStatus;
+};
+
+export type Check = { name: string; status: "pass" | "fail" | "skipped"; message: string; fields: string[] };
+
+export type Extraction = {
+  doc_id: string;
+  doc_type: DocType;
+  fields: ExtractedField[];
+  checks: Check[];
+  model: string;
+  seconds: number;
+};
+
+/** One run of eval/run_eval.py, as GET /eval returns it. */
+export type EvalRun = { name: string; config: Record<string, any>; summary: Record<string, any> };

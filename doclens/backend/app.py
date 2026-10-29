@@ -1,17 +1,20 @@
 """FastAPI app over the SQLite store. Run: uvicorn backend.app:app --port 8000"""
+import tempfile
 import time
 import uuid
 from pathlib import Path
+from typing import Literal
 
 from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 
-from backend import answer, compare, llm
+from backend import answer, compare, extract, llm, offline, parse
 from backend.crops import render_crop
 from backend.db import DB, RESULTS, ROOT, dump, read_json
 from backend.ingest import elements_of, ensure_space, ingest
 from backend.schemas import (Answer, AskRequest, Claim, CompareRequest, CompareResult, Document, DocumentDetail,
-                             DocumentSummary, Job, Relation, SearchHit, SearchRequest, Space, SpaceSummary)
+                             DocumentSummary, DocType, Element, Extraction, Job, ParseResult, Relation, SearchHit,
+                             SearchRequest, Space, SpaceSummary)
 from backend.search import Index, load_index
 from backend.walk import SUPPORTED
 
@@ -19,7 +22,9 @@ DEFAULT_SPACE = Space(id="thesis", name="Thesis research", root=str(ROOT / "data
 MAX_UPLOAD_BYTES = 50 * 1024 * 1024
 
 
-def create_app(results: Path = RESULTS, cache: Path = ROOT / ".cache" / "crops", default: Space | None = DEFAULT_SPACE) -> FastAPI:
+def create_app(results: Path = RESULTS, cache: Path = ROOT / ".cache" / "crops", default: Space | None = DEFAULT_SPACE,
+               eval_dir: Path = ROOT / "eval" / "results") -> FastAPI:
+    offline.enforce()  # OFFLINE=1: no network beyond this machine and the LAN
     db = DB(results / "doclens.db")
     if default and not db.rows("SELECT 1 FROM spaces WHERE id=?", (default.id,)):
         ensure_space(db, default)
@@ -108,7 +113,7 @@ def create_app(results: Path = RESULTS, cache: Path = ROOT / ".cache" / "crops",
                 name = Path((upload.filename or "").replace("\\", "/")).name
                 suffix = Path(name).suffix.lower()
                 if not name or name.startswith(".") or suffix not in SUPPORTED:
-                    raise HTTPException(400, "Only PDF, Markdown, and plain text files are supported.")
+                    raise HTTPException(400, "Supported files: PDF, PPTX, images, Markdown and plain text.")
 
                 target_name = name
                 while target_name in reserved or (folder / target_name).exists():
@@ -261,6 +266,95 @@ def create_app(results: Path = RESULTS, cache: Path = ROOT / ".cache" / "crops",
         space_of(space_id)
         a, b = doc_of(req.doc_a), doc_of(req.doc_b)
         return CompareResult(a=a, b=b, rows=compare.compare(a, b, index_of(space_id)))
+
+    # --- parse + extract (the plan's /parse, /extract, /eval) ---
+
+    def staged(file: UploadFile) -> tuple[Path, str]:
+        """Save an upload to a temp file and return (path, file_type). The caller deletes the folder."""
+        suffix = Path(file.filename or "").suffix.lower()
+        if suffix not in SUPPORTED:
+            raise HTTPException(400, f"Unsupported file type {suffix or '(none)'}: use PDF, PPTX, an image, .md or .txt.")
+        data = file.file.read(MAX_UPLOAD_BYTES + 1)
+        if not data or len(data) > MAX_UPLOAD_BYTES:
+            raise HTTPException(413 if data else 400, "Uploads must be non-empty and 50 MB or less.")
+        path = Path(tempfile.mkdtemp(prefix="doclens-")) / f"upload{suffix}"
+        path.write_bytes(data)
+        return path, SUPPORTED[suffix]
+
+    def parse_upload_sync(path: Path, file_type: str):
+        try:
+            return parse.parse_path(path, "upload", file_type)
+        except parse.ParserUnavailable as e:
+            raise HTTPException(501, str(e))
+
+    def run_extraction(doc_id: str, doc_type: DocType, elements: list[Element], extractor: str) -> Extraction:
+        try:
+            if extractor == "rules":
+                from backend import extract_rules
+                return extract_rules.extract(doc_id, doc_type, elements)
+            return extract.extract(doc_id, doc_type, elements)
+        except llm.LLMUnavailable as e:
+            raise HTTPException(503, str(e))
+        except extract.ExtractionError as e:
+            raise HTTPException(502, str(e))
+        except NotImplementedError as e:
+            raise HTTPException(422, str(e))
+
+    @app.post("/parse", response_model=ParseResult)
+    def parse_file(file: UploadFile = File(...)):  # def, not async: parsing is CPU-bound and runs in the threadpool
+        path, file_type = staged(file)
+        try:
+            els, sizes, title = parse_upload_sync(path, file_type)
+        finally:
+            path.unlink(missing_ok=True)
+        return ParseResult(parser=parse.default_parser(), title=title, pages=max(len(sizes), 1), page_sizes=sizes, elements=els)
+
+    @app.post("/extract", response_model=Extraction)
+    def extract_file(type: DocType = "invoice", extractor: Literal["llm", "rules"] = "llm", file: UploadFile = File(...)):
+        """Parse an upload and extract `type` from it. Nothing is stored; /documents/{id}/extract keeps the result."""
+        path, file_type = staged(file)
+        try:
+            els, _, _ = parse_upload_sync(path, file_type)
+        finally:
+            path.unlink(missing_ok=True)
+        return run_extraction(Path(file.filename or "upload").stem, type, els, extractor)
+
+    @app.post("/documents/{doc_id}/extract", response_model=Extraction)
+    def extract_document(doc_id: str, type: DocType = "invoice", extractor: Literal["llm", "rules"] = "llm"):
+        doc_of(doc_id)
+        ex = run_extraction(doc_id, type, elements_of(db, doc_id), extractor)
+        db.exec("INSERT OR REPLACE INTO extractions VALUES (?, ?)", (doc_id, dump(ex)))
+        return ex
+
+    @app.get("/documents/{doc_id}/extraction", response_model=Extraction)
+    def get_extraction(doc_id: str):
+        doc_of(doc_id)
+        ex = db.one(Extraction, "SELECT data FROM extractions WHERE doc_id=?", (doc_id,))
+        if ex is None:
+            raise HTTPException(404, "Not extracted yet")
+        return ex
+
+    @app.get("/eval")
+    def eval_runs():
+        """Summaries of every run in eval/results/*.json (written by eval/run_eval.py). Per-document rows: /eval/{name}."""
+        runs = []
+        for f in sorted(eval_dir.glob("*.json")):
+            run = read_json(f)
+            if isinstance(run, dict) and "summary" in run:
+                runs.append({"name": f.stem, "config": run.get("config", {}), "summary": run["summary"]})
+        return runs
+
+    @app.get("/eval/{name}")
+    def eval_run(name: str):
+        f = eval_dir / f"{Path(name).name}.json"  # Path(...).name: no traversal
+        if not f.exists():
+            raise HTTPException(404, f"No eval run named {name}")
+        return read_json(f)
+
+    @app.post("/ask", response_model=Answer)
+    def ask_default(req: AskRequest):
+        """Ask the default space. /spaces/{id}/ask is the same thing for other spaces."""
+        return ask(DEFAULT_SPACE.id, req)
 
     @app.get("/spaces/{space_id}/eval")
     def get_eval(space_id: str):

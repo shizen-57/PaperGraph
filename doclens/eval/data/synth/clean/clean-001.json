@@ -1,0 +1,55 @@
+{
+ "id": "clean-001",
+ "variant": "clean",
+ "layout": "b",
+ "date_style": "western",
+ "money_style": "fullwidth",
+ "fields": {
+  "invoice_number": "No.202610-887",
+  "issue_date": "2026-10-26",
+  "due_date": "2026-11-25",
+  "issuer": "合同会社佐々木情報",
+  "recipient": "斉藤ガス株式会社",
+  "subtotal": 216860,
+  "tax": 21686,
+  "total": 238546
+ },
+ "line_items": [
+  {
+   "name": "LANケーブル 5m",
+   "quantity": 11,
+   "unit_price": 3800,
+   "amount": 41800,
+   "tax_rate": null
+  },
+  {
+   "name": "ボールペン 黒 10本入",
+   "quantity": 11,
+   "unit_price": 12800,
+   "amount": 140800,
+   "tax_rate": null
+  },
+  {
+   "name": "出張技術料",
+   "quantity": 12,
+   "unit_price": 2480,
+   "amount": 29760,
+   "tax_rate": null
+  },
+  {
+   "name": "ワイヤレスマウス",
+   "quantity": 18,
+   "unit_price": 250,
+   "amount": 4500,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "2026/10/26",
+  "due_date": "2026/11/25",
+  "subtotal": "￥２１６，８６０",
+  "tax": "￥２１，６８６",
+  "total": "￥２３８，５４６"
+ },
+ "table_html": "<table><thead><tr><td>Description</td><td>Qty</td><td>Unit Price</td><td>Amount</td></tr></thead><tbody><tr><td>LANケーブル 5m</td><td>１１</td><td>３，８００</td><td>４１，８００</td></tr><tr><td>ボールペン 黒 10本入</td><td>１１</td><td>１２，８００</td><td>１４０，８００</td></tr><tr><td>出張技術料</td><td>１２</td><td>２，４８０</td><td>２９，７６０</td></tr><tr><td>ワイヤレスマウス</td><td>１８</td><td>２５０</td><td>４，５００</td></tr></tbody></table>"
+}

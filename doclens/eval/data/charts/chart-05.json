@@ -1,0 +1,25 @@
+{
+ "title": "Temperature over time",
+ "x_label": "Hour",
+ "y_label": "°C",
+ "kind": "line",
+ "data_labels": false,
+ "series": {
+  "Sensor 1": {
+   "0": 165,
+   "4": 450,
+   "8": 175,
+   "12": 89,
+   "16": 450,
+   "20": 76
+  },
+  "Sensor 2": {
+   "0": 345,
+   "4": 93,
+   "8": 57,
+   "12": 44,
+   "16": 120,
+   "20": 80
+  }
+ }
+}

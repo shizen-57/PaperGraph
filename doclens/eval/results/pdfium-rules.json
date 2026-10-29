@@ -1,0 +1,8368 @@
+{
+ "config": {
+  "name": "pdfium-rules",
+  "parser": "pdfium",
+  "parser_version": "5.13.0",
+  "extractor": "rules",
+  "llm": null,
+  "hardware": {
+   "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+   "cores": 4,
+   "gpu": null
+  },
+  "gpu_hourly_usd": null,
+  "reuse_parse": true,
+  "vram_source": null,
+  "dataset": {
+   "path": "eval/data/synth",
+   "n_docs": 24,
+   "variants": [
+    "clean",
+    "scanned"
+   ]
+  },
+  "date": "2026-10-24 07:51 UTC",
+  "git_commit": "91b442a",
+  "notes": [
+   "rules extractor regexes were written against these three layouts: an upper bound for rules, not a general baseline",
+   "parse output and timings replayed from the cache of the original timed run",
+   "arithmetic checks re-scored on the stored predictions after the tax_rate fallback was fixed (tax between 8% and 10% of the subtotal passes when lines carry no rate); evidence results untouched"
+  ]
+ },
+ "summary": {
+  "clean": {
+   "n_docs": 12,
+   "errors": 0,
+   "field_f1": 0.9877,
+   "field_accuracy": 0.963,
+   "field_accuracy_by_field": {
+    "invoice_number": 1.0,
+    "issue_date": 1.0,
+    "due_date": 1.0,
+    "issuer": 1.0,
+    "recipient": 0.6667,
+    "subtotal": 1.0,
+    "tax": 1.0,
+    "total": 1.0,
+    "line_items": 1.0
+   },
+   "docs_all_fields_correct": 8,
+   "evidence": {
+    "predicted": 161,
+    "wrong": 0,
+    "verified_rate": 1.0,
+    "hallucination_catch_rate": null,
+    "false_alarm_rate": 0.0,
+    "docs_with_a_wrong_value": 0,
+    "consistency_flagged_wrong_docs": null,
+    "docs_failing_a_consistency_check": 0,
+    "wrong_docs_caught_by_either": null
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 0.04,
+    "pages": 12,
+    "pages_per_sec": 285.714,
+    "sec_per_page": 0.004
+   },
+   "extract": {
+    "seconds": 0.04,
+    "sec_per_doc": 0.003
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  },
+  "scanned": {
+   "n_docs": 12,
+   "errors": 12,
+   "field_f1": 0.0,
+   "field_accuracy": 0.0,
+   "field_accuracy_by_field": {
+    "invoice_number": 0.0,
+    "issue_date": 0.0,
+    "due_date": 0.0,
+    "issuer": 0.0,
+    "recipient": 0.0,
+    "subtotal": 0.0,
+    "tax": 0.0,
+    "total": 0.0,
+    "line_items": 0.0
+   },
+   "docs_all_fields_correct": 0,
+   "evidence": {
+    "predicted": 0,
+    "wrong": 0,
+    "verified_rate": null,
+    "hallucination_catch_rate": null,
+    "false_alarm_rate": null,
+    "docs_with_a_wrong_value": 0,
+    "consistency_flagged_wrong_docs": null,
+    "docs_failing_a_consistency_check": 0,
+    "wrong_docs_caught_by_either": null
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 0.0,
+    "pages": 12,
+    "pages_per_sec": null,
+    "sec_per_page": 0.0
+   },
+   "extract": {
+    "seconds": 0.0,
+    "sec_per_doc": 0.0
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  },
+  "all": {
+   "n_docs": 24,
+   "errors": 12,
+   "field_f1": 0.6558,
+   "field_accuracy": 0.4815,
+   "field_accuracy_by_field": {
+    "invoice_number": 0.5,
+    "issue_date": 0.5,
+    "due_date": 0.5,
+    "issuer": 0.5,
+    "recipient": 0.3333,
+    "subtotal": 0.5,
+    "tax": 0.5,
+    "total": 0.5,
+    "line_items": 0.5
+   },
+   "docs_all_fields_correct": 8,
+   "evidence": {
+    "predicted": 161,
+    "wrong": 0,
+    "verified_rate": 1.0,
+    "hallucination_catch_rate": null,
+    "false_alarm_rate": 0.0,
+    "docs_with_a_wrong_value": 0,
+    "consistency_flagged_wrong_docs": null,
+    "docs_failing_a_consistency_check": 0,
+    "wrong_docs_caught_by_either": null
+   },
+   "teds": 0.0,
+   "table_found_rate": 0.0,
+   "parse": {
+    "seconds": 0.04,
+    "pages": 24,
+    "pages_per_sec": 571.429,
+    "sec_per_page": 0.002
+   },
+   "extract": {
+    "seconds": 0.04,
+    "sec_per_doc": 0.001
+   },
+   "peak_vram_mb": null,
+   "cost_per_1k_pages_parse_usd": null
+  }
+ },
+ "documents": [
+  {
+   "id": "clean-000",
+   "variant": "clean",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.014,
+   "extract_seconds": 0.009,
+   "n_elements": 12,
+   "tp": 10,
+   "n_pred": 10,
+   "n_gold": 10,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "R8-3579",
+    "issue_date": "2026-07-25",
+    "due_date": "2026-08-24",
+    "issuer": "前田電気株式会社",
+    "recipient": "有限会社吉田通信",
+    "subtotal": 77680,
+    "tax": 7768,
+    "total": 85448,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "R8-3579",
+    "issue_date": "2026-07-25",
+    "due_date": "2026-08-24",
+    "issuer": "前田電気株式会社",
+    "recipient": "有限会社吉田通信",
+    "subtotal": 77680,
+    "tax": 7768,
+    "total": 85448,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "2 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (77,680)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (85,448)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "R8-3579",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求書番号: R8-3579",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "令和8年7月25日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "発行日: 令和8年7月25日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "令和8年8月24日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "支払期限: 令和8年8月24日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "前田電気株式会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "前田電気株式会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "有限会社吉田通信",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "有限会社吉田通信",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "77,680円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 77,680円",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "7,768円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税(10%) 7,768円",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "85,448円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 85,448円",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "シュレッダー用オイル",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 16 2,480 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 16 2,480 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "2,480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 16 2,480 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "39,680",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 16 2,480 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "名刺用紙 マイクロミシン",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 10 3,800 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "10",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 10 3,800 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 10 3,800 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "38,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 10 3,800 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-001",
+   "variant": "clean",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.002,
+   "extract_seconds": 0.002,
+   "n_elements": 11,
+   "tp": 11,
+   "n_pred": 11,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "No.202610-887",
+    "issue_date": "2026-10-26",
+    "due_date": "2026-11-25",
+    "issuer": "合同会社佐々木情報",
+    "recipient": null,
+    "subtotal": 216860,
+    "tax": 21686,
+    "total": 238546,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 11,
+      "unit_price": 3800,
+      "amount": 41800,
+      "tax_rate": null
+     },
+     {
+      "name": "ボールペン 黒 10本入",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 12,
+      "unit_price": 2480,
+      "amount": 29760,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 18,
+      "unit_price": 250,
+      "amount": 4500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "No.202610-887",
+    "issue_date": "2026-10-26",
+    "due_date": "2026-11-25",
+    "issuer": "合同会社佐々木情報",
+    "recipient": "斉藤ガス株式会社",
+    "subtotal": 216860,
+    "tax": 21686,
+    "total": 238546,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 11,
+      "unit_price": 3800,
+      "amount": 41800,
+      "tax_rate": null
+     },
+     {
+      "name": "ボールペン 黒 10本入",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 12,
+      "unit_price": 2480,
+      "amount": 29760,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 18,
+      "unit_price": 250,
+      "amount": 4500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "4 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (216,860)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (238,546)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "No.202610-887",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. No.202610-887",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "2026/10/26",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Date 2026/10/26",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "2026/11/25",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due 2026/11/25",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "合同会社佐々木情報",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合同会社佐々木情報",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "subtotal",
+     "raw": "￥２１６，８６０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal ￥２１６，８６０",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "￥２１，６８６",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Tax (10%) ￥２１，６８６",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "￥２３８，５４６",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total ￥２３８，５４６",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "LANケーブル 5m",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m １１ ３，８００ ４１，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "１１",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m １１ ３，８００ ４１，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "３，８００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m １１ ３，８００ ４１，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "４１，８００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m １１ ３，８００ ４１，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ボールペン 黒 10本入",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ボールペン 黒 10本入 １１ １２，８００ １４０，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "１１",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ボールペン 黒 10本入 １１ １２，８００ １４０，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "１２，８００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ボールペン 黒 10本入 １１ １２，８００ １４０，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "１４０，８００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ボールペン 黒 10本入 １１ １２，８００ １４０，８００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "出張技術料",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 １２ ２，４８０ ２９，７６０",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "１２",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 １２ ２，４８０ ２９，７６０",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "２，４８０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 １２ ２，４８０ ２９，７６０",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "２９，７６０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 １２ ２，４８０ ２９，７６０",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ワイヤレスマウス",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス １８ ２５０ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "１８",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス １８ ２５０ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "２５０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス １８ ２５０ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "４，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス １８ ２５０ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-002",
+   "variant": "clean",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.002,
+   "n_elements": 15,
+   "tp": 12,
+   "n_pred": 12,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "No.202607-897",
+    "issue_date": "2026-07-23",
+    "due_date": "2026-09-06",
+    "issuer": "橋本情報有限会社",
+    "recipient": "株式会社青木情報",
+    "subtotal": 125190,
+    "tax": 11862,
+    "total": 137052,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "菓子詰め合わせ",
+      "quantity": 8,
+      "unit_price": 980,
+      "amount": 7840,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 11,
+      "unit_price": 250,
+      "amount": 2750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 5,
+      "unit_price": 5000,
+      "amount": 25000,
+      "tax_rate": 0.08
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "No.202607-897",
+    "issue_date": "2026-07-23",
+    "due_date": "2026-09-06",
+    "issuer": "橋本情報有限会社",
+    "recipient": "株式会社青木情報",
+    "subtotal": 125190,
+    "tax": 11862,
+    "total": 137052,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "菓子詰め合わせ",
+      "quantity": 8,
+      "unit_price": 980,
+      "amount": 7840,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 11,
+      "unit_price": 250,
+      "amount": 2750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 5,
+      "unit_price": 5000,
+      "amount": 25000,
+      "tax_rate": 0.08
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "4 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (125,190)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (137,052)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax matches 2 rate group(s): 11,862",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "No.202607-897",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求番号 No.202607-897",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "2026/07/23",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求日 2026/07/23",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "2026/09/06",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お支払期日 2026/09/06",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "橋本情報有限会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "橋本情報有限会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "株式会社青木情報",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "株式会社青木情報",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "125,190円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 125,190円",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "11,862円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税合計 11,862円",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "137,052円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 137,052円",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "キーボード 日本語配列",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "89,600",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "菓子詰め合わせ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "菓子詰め合わせ 8 980 8%(軽減) 7,840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "8",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "菓子詰め合わせ 8 980 8%(軽減) 7,840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "菓子詰め合わせ 8 980 8%(軽減) 7,840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "7,840",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "菓子詰め合わせ 8 980 8%(軽減) 7,840",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "菓子詰め合わせ 8 980 8%(軽減) 7,840",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "インクカートリッジ 黒",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 11 250 10% 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 11 250 10% 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 11 250 10% 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "2,750",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 11 250 10% 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 11 250 10% 2,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "インスタントみそ汁 30食",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 5 5,000 8%(軽減) 25,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "5",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 5 5,000 8%(軽減) 25,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "5,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 5 5,000 8%(軽減) 25,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "25,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 5 5,000 8%(軽減) 25,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 5 5,000 8%(軽減) 25,000",
+     "page": 1
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-003",
+   "variant": "clean",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.002,
+   "extract_seconds": 0.002,
+   "n_elements": 15,
+   "tp": 13,
+   "n_pred": 13,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "INV-2026-1472",
+    "issue_date": "2026-09-11",
+    "due_date": "2026-10-26",
+    "issuer": "松本建設株式会社",
+    "recipient": "吉田水産株式会社",
+    "subtotal": 84680,
+    "tax": 8468,
+    "total": 93148,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 10,
+      "unit_price": 480,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 480,
+      "amount": 3360,
+      "tax_rate": null
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 13,
+      "unit_price": 1500,
+      "amount": 19500,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 980,
+      "amount": 18620,
+      "tax_rate": null
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 3,
+      "unit_price": 12800,
+      "amount": 38400,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-1472",
+    "issue_date": "2026-09-11",
+    "due_date": "2026-10-26",
+    "issuer": "松本建設株式会社",
+    "recipient": "吉田水産株式会社",
+    "subtotal": 84680,
+    "tax": 8468,
+    "total": 93148,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 10,
+      "unit_price": 480,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 480,
+      "amount": 3360,
+      "tax_rate": null
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 13,
+      "unit_price": 1500,
+      "amount": 19500,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 980,
+      "amount": 18620,
+      "tax_rate": null
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 3,
+      "unit_price": 12800,
+      "amount": 38400,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "5 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (84,680)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (93,148)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-1472",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求書番号: INV-2026-1472",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "2026/09/11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "発行日: 2026/09/11",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "2026/10/26",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "支払期限: 2026/10/26",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "松本建設株式会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "松本建設株式会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "吉田水産株式会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "吉田水産株式会社",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "¥84,680",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 ¥84,680",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "¥8,468",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税(10%) ¥8,468",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "¥93,148",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 ¥93,148",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "LANケーブル 5m",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 10 480 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "10",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 10 480 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 10 480 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "4,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 10 480 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "外付けHDD 2TB",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 480 3,360",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 480 3,360",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 480 3,360",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "3,360",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 480 3,360",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "電卓 12桁",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 13 1,500 19,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 13 1,500 19,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "1,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 13 1,500 19,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "19,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 13 1,500 19,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ステープラー針 10箱",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 980 18,620",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "19",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 980 18,620",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 980 18,620",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "18,620",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 980 18,620",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "インクカートリッジ 黒",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 3 12,800 38,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "3",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 3 12,800 38,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 3 12,800 38,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "38,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 3 12,800 38,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-004",
+   "variant": "clean",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.002,
+   "extract_seconds": 0.002,
+   "n_elements": 12,
+   "tp": 12,
+   "n_pred": 12,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "No.202605-120",
+    "issue_date": "2026-05-17",
+    "due_date": "2026-05-31",
+    "issuer": "株式会社長谷川運輸",
+    "recipient": null,
+    "subtotal": 1027000,
+    "tax": 102700,
+    "total": 1129700,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 4,
+      "unit_price": 3800,
+      "amount": 15200,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 19,
+      "unit_price": 24800,
+      "amount": 471200,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 16,
+      "unit_price": 24800,
+      "amount": 396800,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "No.202605-120",
+    "issue_date": "2026-05-17",
+    "due_date": "2026-05-31",
+    "issuer": "株式会社長谷川運輸",
+    "recipient": "清水食品株式会社",
+    "subtotal": 1027000,
+    "tax": 102700,
+    "total": 1129700,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 4,
+      "unit_price": 3800,
+      "amount": 15200,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 19,
+      "unit_price": 24800,
+      "amount": 471200,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 16,
+      "unit_price": 24800,
+      "amount": 396800,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "5 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (1,027,000)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (1,129,700)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "No.202605-120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. No.202605-120",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "令和8年5月17日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Date 令和8年5月17日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "令和8年5月31日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due 令和8年5月31日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "株式会社長谷川運輸",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "株式会社長谷川運輸",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "subtotal",
+     "raw": "1,027,000円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal 1,027,000円",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "102,700円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Tax (10%) 102,700円",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "1,129,700円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total 1,129,700円",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "シュレッダー用オイル",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 4 3,800 15,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "4",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 4 3,800 15,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 4 3,800 15,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "15,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "シュレッダー用オイル 4 3,800 15,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "外付けHDD 2TB",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 19 24,800 471,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "19",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 19 24,800 471,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "24,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 19 24,800 471,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "471,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 19 24,800 471,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "ライセンス更新料",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 16 24,800 396,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 16 24,800 396,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "24,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 16 24,800 396,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "396,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 16 24,800 396,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ステープラー針 10箱",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 12 250 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "12",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 12 250 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 12 250 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "3,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 12 250 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "ラベルシール A4 20枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 12,800 140,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 12,800 140,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 12,800 140,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "140,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 12,800 140,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-005",
+   "variant": "clean",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.003,
+   "n_elements": 19,
+   "tp": 16,
+   "n_pred": 16,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "INV-2026-4259",
+    "issue_date": "2026-02-26",
+    "due_date": "2026-03-12",
+    "issuer": "中村鉱業株式会社",
+    "recipient": "池田通信合同会社",
+    "subtotal": 144360,
+    "tax": 14072,
+    "total": 158432,
+    "line_items": [
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 250,
+      "amount": 4750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 6,
+      "unit_price": 250,
+      "amount": 1500,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 2,
+      "unit_price": 12800,
+      "amount": 25600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "オレンジジュース 1L ×12本",
+      "quantity": 16,
+      "unit_price": 980,
+      "amount": 15680,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "お茶 500ml ×24本",
+      "quantity": 1,
+      "unit_price": 980,
+      "amount": 980,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-4259",
+    "issue_date": "2026-02-26",
+    "due_date": "2026-03-12",
+    "issuer": "中村鉱業株式会社",
+    "recipient": "池田通信合同会社",
+    "subtotal": 144360,
+    "tax": 14072,
+    "total": 158432,
+    "line_items": [
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 250,
+      "amount": 4750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 6,
+      "unit_price": 250,
+      "amount": 1500,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 2,
+      "unit_price": 12800,
+      "amount": 25600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "オレンジジュース 1L ×12本",
+      "quantity": 16,
+      "unit_price": 980,
+      "amount": 15680,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "お茶 500ml ×24本",
+      "quantity": 1,
+      "unit_price": 980,
+      "amount": 980,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "8 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (144,360)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (158,432)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax matches 2 rate group(s): 14,073",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-4259",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求番号 INV-2026-4259",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "２０２６年２月２６日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求日 ２０２６年２月２６日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "２０２６年３月１２日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お支払期日 ２０２６年３月１２日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "中村鉱業株式会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "中村鉱業株式会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "池田通信合同会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "池田通信合同会社",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "144,360円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 144,360円",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "14,072円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税合計 14,072円",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "158,432円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 158,432円",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "ステープラー針 10箱",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 250 10% 4,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "19",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 250 10% 4,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 250 10% 4,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "4,750",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 250 10% 4,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 19 250 10% 4,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ミネラルウォーター 2L ×6本",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 6 250 8%(軽減) 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "6",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 6 250 8%(軽減) 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 6 250 8%(軽減) 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "1,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 6 250 8%(軽減) 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 6 250 8%(軽減) 1,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "保守サポート 月額",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 13 250 10% 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 13 250 10% 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 13 250 10% 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "3,250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 13 250 10% 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 13 250 10% 3,250",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "電卓 12桁",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 12 250 10% 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "12",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 12 250 10% 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 12 250 10% 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "3,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 12 250 10% 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 12 250 10% 3,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "インクカートリッジ 黒",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 2 12,800 10% 25,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "2",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 2 12,800 10% 25,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 2 12,800 10% 25,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "25,600",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 2 12,800 10% 25,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 2 12,800 10% 25,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "オレンジジュース 1L ×12本",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オレンジジュース 1L ×12本 16 980 8%(軽減) 15,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オレンジジュース 1L ×12本 16 980 8%(軽減) 15,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オレンジジュース 1L ×12本 16 980 8%(軽減) 15,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "15,680",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オレンジジュース 1L ×12本 16 980 8%(軽減) 15,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オレンジジュース 1L ×12本 16 980 8%(軽減) 15,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "お茶 500ml ×24本",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お茶 500ml ×24本 1 980 8%(軽減) 980",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "1",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お茶 500ml ×24本 1 980 8%(軽減) 980",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お茶 500ml ×24本 1 980 8%(軽減) 980",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お茶 500ml ×24本 1 980 8%(軽減) 980",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お茶 500ml ×24本 1 980 8%(軽減) 980",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "コピー用紙 A4 500枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "89,600",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 7 12,800 10% 89,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 7 12,800 10% 89,600",
+     "page": 1
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-006",
+   "variant": "clean",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.002,
+   "extract_seconds": 0.002,
+   "n_elements": 12,
+   "tp": 10,
+   "n_pred": 10,
+   "n_gold": 10,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "INV-2026-9336",
+    "issue_date": "2026-01-17",
+    "due_date": "2026-02-16",
+    "issuer": "小林運輸有限会社",
+    "recipient": "森通信合同会社",
+    "subtotal": 26240,
+    "tax": 2624,
+    "total": 28864,
+    "line_items": [
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 13,
+      "unit_price": 980,
+      "amount": 12740,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-9336",
+    "issue_date": "2026-01-17",
+    "due_date": "2026-02-16",
+    "issuer": "小林運輸有限会社",
+    "recipient": "森通信合同会社",
+    "subtotal": 26240,
+    "tax": 2624,
+    "total": 28864,
+    "line_items": [
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 13,
+      "unit_price": 980,
+      "amount": 12740,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "2 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (26,240)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (28,864)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-9336",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求書番号: INV-2026-9336",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "令和8年1月17日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "発行日: 令和8年1月17日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "令和8年2月16日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "支払期限: 令和8年2月16日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "小林運輸有限会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小林運輸有限会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "森通信合同会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "森通信合同会社",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "¥26,240",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 ¥26,240",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "¥2,624",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税(10%) ¥2,624",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "¥28,864",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 ¥28,864",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "インクカートリッジ 黒",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 13 980 12,740",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 13 980 12,740",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 13 980 12,740",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "12,740",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インクカートリッジ 黒 13 980 12,740",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ワイヤレスマウス",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 9 1,500 13,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "9",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 9 1,500 13,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "1,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 9 1,500 13,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "13,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 9 1,500 13,500",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-007",
+   "variant": "clean",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.003,
+   "n_elements": 16,
+   "tp": 16,
+   "n_pred": 16,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "R8-3151",
+    "issue_date": "2026-05-04",
+    "due_date": "2026-06-18",
+    "issuer": "合同会社山本銀行",
+    "recipient": null,
+    "subtotal": 408450,
+    "tax": 40845,
+    "total": 449295,
+    "line_items": [
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 9,
+      "unit_price": 480,
+      "amount": 4320,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 13,
+      "unit_price": 24800,
+      "amount": 322400,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 5,
+      "unit_price": 980,
+      "amount": 4900,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 120,
+      "amount": 1320,
+      "tax_rate": null
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 15,
+      "unit_price": 250,
+      "amount": 3750,
+      "tax_rate": null
+     },
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 20,
+      "unit_price": 1200,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "ノートPC用ACアダプター",
+      "quantity": 18,
+      "unit_price": 120,
+      "amount": 2160,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 18,
+      "unit_price": 1200,
+      "amount": 21600,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "R8-3151",
+    "issue_date": "2026-05-04",
+    "due_date": "2026-06-18",
+    "issuer": "合同会社山本銀行",
+    "recipient": "松本ガス合同会社",
+    "subtotal": 408450,
+    "tax": 40845,
+    "total": 449295,
+    "line_items": [
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 9,
+      "unit_price": 480,
+      "amount": 4320,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 13,
+      "unit_price": 24800,
+      "amount": 322400,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 5,
+      "unit_price": 980,
+      "amount": 4900,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 120,
+      "amount": 1320,
+      "tax_rate": null
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 15,
+      "unit_price": 250,
+      "amount": 3750,
+      "tax_rate": null
+     },
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 20,
+      "unit_price": 1200,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "ノートPC用ACアダプター",
+      "quantity": 18,
+      "unit_price": 120,
+      "amount": 2160,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 18,
+      "unit_price": 1200,
+      "amount": 21600,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "9 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (408,450)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (449,295)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "R8-3151",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. R8-3151",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "２０２６年５月４日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Date ２０２６年５月４日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "２０２６年６月１８日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due ２０２６年６月１８日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "合同会社山本銀行",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合同会社山本銀行",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "subtotal",
+     "raw": "¥408,450",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal ¥408,450",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "¥40,845",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Tax (10%) ¥40,845",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "¥449,295",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total ¥449,295",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "液晶モニター 24インチ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 9 480 4,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "9",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 9 480 4,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 9 480 4,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "4,320",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 9 480 4,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ライセンス更新料",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 13 24,800 322,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 13 24,800 322,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "24,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 13 24,800 322,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "322,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ライセンス更新料 13 24,800 322,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "名刺用紙 マイクロミシン",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 5 980 4,900",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "5",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 5 980 4,900",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 5 980 4,900",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "4,900",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "名刺用紙 マイクロミシン 5 980 4,900",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ラベルシール A4 20枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 120 1,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 120 1,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 120 1,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "1,320",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 11 120 1,320",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "キーボード 日本語配列",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 15 250 3,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "15",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 15 250 3,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 15 250 3,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "3,750",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 15 250 3,750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "LANケーブル 5m",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 16 1,500 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 16 1,500 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "1,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 16 1,500 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "24,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "LANケーブル 5m 16 1,500 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "デスクライト LED",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED 20 1,200 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "20",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED 20 1,200 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "1,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED 20 1,200 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "24,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED 20 1,200 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "ノートPC用ACアダプター",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ノートPC用ACアダプター 18 120 2,160",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "18",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ノートPC用ACアダプター 18 120 2,160",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ノートPC用ACアダプター 18 120 2,160",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "2,160",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ノートPC用ACアダプター 18 120 2,160",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "ステープラー針 10箱",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 18 1,200 21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "18",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 18 1,200 21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "1,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 18 1,200 21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "21,600",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 18 1,200 21,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-008",
+   "variant": "clean",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.003,
+   "n_elements": 20,
+   "tp": 17,
+   "n_pred": 17,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "R8-8657",
+    "issue_date": "2026-08-13",
+    "due_date": "2026-09-27",
+    "issuer": "株式会社佐々木食品",
+    "recipient": "有限会社渡辺鉱業",
+    "subtotal": 421320,
+    "tax": 42103,
+    "total": 463423,
+    "line_items": [
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 17,
+      "unit_price": 3800,
+      "amount": 64600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 5000,
+      "amount": 35000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ドリンクバー用シロップ",
+      "quantity": 3,
+      "unit_price": 480,
+      "amount": 1440,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 18,
+      "unit_price": 12800,
+      "amount": 230400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 1,
+      "unit_price": 120,
+      "amount": 120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "データ移行作業",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 2480,
+      "amount": 4960,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 6,
+      "unit_price": 3800,
+      "amount": 22800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "R8-8657",
+    "issue_date": "2026-08-13",
+    "due_date": "2026-09-27",
+    "issuer": "株式会社佐々木食品",
+    "recipient": "有限会社渡辺鉱業",
+    "subtotal": 421320,
+    "tax": 42103,
+    "total": 463423,
+    "line_items": [
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 17,
+      "unit_price": 3800,
+      "amount": 64600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 5000,
+      "amount": 35000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ドリンクバー用シロップ",
+      "quantity": 3,
+      "unit_price": 480,
+      "amount": 1440,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 18,
+      "unit_price": 12800,
+      "amount": 230400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 1,
+      "unit_price": 120,
+      "amount": 120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "データ移行作業",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 2480,
+      "amount": 4960,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 6,
+      "unit_price": 3800,
+      "amount": 22800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "9 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (421,320)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (463,423)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax matches 2 rate group(s): 42,103",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "R8-8657",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求番号 R8-8657",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "2026/08/13",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求日 2026/08/13",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "2026/09/27",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お支払期日 2026/09/27",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "株式会社佐々木食品",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "株式会社佐々木食品",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "有限会社渡辺鉱業",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "有限会社渡辺鉱業",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "¥421,320",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 ¥421,320",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "¥42,103",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税合計 ¥42,103",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "¥463,423",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 ¥463,423",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "オフィスチェア用キャスター",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 17 3,800 10% 64,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "17",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 17 3,800 10% 64,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 17 3,800 10% 64,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "64,600",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 17 3,800 10% 64,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 17 3,800 10% 64,600",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "ラベルシール A4 20枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 1,500 10% 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 1,500 10% 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "1,500",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 1,500 10% 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "24,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 1,500 10% 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 1,500 10% 24,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "外付けHDD 2TB",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 5,000 10% 35,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "7",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 5,000 10% 35,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "5,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 5,000 10% 35,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "35,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 5,000 10% 35,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB 7 5,000 10% 35,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "ドリンクバー用シロップ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ドリンクバー用シロップ 3 480 8%(軽減) 1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "3",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ドリンクバー用シロップ 3 480 8%(軽減) 1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ドリンクバー用シロップ 3 480 8%(軽減) 1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "1,440",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ドリンクバー用シロップ 3 480 8%(軽減) 1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ドリンクバー用シロップ 3 480 8%(軽減) 1,440",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "設置作業費",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 18 12,800 10% 230,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "18",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 18 12,800 10% 230,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "12,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 18 12,800 10% 230,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "230,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 18 12,800 10% 230,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 18 12,800 10% 230,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "ステープラー針 10箱",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 1 120 10% 120",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "1",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 1 120 10% 120",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 1 120 10% 120",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 1 120 10% 120",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ステープラー針 10箱 1 120 10% 120",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "データ移行作業",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "データ移行作業 10 3,800 10% 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "10",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "データ移行作業 10 3,800 10% 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "データ移行作業 10 3,800 10% 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "38,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "データ移行作業 10 3,800 10% 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "データ移行作業 10 3,800 10% 38,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "液晶モニター 24インチ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 2 2,480 10% 4,960",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "2",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 2 2,480 10% 4,960",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "2,480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 2 2,480 10% 4,960",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "4,960",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 2 2,480 10% 4,960",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ 2 2,480 10% 4,960",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "コピー用紙 A4 500枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 6 3,800 10% 22,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "6",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 6 3,800 10% 22,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 6 3,800 10% 22,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "22,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 6 3,800 10% 22,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "コピー用紙 A4 500枚 6 3,800 10% 22,800",
+     "page": 1
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-009",
+   "variant": "clean",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.002,
+   "extract_seconds": 0.002,
+   "n_elements": 14,
+   "tp": 12,
+   "n_pred": 12,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "INV-2026-4562",
+    "issue_date": "2026-05-09",
+    "due_date": "2026-06-23",
+    "issuer": "清水水産有限会社",
+    "recipient": "山下ガス合同会社",
+    "subtotal": 163360,
+    "tax": 16336,
+    "total": 179696,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 9,
+      "unit_price": 3800,
+      "amount": 34200,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 5,
+      "unit_price": 24800,
+      "amount": 124000,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 3,
+      "unit_price": 120,
+      "amount": 360,
+      "tax_rate": null
+     },
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 4,
+      "unit_price": 1200,
+      "amount": 4800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "INV-2026-4562",
+    "issue_date": "2026-05-09",
+    "due_date": "2026-06-23",
+    "issuer": "清水水産有限会社",
+    "recipient": "山下ガス合同会社",
+    "subtotal": 163360,
+    "tax": 16336,
+    "total": 179696,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 9,
+      "unit_price": 3800,
+      "amount": 34200,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 5,
+      "unit_price": 24800,
+      "amount": 124000,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 3,
+      "unit_price": 120,
+      "amount": 360,
+      "tax_rate": null
+     },
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 4,
+      "unit_price": 1200,
+      "amount": 4800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "4 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (163,360)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (179,696)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "INV-2026-4562",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求書番号: INV-2026-4562",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "2026/05/09",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "発行日: 2026/05/09",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "2026/06/23",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "支払期限: 2026/06/23",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "清水水産有限会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "清水水産有限会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "山下ガス合同会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "山下ガス合同会社",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "¥163,360",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 ¥163,360",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "¥16,336",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税(10%) ¥16,336",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "¥179,696",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 ¥179,696",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "キーボード 日本語配列",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 9 3,800 34,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "9",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 9 3,800 34,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "3,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 9 3,800 34,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "34,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 9 3,800 34,200",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "保守サポート 月額",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 5 24,800 124,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "5",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 5 24,800 124,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "24,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 5 24,800 124,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "124,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 5 24,800 124,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "ワイヤレスマウス",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 3 120 360",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "3",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 3 120 360",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 3 120 360",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "360",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 3 120 360",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "オフィスチェア用キャスター",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 4 1,200 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "4",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 4 1,200 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "1,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 4 1,200 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "4,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "オフィスチェア用キャスター 4 1,200 4,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-010",
+   "variant": "clean",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.003,
+   "n_elements": 16,
+   "tp": 16,
+   "n_pred": 16,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": false,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[8]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "No.202606-957",
+    "issue_date": "2026-06-19",
+    "due_date": "2026-07-03",
+    "issuer": "株式会社小林食品",
+    "recipient": null,
+    "subtotal": 212180,
+    "tax": 21218,
+    "total": 233398,
+    "line_items": [
+     {
+      "name": "電卓 12桁",
+      "quantity": 20,
+      "unit_price": 120,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 13,
+      "unit_price": 12800,
+      "amount": 166400,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 10,
+      "unit_price": 120,
+      "amount": 1200,
+      "tax_rate": null
+     },
+     {
+      "name": "ホワイトボードマーカー",
+      "quantity": 6,
+      "unit_price": 480,
+      "amount": 2880,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 3,
+      "unit_price": 1500,
+      "amount": 4500,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 1500,
+      "amount": 16500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "No.202606-957",
+    "issue_date": "2026-06-19",
+    "due_date": "2026-07-03",
+    "issuer": "株式会社小林食品",
+    "recipient": "小林情報株式会社",
+    "subtotal": 212180,
+    "tax": 21218,
+    "total": 233398,
+    "line_items": [
+     {
+      "name": "電卓 12桁",
+      "quantity": 20,
+      "unit_price": 120,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 13,
+      "unit_price": 12800,
+      "amount": 166400,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 10,
+      "unit_price": 120,
+      "amount": 1200,
+      "tax_rate": null
+     },
+     {
+      "name": "ホワイトボードマーカー",
+      "quantity": 6,
+      "unit_price": 480,
+      "amount": 2880,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 3,
+      "unit_price": 1500,
+      "amount": 4500,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 1500,
+      "amount": 16500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "9 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (212,180)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (233,398)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax is 10% or 8% of the subtotal",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "No.202606-957",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Invoice No. No.202606-957",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "令和8年6月19日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Date 令和8年6月19日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "令和8年7月3日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Due 令和8年7月3日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "株式会社小林食品",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "株式会社小林食品",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "subtotal",
+     "raw": "￥２１２，１８０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Subtotal ￥２１２，１８０",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "￥２１，２１８",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Tax (10%) ￥２１，２１８",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "￥２３３，３９８",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "Total ￥２３３，３９８",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "電卓 12桁",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 ２０ １２０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "２０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 ２０ １２０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "１２０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 ２０ １２０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "２，４００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 ２０ １２０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "液晶モニター 24インチ",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ ２ １，２００ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "２",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ ２ １，２００ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "１，２００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ ２ １，２００ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "２，４００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "液晶モニター 24インチ ２ １，２００ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "設置作業費",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 １３ １２，８００ １６６，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "１３",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 １３ １２，８００ １６６，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "１２，８００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 １３ １２，８００ １６６，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "１６６，４００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "設置作業費 １３ １２，８００ １６６，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "外付けHDD 2TB",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB ５ ４８０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "５",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB ５ ４８０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "４８０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB ５ ４８０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "２，４００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "外付けHDD 2TB ５ ４８０ ２，４００",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "保守サポート 月額",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 １０ １２０ １，２００",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "１０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 １０ １２０ １，２００",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "１２０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 １０ １２０ １，２００",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "１，２００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 １０ １２０ １，２００",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "ホワイトボードマーカー",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ホワイトボードマーカー ６ ４８０ ２，８８０",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "６",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ホワイトボードマーカー ６ ４８０ ２，８８０",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "４８０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ホワイトボードマーカー ６ ４８０ ２，８８０",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "２，８８０",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ホワイトボードマーカー ６ ４８０ ２，８８０",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "出張技術料",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 ９ １，５００ １３，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "９",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 ９ １，５００ １３，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "１，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 ９ １，５００ １３，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "１３，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 ９ １，５００ １３，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "デスクライト LED",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED ３ １，５００ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "３",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED ３ １，５００ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "１，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED ３ １，５００ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "４，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "デスクライト LED ３ １，５００ ４，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    },
+    {
+     "name": "line_items[8].name",
+     "raw": "ラベルシール A4 20枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 １１ １，５００ １６，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].quantity",
+     "raw": "１１",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 １１ １，５００ １６，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].unit_price",
+     "raw": "１，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 １１ １，５００ １６，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].amount",
+     "raw": "１６，５００",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 １１ １，５００ １６，５００",
+     "page": 1
+    },
+    {
+     "name": "line_items[8].tax_rate",
+     "raw": null,
+     "status": "missing",
+     "quote_match": 0.0,
+     "value_in_quote": false,
+     "quote": "",
+     "page": null
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "clean-011",
+   "variant": "clean",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.003,
+   "extract_seconds": 0.002,
+   "n_elements": 19,
+   "tp": 16,
+   "n_pred": 16,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": true,
+    "issue_date": true,
+    "due_date": true,
+    "issuer": true,
+    "recipient": true,
+    "subtotal": true,
+    "tax": true,
+    "total": true,
+    "line_items": true
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [
+     {
+      "name": "invoice_number",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issue_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "due_date",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "issuer",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "recipient",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "subtotal",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "tax",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "total",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[0]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[1]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[2]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[3]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[4]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[5]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[6]",
+      "correct": true,
+      "flagged": false
+     },
+     {
+      "name": "line_items[7]",
+      "correct": true,
+      "flagged": false
+     }
+    ],
+    "check_failed": false
+   },
+   "pred": {
+    "invoice_number": "R8-8006",
+    "issue_date": "2026-07-27",
+    "due_date": "2026-08-26",
+    "issuer": "石川水産有限会社",
+    "recipient": "有限会社鈴木ガス",
+    "subtotal": 372090,
+    "tax": 37135,
+    "total": 409225,
+    "line_items": [
+     {
+      "name": "保守サポート 月額",
+      "quantity": 19,
+      "unit_price": 2480,
+      "amount": 47120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 3,
+      "unit_price": 250,
+      "amount": 750,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 3,
+      "unit_price": 980,
+      "amount": 2940,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 11,
+      "unit_price": 24800,
+      "amount": 272800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "gold": {
+    "invoice_number": "R8-8006",
+    "issue_date": "2026-07-27",
+    "due_date": "2026-08-26",
+    "issuer": "石川水産有限会社",
+    "recipient": "有限会社鈴木ガス",
+    "subtotal": 372090,
+    "tax": 37135,
+    "total": 409225,
+    "line_items": [
+     {
+      "name": "保守サポート 月額",
+      "quantity": 19,
+      "unit_price": 2480,
+      "amount": 47120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 3,
+      "unit_price": 250,
+      "amount": 750,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 3,
+      "unit_price": 980,
+      "amount": 2940,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 11,
+      "unit_price": 24800,
+      "amount": 272800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "pass",
+     "message": "8 rows: quantity × unit price = amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "pass",
+     "message": "line amounts add up to the subtotal (372,090)",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "pass",
+     "message": "subtotal + tax = total (409,225)",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "pass",
+     "message": "tax matches 2 rate group(s): 37,135",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "pass",
+     "message": "issue date is not after the due date",
+     "fields": []
+    }
+   ],
+   "fields": [
+    {
+     "name": "invoice_number",
+     "raw": "R8-8006",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求番号 R8-8006",
+     "page": 1
+    },
+    {
+     "name": "issue_date",
+     "raw": "令和8年7月27日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "請求日 令和8年7月27日",
+     "page": 1
+    },
+    {
+     "name": "due_date",
+     "raw": "令和8年8月26日",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "お支払期日 令和8年8月26日",
+     "page": 1
+    },
+    {
+     "name": "issuer",
+     "raw": "石川水産有限会社",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "石川水産有限会社",
+     "page": 1
+    },
+    {
+     "name": "recipient",
+     "raw": "有限会社鈴木ガス",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "有限会社鈴木ガス",
+     "page": 1
+    },
+    {
+     "name": "subtotal",
+     "raw": "372,090円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "小計 372,090円",
+     "page": 1
+    },
+    {
+     "name": "tax",
+     "raw": "37,135円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "消費税合計 37,135円",
+     "page": 1
+    },
+    {
+     "name": "total",
+     "raw": "409,225円",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "合計 409,225円",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].name",
+     "raw": "保守サポート 月額",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 19 2,480 10% 47,120",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].quantity",
+     "raw": "19",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 19 2,480 10% 47,120",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].unit_price",
+     "raw": "2,480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 19 2,480 10% 47,120",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].amount",
+     "raw": "47,120",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 19 2,480 10% 47,120",
+     "page": 1
+    },
+    {
+     "name": "line_items[0].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "保守サポート 月額 19 2,480 10% 47,120",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].name",
+     "raw": "出張技術料",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 2 1,200 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].quantity",
+     "raw": "2",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 2 1,200 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].unit_price",
+     "raw": "1,200",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 2 1,200 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].amount",
+     "raw": "2,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 2 1,200 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[1].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "出張技術料 2 1,200 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].name",
+     "raw": "ワイヤレスマウス",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 16 2,480 10% 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 16 2,480 10% 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].unit_price",
+     "raw": "2,480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 16 2,480 10% 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].amount",
+     "raw": "39,680",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 16 2,480 10% 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[2].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ワイヤレスマウス 16 2,480 10% 39,680",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].name",
+     "raw": "キーボード 日本語配列",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 5 480 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].quantity",
+     "raw": "5",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 5 480 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].unit_price",
+     "raw": "480",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 5 480 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].amount",
+     "raw": "2,400",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 5 480 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[3].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "キーボード 日本語配列 5 480 10% 2,400",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].name",
+     "raw": "インスタントみそ汁 30食",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 3 250 8%(軽減) 750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].quantity",
+     "raw": "3",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 3 250 8%(軽減) 750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 3 250 8%(軽減) 750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].amount",
+     "raw": "750",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 3 250 8%(軽減) 750",
+     "page": 1
+    },
+    {
+     "name": "line_items[4].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "インスタントみそ汁 30食 3 250 8%(軽減) 750",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].name",
+     "raw": "ミネラルウォーター 2L ×6本",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 3 980 8%(軽減) 2,940",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].quantity",
+     "raw": "3",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 3 980 8%(軽減) 2,940",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].unit_price",
+     "raw": "980",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 3 980 8%(軽減) 2,940",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].amount",
+     "raw": "2,940",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 3 980 8%(軽減) 2,940",
+     "page": 1
+    },
+    {
+     "name": "line_items[5].tax_rate",
+     "raw": "8%(軽減)",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ミネラルウォーター 2L ×6本 3 980 8%(軽減) 2,940",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].name",
+     "raw": "ラベルシール A4 20枚",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 250 10% 4,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].quantity",
+     "raw": "16",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 250 10% 4,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].unit_price",
+     "raw": "250",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 250 10% 4,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].amount",
+     "raw": "4,000",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 250 10% 4,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[6].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "ラベルシール A4 20枚 16 250 10% 4,000",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].name",
+     "raw": "電卓 12桁",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 11 24,800 10% 272,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].quantity",
+     "raw": "11",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 11 24,800 10% 272,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].unit_price",
+     "raw": "24,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 11 24,800 10% 272,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].amount",
+     "raw": "272,800",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 11 24,800 10% 272,800",
+     "page": 1
+    },
+    {
+     "name": "line_items[7].tax_rate",
+     "raw": "10%",
+     "status": "verified",
+     "quote_match": 1.0,
+     "value_in_quote": true,
+     "quote": "電卓 12桁 11 24,800 10% 272,800",
+     "page": 1
+    }
+   ],
+   "error": null
+  },
+  {
+   "id": "scan-000",
+   "variant": "scanned",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 10,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "R8-3579",
+    "issue_date": "2026-07-25",
+    "due_date": "2026-08-24",
+    "issuer": "前田電気株式会社",
+    "recipient": "有限会社吉田通信",
+    "subtotal": 77680,
+    "tax": 7768,
+    "total": 85448,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-001",
+   "variant": "scanned",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "No.202610-887",
+    "issue_date": "2026-10-26",
+    "due_date": "2026-11-25",
+    "issuer": "合同会社佐々木情報",
+    "recipient": "斉藤ガス株式会社",
+    "subtotal": 216860,
+    "tax": 21686,
+    "total": 238546,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 11,
+      "unit_price": 3800,
+      "amount": 41800,
+      "tax_rate": null
+     },
+     {
+      "name": "ボールペン 黒 10本入",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 12,
+      "unit_price": 2480,
+      "amount": 29760,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 18,
+      "unit_price": 250,
+      "amount": 4500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-002",
+   "variant": "scanned",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "No.202607-897",
+    "issue_date": "2026-07-23",
+    "due_date": "2026-09-06",
+    "issuer": "橋本情報有限会社",
+    "recipient": "株式会社青木情報",
+    "subtotal": 125190,
+    "tax": 11862,
+    "total": 137052,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "菓子詰め合わせ",
+      "quantity": 8,
+      "unit_price": 980,
+      "amount": 7840,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 11,
+      "unit_price": 250,
+      "amount": 2750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 5,
+      "unit_price": 5000,
+      "amount": 25000,
+      "tax_rate": 0.08
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-003",
+   "variant": "scanned",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "INV-2026-1472",
+    "issue_date": "2026-09-11",
+    "due_date": "2026-10-26",
+    "issuer": "松本建設株式会社",
+    "recipient": "吉田水産株式会社",
+    "subtotal": 84680,
+    "tax": 8468,
+    "total": 93148,
+    "line_items": [
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 10,
+      "unit_price": 480,
+      "amount": 4800,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 480,
+      "amount": 3360,
+      "tax_rate": null
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 13,
+      "unit_price": 1500,
+      "amount": 19500,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 980,
+      "amount": 18620,
+      "tax_rate": null
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 3,
+      "unit_price": 12800,
+      "amount": 38400,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-004",
+   "variant": "scanned",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 13,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "No.202605-120",
+    "issue_date": "2026-05-17",
+    "due_date": "2026-05-31",
+    "issuer": "株式会社長谷川運輸",
+    "recipient": "清水食品株式会社",
+    "subtotal": 1027000,
+    "tax": 102700,
+    "total": 1129700,
+    "line_items": [
+     {
+      "name": "シュレッダー用オイル",
+      "quantity": 4,
+      "unit_price": 3800,
+      "amount": 15200,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 19,
+      "unit_price": 24800,
+      "amount": 471200,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 16,
+      "unit_price": 24800,
+      "amount": 396800,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 12800,
+      "amount": 140800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-005",
+   "variant": "scanned",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "INV-2026-4259",
+    "issue_date": "2026-02-26",
+    "due_date": "2026-03-12",
+    "issuer": "中村鉱業株式会社",
+    "recipient": "池田通信合同会社",
+    "subtotal": 144360,
+    "tax": 14072,
+    "total": 158432,
+    "line_items": [
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 19,
+      "unit_price": 250,
+      "amount": 4750,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 6,
+      "unit_price": 250,
+      "amount": 1500,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 13,
+      "unit_price": 250,
+      "amount": 3250,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 12,
+      "unit_price": 250,
+      "amount": 3000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 2,
+      "unit_price": 12800,
+      "amount": 25600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "オレンジジュース 1L ×12本",
+      "quantity": 16,
+      "unit_price": 980,
+      "amount": 15680,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "お茶 500ml ×24本",
+      "quantity": 1,
+      "unit_price": 980,
+      "amount": 980,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 7,
+      "unit_price": 12800,
+      "amount": 89600,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-006",
+   "variant": "scanned",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 10,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "INV-2026-9336",
+    "issue_date": "2026-01-17",
+    "due_date": "2026-02-16",
+    "issuer": "小林運輸有限会社",
+    "recipient": "森通信合同会社",
+    "subtotal": 26240,
+    "tax": 2624,
+    "total": 28864,
+    "line_items": [
+     {
+      "name": "インクカートリッジ 黒",
+      "quantity": 13,
+      "unit_price": 980,
+      "amount": 12740,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-007",
+   "variant": "scanned",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "R8-3151",
+    "issue_date": "2026-05-04",
+    "due_date": "2026-06-18",
+    "issuer": "合同会社山本銀行",
+    "recipient": "松本ガス合同会社",
+    "subtotal": 408450,
+    "tax": 40845,
+    "total": 449295,
+    "line_items": [
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 9,
+      "unit_price": 480,
+      "amount": 4320,
+      "tax_rate": null
+     },
+     {
+      "name": "ライセンス更新料",
+      "quantity": 13,
+      "unit_price": 24800,
+      "amount": 322400,
+      "tax_rate": null
+     },
+     {
+      "name": "名刺用紙 マイクロミシン",
+      "quantity": 5,
+      "unit_price": 980,
+      "amount": 4900,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 120,
+      "amount": 1320,
+      "tax_rate": null
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 15,
+      "unit_price": 250,
+      "amount": 3750,
+      "tax_rate": null
+     },
+     {
+      "name": "LANケーブル 5m",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 20,
+      "unit_price": 1200,
+      "amount": 24000,
+      "tax_rate": null
+     },
+     {
+      "name": "ノートPC用ACアダプター",
+      "quantity": 18,
+      "unit_price": 120,
+      "amount": 2160,
+      "tax_rate": null
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 18,
+      "unit_price": 1200,
+      "amount": 21600,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-008",
+   "variant": "scanned",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "R8-8657",
+    "issue_date": "2026-08-13",
+    "due_date": "2026-09-27",
+    "issuer": "株式会社佐々木食品",
+    "recipient": "有限会社渡辺鉱業",
+    "subtotal": 421320,
+    "tax": 42103,
+    "total": 463423,
+    "line_items": [
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 17,
+      "unit_price": 3800,
+      "amount": 64600,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 1500,
+      "amount": 24000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 7,
+      "unit_price": 5000,
+      "amount": 35000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ドリンクバー用シロップ",
+      "quantity": 3,
+      "unit_price": 480,
+      "amount": 1440,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 18,
+      "unit_price": 12800,
+      "amount": 230400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ステープラー針 10箱",
+      "quantity": 1,
+      "unit_price": 120,
+      "amount": 120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "データ移行作業",
+      "quantity": 10,
+      "unit_price": 3800,
+      "amount": 38000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 2480,
+      "amount": 4960,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "コピー用紙 A4 500枚",
+      "quantity": 6,
+      "unit_price": 3800,
+      "amount": 22800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-009",
+   "variant": "scanned",
+   "layout": "a",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 12,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "INV-2026-4562",
+    "issue_date": "2026-05-09",
+    "due_date": "2026-06-23",
+    "issuer": "清水水産有限会社",
+    "recipient": "山下ガス合同会社",
+    "subtotal": 163360,
+    "tax": 16336,
+    "total": 179696,
+    "line_items": [
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 9,
+      "unit_price": 3800,
+      "amount": 34200,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 5,
+      "unit_price": 24800,
+      "amount": 124000,
+      "tax_rate": null
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 3,
+      "unit_price": 120,
+      "amount": 360,
+      "tax_rate": null
+     },
+     {
+      "name": "オフィスチェア用キャスター",
+      "quantity": 4,
+      "unit_price": 1200,
+      "amount": 4800,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-010",
+   "variant": "scanned",
+   "layout": "b",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 17,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "No.202606-957",
+    "issue_date": "2026-06-19",
+    "due_date": "2026-07-03",
+    "issuer": "株式会社小林食品",
+    "recipient": "小林情報株式会社",
+    "subtotal": 212180,
+    "tax": 21218,
+    "total": 233398,
+    "line_items": [
+     {
+      "name": "電卓 12桁",
+      "quantity": 20,
+      "unit_price": 120,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "液晶モニター 24インチ",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "設置作業費",
+      "quantity": 13,
+      "unit_price": 12800,
+      "amount": 166400,
+      "tax_rate": null
+     },
+     {
+      "name": "外付けHDD 2TB",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": null
+     },
+     {
+      "name": "保守サポート 月額",
+      "quantity": 10,
+      "unit_price": 120,
+      "amount": 1200,
+      "tax_rate": null
+     },
+     {
+      "name": "ホワイトボードマーカー",
+      "quantity": 6,
+      "unit_price": 480,
+      "amount": 2880,
+      "tax_rate": null
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 9,
+      "unit_price": 1500,
+      "amount": 13500,
+      "tax_rate": null
+     },
+     {
+      "name": "デスクライト LED",
+      "quantity": 3,
+      "unit_price": 1500,
+      "amount": 4500,
+      "tax_rate": null
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 11,
+      "unit_price": 1500,
+      "amount": 16500,
+      "tax_rate": null
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  },
+  {
+   "id": "scan-011",
+   "variant": "scanned",
+   "layout": "c",
+   "pages": 1,
+   "parse_seconds": 0.0,
+   "extract_seconds": 0.0,
+   "n_elements": 0,
+   "tp": 0,
+   "n_pred": 0,
+   "n_gold": 16,
+   "correct": {
+    "invoice_number": false,
+    "issue_date": false,
+    "due_date": false,
+    "issuer": false,
+    "recipient": false,
+    "subtotal": false,
+    "tax": false,
+    "total": false,
+    "line_items": false
+   },
+   "teds": 0.0,
+   "table_found": false,
+   "judge": {
+    "items": [],
+    "check_failed": false
+   },
+   "pred": {},
+   "gold": {
+    "invoice_number": "R8-8006",
+    "issue_date": "2026-07-27",
+    "due_date": "2026-08-26",
+    "issuer": "石川水産有限会社",
+    "recipient": "有限会社鈴木ガス",
+    "subtotal": 372090,
+    "tax": 37135,
+    "total": 409225,
+    "line_items": [
+     {
+      "name": "保守サポート 月額",
+      "quantity": 19,
+      "unit_price": 2480,
+      "amount": 47120,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "出張技術料",
+      "quantity": 2,
+      "unit_price": 1200,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "ワイヤレスマウス",
+      "quantity": 16,
+      "unit_price": 2480,
+      "amount": 39680,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "キーボード 日本語配列",
+      "quantity": 5,
+      "unit_price": 480,
+      "amount": 2400,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "インスタントみそ汁 30食",
+      "quantity": 3,
+      "unit_price": 250,
+      "amount": 750,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ミネラルウォーター 2L ×6本",
+      "quantity": 3,
+      "unit_price": 980,
+      "amount": 2940,
+      "tax_rate": 0.08
+     },
+     {
+      "name": "ラベルシール A4 20枚",
+      "quantity": 16,
+      "unit_price": 250,
+      "amount": 4000,
+      "tax_rate": 0.1
+     },
+     {
+      "name": "電卓 12桁",
+      "quantity": 11,
+      "unit_price": 24800,
+      "amount": 272800,
+      "tax_rate": 0.1
+     }
+    ]
+   },
+   "checks": [
+    {
+     "name": "line_amounts",
+     "status": "skipped",
+     "message": "no line item has quantity, unit price and amount",
+     "fields": []
+    },
+    {
+     "name": "subtotal_sum",
+     "status": "skipped",
+     "message": "needs a subtotal and an amount on every line item",
+     "fields": []
+    },
+    {
+     "name": "total_sum",
+     "status": "skipped",
+     "message": "needs subtotal, tax and total",
+     "fields": []
+    },
+    {
+     "name": "tax_rate",
+     "status": "skipped",
+     "message": "needs the tax amount",
+     "fields": []
+    },
+    {
+     "name": "date_order",
+     "status": "skipped",
+     "message": "needs issue and due dates",
+     "fields": []
+    }
+   ],
+   "fields": [],
+   "error": "no text parsed"
+  }
+ ]
+}

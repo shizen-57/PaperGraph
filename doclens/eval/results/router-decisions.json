@@ -1,0 +1,292 @@
+{
+ "config": {
+  "name": "router-decisions",
+  "signals": "text layer + Docling table quality (cached); no figure or second-pass signal",
+  "min_text_chars": 40,
+  "max_empty_cells": 0.3,
+  "date": "2026-10-24 07:51 UTC"
+ },
+ "router_summary": {
+  "all": {
+   "pages": 24,
+   "to_vlm": 12,
+   "share_to_vlm": 0.5,
+   "correct": 24,
+   "reasons": {
+    "scanned": 12,
+    "figure on the page": 12
+   }
+  },
+  "clean": {
+   "pages": 12,
+   "to_vlm": 0,
+   "share_to_vlm": 0.0,
+   "correct": 12,
+   "reasons": {}
+  },
+  "scanned": {
+   "pages": 12,
+   "to_vlm": 12,
+   "share_to_vlm": 1.0,
+   "correct": 12,
+   "reasons": {
+    "scanned": 12,
+    "figure on the page": 12
+   }
+  }
+ },
+ "pages": [
+  {
+   "id": "clean-000",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-001",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-002",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-003",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-004",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-005",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-006",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-007",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-008",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-009",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-010",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "clean-011",
+   "variant": "clean",
+   "page": 1,
+   "route": "docling",
+   "reasons": [],
+   "needs_vlm": false,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-000",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-001",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-002",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-003",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-004",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-005",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-006",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-007",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-008",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-009",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-010",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  },
+  {
+   "id": "scan-011",
+   "variant": "scanned",
+   "page": 1,
+   "route": "vlm",
+   "reasons": [
+    "scanned: 0 characters of text layer",
+    "figure on the page"
+   ],
+   "needs_vlm": true,
+   "docling_cache": true
+  }
+ ]
+}

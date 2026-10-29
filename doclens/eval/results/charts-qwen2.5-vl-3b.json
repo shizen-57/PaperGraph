@@ -1,0 +1,334 @@
+{
+ "config": {
+  "name": "charts-qwen2.5-vl-3b",
+  "vlm": "qwen2.5-vl-3b-instruct-q4_k_m",
+  "date": "2026-10-24 08:14 UTC",
+  "notes": [
+   "Qwen2.5-VL-3B-Instruct Q4_K_M + mmproj Q8_0 via llama-cpp-python on 4 CPU cores; temperature 0, schema-constrained"
+  ]
+ },
+ "chart_summary": {
+  "all": {
+   "n": 6,
+   "valid_rate": 1.0,
+   "mean_relative_error": 0.0398,
+   "coverage": 0.6667,
+   "seconds_per_chart": 41.8483
+  },
+  "with_data_labels": {
+   "n": 3,
+   "valid_rate": 1.0,
+   "mean_relative_error": 0.0806,
+   "coverage": 0.6667,
+   "seconds_per_chart": 35.72
+  },
+  "without_data_labels": {
+   "n": 3,
+   "valid_rate": 1.0,
+   "mean_relative_error": 0.0125,
+   "coverage": 0.6667,
+   "seconds_per_chart": 47.9767
+  }
+ },
+ "charts": [
+  {
+   "id": "chart-00",
+   "kind": "bar",
+   "data_labels": true,
+   "mre": 0.0,
+   "coverage": 1.0,
+   "points": 4,
+   "matched": 4,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "四半期別売上高",
+      "points": [
+       {
+        "x": "第1四半期",
+        "y": 690.0
+       },
+       {
+        "x": "第2四半期",
+        "y": 125.0
+       },
+       {
+        "x": "第3四半期",
+        "y": 850.0
+       },
+       {
+        "x": "第4四半期",
+        "y": 355.0
+       }
+      ]
+     }
+    ]
+   },
+   "seconds": 39.17
+  },
+  {
+   "id": "chart-01",
+   "kind": "bar",
+   "data_labels": false,
+   "mre": 0.0127,
+   "coverage": 1.0,
+   "points": 5,
+   "matched": 5,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "Monthly active users",
+      "points": [
+       {
+        "x": "Jan",
+        "y": 405.0
+       },
+       {
+        "x": "Feb",
+        "y": 96.0
+       },
+       {
+        "x": "Mar",
+        "y": 83.0
+       },
+       {
+        "x": "Apr",
+        "y": 57.0
+       },
+       {
+        "x": "May",
+        "y": 162.0
+       }
+      ]
+     }
+    ]
+   },
+   "seconds": 36.58
+  },
+  {
+   "id": "chart-02",
+   "kind": "grouped",
+   "data_labels": true,
+   "mre": null,
+   "coverage": 0.0,
+   "points": 6,
+   "matched": 0,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "2025年",
+      "points": []
+     },
+     {
+      "name": "2026年",
+      "points": []
+     }
+    ]
+   },
+   "seconds": 29.9
+  },
+  {
+   "id": "chart-03",
+   "kind": "grouped",
+   "data_labels": false,
+   "mre": 0.0081,
+   "coverage": 0.6667,
+   "points": 6,
+   "matched": 4,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "Model A",
+      "points": [
+       {
+        "x": "EMEA",
+        "y": 900.0
+       },
+       {
+        "x": "APAC",
+        "y": 380.0
+       }
+      ]
+     },
+     {
+      "name": "Model B",
+      "points": [
+       {
+        "x": "EMEA",
+        "y": 300.0
+       },
+       {
+        "x": "APAC",
+        "y": 200.0
+       }
+      ]
+     }
+    ]
+   },
+   "seconds": 37.21
+  },
+  {
+   "id": "chart-04",
+   "kind": "line",
+   "data_labels": true,
+   "mre": 0.1613,
+   "coverage": 1.0,
+   "points": 6,
+   "matched": 6,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "月次利益",
+      "points": [
+       {
+        "x": "1",
+        "y": 61.0
+       },
+       {
+        "x": "2",
+        "y": 44.0
+       },
+       {
+        "x": "3",
+        "y": 50.0
+       },
+       {
+        "x": "4",
+        "y": 890.0
+       },
+       {
+        "x": "5",
+        "y": 61.0
+       },
+       {
+        "x": "6",
+        "y": 600.0
+       }
+      ]
+     }
+    ]
+   },
+   "seconds": 38.09
+  },
+  {
+   "id": "chart-05",
+   "kind": "line",
+   "data_labels": false,
+   "mre": 0.0168,
+   "coverage": 0.3333,
+   "points": 12,
+   "matched": 4,
+   "valid": true,
+   "pred": {
+    "title": null,
+    "x_label": null,
+    "y_label": null,
+    "series": [
+     {
+      "name": "Sensor 1",
+      "points": [
+       {
+        "x": "0.0",
+        "y": 165.0
+       },
+       {
+        "x": "2.5",
+        "y": 450.0
+       },
+       {
+        "x": "5.0",
+        "y": 375.0
+       },
+       {
+        "x": "7.5",
+        "y": 180.0
+       },
+       {
+        "x": "10.0",
+        "y": 90.0
+       },
+       {
+        "x": "12.5",
+        "y": 90.0
+       },
+       {
+        "x": "15.0",
+        "y": 450.0
+       },
+       {
+        "x": "17.5",
+        "y": 360.0
+       },
+       {
+        "x": "20.0",
+        "y": 80.0
+       }
+      ]
+     },
+     {
+      "name": "Sensor 2",
+      "points": [
+       {
+        "x": "0.0",
+        "y": 340.0
+       },
+       {
+        "x": "2.5",
+        "y": 100.0
+       },
+       {
+        "x": "5.0",
+        "y": 90.0
+       },
+       {
+        "x": "7.5",
+        "y": 60.0
+       },
+       {
+        "x": "10.0",
+        "y": 40.0
+       },
+       {
+        "x": "12.5",
+        "y": 30.0
+       },
+       {
+        "x": "15.0",
+        "y": 120.0
+       },
+       {
+        "x": "17.5",
+        "y": 60.0
+       },
+       {
+        "x": "20.0",
+        "y": 80.0
+       }
+      ]
+     }
+    ]
+   },
+   "seconds": 70.14
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block body %}
+<div class="row"><h1 style="text-align:left;letter-spacing:.1em;margin:0">INVOICE</h1>
+  <div style="text-align:right"><b>{{ s.issuer }}</b><br><span class="small">{{ s.issuer_address }}</span></div></div>
+<table class="mt" style="width:100%"><tr>
+  <td style="width:50%"><div class="small">Bill to</div><div style="font-size:12pt">{{ s.recipient }}</div></td>
+  <td><table style="width:100%">
+    <tr><td>Invoice No.</td><td class="num">{{ s.invoice_number }}</td></tr>
+    <tr><td>Date</td><td class="num">{{ shown.issue_date }}</td></tr>
+    <tr><td>Due</td><td class="num">{{ shown.due_date }}</td></tr>
+  </table></td></tr></table>
+<table class="items mt">
+  <thead><tr>{% for h in header %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for r in rows %}<tr>{% for c in r %}<td{% if loop.index > 1 %} class="num"{% endif %}>{{ c }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table>
+<table class="totals">
+  <tr><td>Subtotal</td><td class="num">{{ fmt.subtotal }}</td></tr>
+  <tr><td>Tax (10%)</td><td class="num">{{ fmt.tax }}</td></tr>
+  <tr class="grand"><td>Total</td><td class="num">{{ fmt.total }}</td></tr>
+</table>
+<p class="mt small">Payment: {{ s.bank }} / TEL {{ s.issuer_phone }}</p>
+{% endblock %}

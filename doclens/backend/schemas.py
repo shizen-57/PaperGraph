@@ -4,11 +4,15 @@ from typing import Literal
 from pydantic import BaseModel, Field as PField
 
 ElementType = Literal["text", "table", "figure", "chart", "caption"]
-FileType = Literal["pdf", "md", "txt"]
+FileType = Literal["pdf", "image", "pptx", "md", "txt"]
 ClaimType = Literal["contribution", "limitation", "method", "dataset", "result", "future_work"]
 RelationType = Literal["supersedes", "cites", "same_topic", "feedback_on"]
 Verification = Literal["verified", "unverified"]
 ConfidenceLabel = Literal["High", "Medium", "Low", "Unverified", "Insufficient"]
+FieldKind = Literal["text", "date", "amount", "number", "percent"]
+FieldStatus = Literal["verified", "unverified", "missing"]  # missing: the document doesn't state it, nothing to verify
+CheckStatus = Literal["pass", "fail", "skipped"]
+DocType = Literal["invoice", "spec_sheet", "financial_report"]
 
 
 class BBox(BaseModel):
@@ -251,3 +255,59 @@ class VLMResult(BaseModel):
     kind: Literal["chart", "figure"]
     summary: str  # for figures: description plus any visible labels
     table: Table | None = None  # charts only: the values read off the chart
+
+
+# --- Structured extraction (extract.py) ---
+
+class Cited(BaseModel):
+    """One value as the LLM returns it: copied exactly as printed, with the element it is in and the quote proving it.
+    All keys are required and bounded: with optional keys and unbounded strings a constrained decoder lets a small model
+    skip `value` and loop inside a string until it runs out of tokens. element_id comes before quote on purpose: the
+    model picks the element first, then copies one line from it instead of rambling across the prompt."""
+    value: str | None = PField(max_length=200)  # null when the document doesn't state it
+    element_id: str = PField(max_length=12)
+    quote: str = PField(max_length=160)  # ONE line or table row copied EXACTLY from that element, containing the value
+
+
+def not_stated() -> Cited:
+    return Cited(value=None, quote="", element_id="")
+
+
+class ExtractedField(BaseModel):
+    """A Cited value after code has normalised it (normalize_ja.py) and verified it (verify.py)."""
+    name: str  # "total", or "line_items[2].amount"
+    kind: FieldKind
+    raw: str | None  # as printed
+    value: str | int | float | None  # normalised: ISO date, yen as int, ...
+    tax: Literal["included", "excluded"] | None = None
+    quote: str
+    page: int | None
+    element_id: str | None
+    bbox: BBox | None
+    quote_match: float  # 0..1, see verify.quote_score
+    value_in_quote: bool
+    status: FieldStatus
+
+
+class Check(BaseModel):
+    name: str
+    status: CheckStatus
+    message: str
+    fields: list[str] = []  # names of the ExtractedFields involved, so the UI can mark them
+
+
+class Extraction(BaseModel):
+    doc_id: str
+    doc_type: DocType
+    fields: list[ExtractedField]
+    checks: list[Check]
+    model: str
+    seconds: float
+
+
+class ParseResult(BaseModel):
+    parser: str
+    title: str | None
+    pages: int
+    page_sizes: list[tuple[float, float]]
+    elements: list[Element]

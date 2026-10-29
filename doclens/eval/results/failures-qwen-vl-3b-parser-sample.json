@@ -1,0 +1,145 @@
+{
+ "config": "qwen-vl-3b-parser-sample",
+ "counts": {
+  "clean": {
+   "not in the parsed text": 4,
+   "role confusion": 3,
+   "row lost or merged": 1,
+   "extra row": 1,
+   "copy boundary": 1,
+   "wrong choice": 2,
+   "present, not extracted": 3
+  },
+  "scanned": {
+   "not in the parsed text": 15,
+   "row lost or merged": 2,
+   "extra row": 2
+  }
+ },
+ "header_fields_checked": {
+  "clean": 24,
+  "scanned": 24
+ },
+ "examples": {
+  "not in the parsed text": [
+   {
+    "id": "clean-000",
+    "field": "invoice_number",
+    "pred": null,
+    "gold": "R8-3579"
+   },
+   {
+    "id": "clean-000",
+    "field": "issue_date",
+    "pred": null,
+    "gold": "2026-07-25"
+   },
+   {
+    "id": "clean-000",
+    "field": "due_date",
+    "pred": null,
+    "gold": "2026-08-24"
+   },
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "invoice_number",
+    "pred": null,
+    "gold": "R8-3579"
+   }
+  ],
+  "role confusion": [
+   {
+    "id": "clean-000",
+    "field": "issuer",
+    "pred": "有限会社吉田通信",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "clean-000",
+    "field": "recipient",
+    "pred": "前田電気株式会社",
+    "gold": "有限会社吉田通信"
+   },
+   {
+    "id": "clean-001",
+    "field": "recipient",
+    "pred": "合同会社佐々木情報",
+    "gold": "斉藤ガス株式会社"
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "clean-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-000",
+    "field": "line_items"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "clean-002",
+    "field": "invoice_number",
+    "pred": "請求番号 No.202607-897",
+    "gold": "No.202607-897"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "clean-002",
+    "field": "issuer",
+    "pred": "株式会社青木情報 様",
+    "gold": "橋本情報有限会社"
+   },
+   {
+    "id": "clean-002",
+    "field": "recipient",
+    "pred": "橋本情報有限会社神奈川県川崎市宮前区鶴ケ丘29丁目3番20号 シティ西神田423",
+    "gold": "株式会社青木情報"
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "clean-002",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 125190
+   },
+   {
+    "id": "clean-002",
+    "field": "tax",
+    "pred": null,
+    "gold": 11862
+   },
+   {
+    "id": "clean-002",
+    "field": "total",
+    "pred": null,
+    "gold": 137052
+   }
+  ]
+ }
+}

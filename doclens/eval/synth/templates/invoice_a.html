@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block body %}
+<h1>請求書</h1>
+<div class="row">
+  <div>
+    <div style="font-size:14pt;border-bottom:1px solid #111;padding-bottom:1mm">{{ s.recipient }} 御中</div>
+    <p class="mt small">下記のとおりご請求申し上げます。</p>
+    <div class="box">ご請求金額 &nbsp; {{ fmt.total }}</div>
+  </div>
+  <div style="text-align:right">
+    <div>請求書番号: {{ s.invoice_number }}</div>
+    <div>発行日: {{ shown.issue_date }}</div>
+    <div>支払期限: {{ shown.due_date }}</div>
+    <div class="mt"><b>{{ s.issuer }}</b></div>
+    <div class="small">{{ s.issuer_address }}<br>TEL {{ s.issuer_phone }}</div>
+  </div>
+</div>
+<table class="items mt">
+  <thead><tr>{% for h in header %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for r in rows %}<tr>{% for c in r %}<td{% if loop.index > 1 %} class="num"{% endif %}>{{ c }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table>
+<table class="totals">
+  <tr><td>小計</td><td class="num">{{ fmt.subtotal }}</td></tr>
+  <tr><td>消費税(10%)</td><td class="num">{{ fmt.tax }}</td></tr>
+  <tr class="grand"><td>合計</td><td class="num">{{ fmt.total }}</td></tr>
+</table>
+<p class="mt small">お振込先: {{ s.bank }}</p>
+{% endblock %}

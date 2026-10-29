@@ -1,0 +1,41 @@
+{
+ "id": "clean-006",
+ "variant": "clean",
+ "layout": "a",
+ "date_style": "era",
+ "money_style": "yen_sign",
+ "fields": {
+  "invoice_number": "INV-2026-9336",
+  "issue_date": "2026-01-17",
+  "due_date": "2026-02-16",
+  "issuer": "小林運輸有限会社",
+  "recipient": "森通信合同会社",
+  "subtotal": 26240,
+  "tax": 2624,
+  "total": 28864
+ },
+ "line_items": [
+  {
+   "name": "インクカートリッジ 黒",
+   "quantity": 13,
+   "unit_price": 980,
+   "amount": 12740,
+   "tax_rate": null
+  },
+  {
+   "name": "ワイヤレスマウス",
+   "quantity": 9,
+   "unit_price": 1500,
+   "amount": 13500,
+   "tax_rate": null
+  }
+ ],
+ "shown": {
+  "issue_date": "令和8年1月17日",
+  "due_date": "令和8年2月16日",
+  "subtotal": "¥26,240",
+  "tax": "¥2,624",
+  "total": "¥28,864"
+ },
+ "table_html": "<table><thead><tr><td>品名</td><td>数量</td><td>単価</td><td>金額</td></tr></thead><tbody><tr><td>インクカートリッジ 黒</td><td>13</td><td>980</td><td>12,740</td></tr><tr><td>ワイヤレスマウス</td><td>9</td><td>1,500</td><td>13,500</td></tr></tbody></table>"
+}

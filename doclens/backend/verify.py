@@ -3,6 +3,7 @@
 Quote matching, the number check, citation validity and the confidence score all live here.
 """
 import re
+import unicodedata
 from difflib import SequenceMatcher
 
 from backend.norm import norm, numbers
@@ -46,6 +47,34 @@ def locate(quote: str, elements: list[Element], prefer: str | None = None) -> Qu
             break
     return QuoteCheck(score=best_score, found=best_score >= FOUND, element_id=best.id if best else None,
                       page=best.page if best else None, bbox=best.bbox if best else None)
+
+
+def value_in_quote(raw: str | None, quote: str) -> bool:
+    """The extracted value, as printed, must appear inside its own quote (after NFKC).
+    Text is compared with whitespace removed (Docling breaks Japanese lines mid-word). Numbers must match whole,
+    with spaces kept so that the cells of a table row stay apart: 100 is not found in '1,100', 1 is found in '商品B 1 2,000'.
+    Commas and currency signs may differ between value and quote."""
+    if not norm(raw or "") or not norm(quote):
+        return False
+    r, q = _squash(raw), _squash(quote)
+    if not r[0].isdigit() and not r[-1].isdigit():
+        return norm(raw) in norm(quote)
+    drop = lambda t: re.sub(r"[,¥円]", "", t)  # noqa: E731
+    for a, b in ((r, q), (drop(r), drop(q))):
+        if not a:
+            continue
+        pattern = re.escape(a)
+        if a[0].isdigit():
+            pattern = r"(?<!\d)(?<!\d,)(?<!\d\.)" + pattern
+        if a[-1].isdigit():
+            pattern += r"(?!\d)(?![,.]\d)"
+        if re.search(pattern, b):
+            return True
+    return False
+
+
+def _squash(s: str) -> str:
+    return " ".join(unicodedata.normalize("NFKC", s).casefold().split())
 
 
 def check_numbers(answer: str, sources: list[str]) -> list[str]:

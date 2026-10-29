@@ -1,0 +1,228 @@
+{
+ "config": "docling-qwen2.5-3b",
+ "counts": {
+  "clean": {
+   "role confusion": 10,
+   "wrong choice": 4,
+   "copy boundary": 2,
+   "hallucinated": 1,
+   "not in the parsed text": 2
+  },
+  "scanned": {
+   "not in the parsed text": 39,
+   "wrong choice": 9,
+   "extra row": 15,
+   "present, not extracted": 6,
+   "copy boundary": 2,
+   "role confusion": 4,
+   "row lost or merged": 2,
+   "hallucinated": 2
+  }
+ },
+ "header_fields_checked": {
+  "clean": 96,
+  "scanned": 96
+ },
+ "examples": {
+  "role confusion": [
+   {
+    "id": "clean-000",
+    "field": "issuer",
+    "pred": "有限会社吉田通信",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "clean-000",
+    "field": "recipient",
+    "pred": "前田電気株式会社",
+    "gold": "有限会社吉田通信"
+   },
+   {
+    "id": "clean-001",
+    "field": "issuer",
+    "pred": "斉藤ガス株式会社",
+    "gold": "合同会社佐々木情報"
+   },
+   {
+    "id": "clean-003",
+    "field": "issuer",
+    "pred": "吉田水産株式会社",
+    "gold": "松本建設株式会社"
+   },
+   {
+    "id": "clean-003",
+    "field": "recipient",
+    "pred": "松本建設株式会社",
+    "gold": "吉田水産株式会社"
+   }
+  ],
+  "wrong choice": [
+   {
+    "id": "clean-001",
+    "field": "recipient",
+    "pred": "宮城県横浜市中区東和町6丁目24番13号 丹勢シャルム351",
+    "gold": "斉藤ガス株式会社"
+   },
+   {
+    "id": "clean-005",
+    "field": "issuer",
+    "pred": "池田通信合同会社 様",
+    "gold": "中村鉱業株式会社"
+   },
+   {
+    "id": "clean-006",
+    "field": "recipient",
+    "pred": "小林運輸有限会社 徳島県西多摩郡日の出町東和町30丁目24番3号",
+    "gold": "森通信合同会社"
+   },
+   {
+    "id": "clean-011",
+    "field": "issuer",
+    "pred": "有限会社鈴木ガス 様",
+    "gold": "石川水産有限会社"
+   },
+   {
+    "id": "scan-000",
+    "field": "recipient",
+    "pred": "岡山県立川市高輸20丁目16番12号下吉羽コ一卜421 TEL090-8924-1157",
+    "gold": "有限会社吉田通信"
+   }
+  ],
+  "copy boundary": [
+   {
+    "id": "clean-002",
+    "field": "recipient",
+    "pred": "株式会社青木情報 様",
+    "gold": "株式会社青木情報"
+   },
+   {
+    "id": "clean-008",
+    "field": "recipient",
+    "pred": "有限会社渡辺鉱業 様",
+    "gold": "有限会社渡辺鉱業"
+   },
+   {
+    "id": "scan-003",
+    "field": "invoice_number",
+    "pred": "請求書番号：INV-2026-1472",
+    "gold": "INV-2026-1472"
+   },
+   {
+    "id": "scan-003",
+    "field": "recipient",
+    "pred": "吉田水産株式会社御中",
+    "gold": "吉田水産株式会社"
+   }
+  ],
+  "hallucinated": [
+   {
+    "id": "clean-006",
+    "field": "issuer",
+    "pred": "森通信合同会社 徳島県西多摩郡日の出町東和町30丁目24番3号",
+    "gold": "小林運輸有限会社"
+   },
+   {
+    "id": "scan-005",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-010",
+    "field": "line_items"
+   }
+  ],
+  "not in the parsed text": [
+   {
+    "id": "clean-007",
+    "field": "issuer",
+    "pred": "長崎県印西市丹勢39丁目7番11号 氏家アーバン769",
+    "gold": "合同会社山本銀行"
+   },
+   {
+    "id": "clean-010",
+    "field": "issuer",
+    "pred": "栃木県印旛郡酒々井町上広谷22丁目11番12号",
+    "gold": "株式会社小林食品"
+   },
+   {
+    "id": "scan-000",
+    "field": "issuer",
+    "pred": "前田式会社",
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "scan-001",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-002",
+    "field": "issuer",
+    "pred": "株式会社青木情報 様",
+    "gold": "橋本情報有限会社"
+   }
+  ],
+  "extra row": [
+   {
+    "id": "scan-001",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-003",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-005",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-005",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-005",
+    "field": "line_items"
+   }
+  ],
+  "present, not extracted": [
+   {
+    "id": "scan-002",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 125190
+   },
+   {
+    "id": "scan-002",
+    "field": "tax",
+    "pred": null,
+    "gold": 11862
+   },
+   {
+    "id": "scan-003",
+    "field": "tax",
+    "pred": null,
+    "gold": 8468
+   },
+   {
+    "id": "scan-005",
+    "field": "total",
+    "pred": null,
+    "gold": 158432
+   },
+   {
+    "id": "scan-006",
+    "field": "recipient",
+    "pred": null,
+    "gold": "森通信合同会社"
+   }
+  ],
+  "row lost or merged": [
+   {
+    "id": "scan-005",
+    "field": "line_items"
+   },
+   {
+    "id": "scan-007",
+    "field": "line_items"
+   }
+  ]
+ }
+}

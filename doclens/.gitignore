@@ -9,3 +9,10 @@ data/space/
 # rebuilt by `python -m backend.ingest`; eval.json, answers.jsonl and speed.json are committed
 results/doclens.db*
 results/emb/
+
+# augraphy writes this next to the working directory
+augraphy_cache/
+eval/.cache/
+
+# the demo space (python -m backend.demo)
+data/demo_space/

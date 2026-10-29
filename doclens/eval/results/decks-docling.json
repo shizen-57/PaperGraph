@@ -1,0 +1,53 @@
+{
+ "config": {
+  "name": "decks-docling",
+  "parser": "docling",
+  "date": "2026-10-24 07:51 UTC"
+ },
+ "deck_summary": {
+  "decks": 2,
+  "fact_recall": 1.0,
+  "cell_recall": 1.0,
+  "slides": 6,
+  "seconds": 12.54
+ },
+ "decks": [
+  {
+   "id": "deck-en",
+   "slides": 3,
+   "elements": 8,
+   "figures": 1,
+   "tables": 1,
+   "facts_found": [
+    "Product roadmap 2026",
+    "grew 18% to $4.2M",
+    "14 March 2026",
+    "Churn fell to 2.1%",
+    "Quarterly results"
+   ],
+   "facts_missing": [],
+   "cells_found": 12,
+   "cells": 12,
+   "seconds": 12.5
+  },
+  {
+   "id": "deck-ja",
+   "slides": 3,
+   "elements": 8,
+   "figures": 1,
+   "tables": 1,
+   "facts_found": [
+    "2026年度 事業計画",
+    "前年比12%増",
+    "1,234百万円",
+    "営業利益は56百万円",
+    "2026年10月24日",
+    "四半期別実績"
+   ],
+   "facts_missing": [],
+   "cells_found": 12,
+   "cells": 12,
+   "seconds": 0.04
+  }
+ ]
+}

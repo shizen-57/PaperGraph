@@ -1,0 +1,75 @@
+{
+ "config": "pdfium-rules",
+ "counts": {
+  "clean": {
+   "present, not extracted": 4
+  },
+  "scanned": {
+   "not in the parsed text": 165
+  }
+ },
+ "header_fields_checked": {
+  "clean": 96,
+  "scanned": 96
+ },
+ "examples": {
+  "present, not extracted": [
+   {
+    "id": "clean-001",
+    "field": "recipient",
+    "pred": null,
+    "gold": "斉藤ガス株式会社"
+   },
+   {
+    "id": "clean-004",
+    "field": "recipient",
+    "pred": null,
+    "gold": "清水食品株式会社"
+   },
+   {
+    "id": "clean-007",
+    "field": "recipient",
+    "pred": null,
+    "gold": "松本ガス合同会社"
+   },
+   {
+    "id": "clean-010",
+    "field": "recipient",
+    "pred": null,
+    "gold": "小林情報株式会社"
+   }
+  ],
+  "not in the parsed text": [
+   {
+    "id": "scan-000",
+    "field": "invoice_number",
+    "pred": null,
+    "gold": "R8-3579"
+   },
+   {
+    "id": "scan-000",
+    "field": "issue_date",
+    "pred": null,
+    "gold": "2026-07-25"
+   },
+   {
+    "id": "scan-000",
+    "field": "due_date",
+    "pred": null,
+    "gold": "2026-08-24"
+   },
+   {
+    "id": "scan-000",
+    "field": "issuer",
+    "pred": null,
+    "gold": "前田電気株式会社"
+   },
+   {
+    "id": "scan-000",
+    "field": "recipient",
+    "pred": null,
+    "gold": "有限会社吉田通信"
+   }
+  ]
+ }
+}

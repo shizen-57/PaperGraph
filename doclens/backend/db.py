@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS elements  (doc_id TEXT NOT NULL, id TEXT NOT NULL, se
                                       PRIMARY KEY (doc_id, id));
 CREATE TABLE IF NOT EXISTS chunks    (id TEXT PRIMARY KEY, doc_id TEXT NOT NULL, seq INTEGER NOT NULL, data TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS claims    (id TEXT PRIMARY KEY, doc_id TEXT NOT NULL, data TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS extractions (doc_id TEXT PRIMARY KEY, data TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS relations (id TEXT PRIMARY KEY, space_id TEXT NOT NULL, source_id TEXT NOT NULL,
                                       target_id TEXT NOT NULL, data TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS answers   (id TEXT PRIMARY KEY, space_id TEXT NOT NULL, created REAL NOT NULL, data TEXT NOT NULL);
