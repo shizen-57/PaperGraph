@@ -3,12 +3,12 @@
  "counts": {
   "bn": {
    "not in the parsed text": 11,
-   "wrong choice": 4,
-   "present, not extracted": 4,
-   "row lost or merged": 26,
-   "extra row": 11,
-   "hallucinated": 23,
-   "copy boundary": 1
+   "wrong choice": 2,
+   "present, not extracted": 7,
+   "row lost or merged": 14,
+   "extra row": 23,
+   "hallucinated": 2,
+   "copy boundary": 3
   }
  },
  "header_fields_checked": {
@@ -41,7 +41,7 @@
    {
     "id": "bn-002",
     "field": "issuer",
-    "pred": "ホーリー・トレーダーズ",
+    "pred": "হুরাইরা ট্রডার্স",
     "gold": "হুরাইরা ট্রেডার্স"
    }
   ],
@@ -53,22 +53,10 @@
     "gold": 573600
    },
    {
-    "id": "bn-003",
+    "id": "bn-001",
     "field": "subtotal",
-    "pred": 492039,
-    "gold": 427860
-   },
-   {
-    "id": "bn-003",
-    "field": "tax",
-    "pred": 270000,
-    "gold": 64179
-   },
-   {
-    "id": "bn-005",
-    "field": "subtotal",
-    "pred": 1410188,
-    "gold": 1226250
+    "pred": 313214,
+    "gold": 272360
    }
   ],
   "present, not extracted": [
@@ -91,10 +79,16 @@
     "gold": 155370
    },
    {
-    "id": "bn-005",
+    "id": "bn-003",
+    "field": "subtotal",
+    "pred": null,
+    "gold": 427860
+   },
+   {
+    "id": "bn-003",
     "field": "tax",
     "pred": null,
-    "gold": 183938
+    "gold": 64179
    }
   ],
   "row lost or merged": [
@@ -111,11 +105,11 @@
     "field": "line_items"
    },
    {
-    "id": "bn-001",
+    "id": "bn-002",
     "field": "line_items"
    },
    {
-    "id": "bn-001",
+    "id": "bn-002",
     "field": "line_items"
    }
   ],
@@ -133,41 +127,41 @@
     "field": "line_items"
    },
    {
-    "id": "bn-003",
+    "id": "bn-000",
     "field": "line_items"
    },
    {
-    "id": "bn-003",
+    "id": "bn-001",
     "field": "line_items"
    }
   ],
   "hallucinated": [
    {
-    "id": "bn-001",
+    "id": "bn-002",
     "field": "subtotal",
-    "pred": 3132140,
-    "gold": 272360
+    "pred": 1291170,
+    "gold": 1035800
    },
    {
-    "id": "bn-001",
+    "id": "bn-002",
     "field": "total",
-    "pred": 3685094,
-    "gold": 313214
-   },
-   {
-    "id": "bn-001",
-    "field": "line_items"
-   },
-   {
-    "id": "bn-001",
-    "field": "line_items"
-   },
-   {
-    "id": "bn-001",
-    "field": "line_items"
+    "pred": 1291170,
+    "gold": 1191170
    }
   ],
   "copy boundary": [
+   {
+    "id": "bn-003",
+    "field": "invoice_number",
+    "pred": "চালান নম্বর: BD-2026-6628",
+    "gold": "BD-2026-6628"
+   },
+   {
+    "id": "bn-003",
+    "field": "recipient",
+    "pred": "ক্রেতা: জাহান ফুড প্রোডাক্টস লিমিটেড",
+    "gold": "জাহান ফুড প্রোডাক্টস লিমিটেড"
+   },
    {
     "id": "bn-005",
     "field": "recipient",

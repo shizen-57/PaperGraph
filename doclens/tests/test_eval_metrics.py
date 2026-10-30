@@ -136,3 +136,13 @@ def test_rescore_reapplies_the_checks_to_stored_predictions():
     out = rescore.rescore(run, "rule changed")
     assert out["documents"][0]["judge"]["check_failed"] is False  # 9.3% is between 8% and 10%
     assert out["config"]["notes"] == ["rule changed"] and out["summary"]["all"]["evidence"]["docs_failing_a_consistency_check"] == 0
+
+
+def test_rescore_does_not_apply_japans_tax_rates_to_other_languages():
+    from eval import rescore
+    row = {"id": "d", "variant": "bn", "pages": 1, "parse_seconds": 1.0, "extract_seconds": 2.0, "tp": 1, "n_pred": 1, "n_gold": 1,
+           "correct": {"total": True}, "teds": 0.0, "table_found": False, "error": None, "judge": {"items": [], "check_failed": True}, "checks": [],
+           "pred": {"subtotal": 1000, "tax": 150, "total": 1150, "line_items": []}}  # 15% VAT
+    run = {"config": {"notes": [], "hardware": {"gpu": None}, "dataset": {"variants": ["bn"]}},
+           "summary": {"all": {"peak_vram_mb": None, "evidence": {}}}, "documents": [row]}
+    assert rescore.rescore(run)["documents"][0]["judge"]["check_failed"] is False

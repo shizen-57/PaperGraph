@@ -1,12 +1,32 @@
 # DocLens
 
-**Evidence-grounded document AI for Japanese and English business documents.** PDFs, scans, images and PowerPoint become structured JSON in which every value points to the exact spot it was read from, and is checked against the document before anyone relies on it.
+**Evidence-grounded document AI for Japanese, English and Bangla business documents.** PDFs, scans, images and PowerPoint become structured JSON in which every value points to the exact spot it was read from, and is checked against the document before anyone relies on it.
 
 <!-- headline:start -->
 On 24 synthetic Japanese invoices, Docling + qwen2.5-3b-instruct-q4_k_m (CPU, 4 cores) reached field F1 **0.88** on clean PDFs and **0.67** on scans. It predicted 67 wrong values out of 316: the evidence check flagged **45%** of them, and the evidence and arithmetic checks together flagged a problem in **62%** of the 24 documents that contained a wrong value.
 <!-- headline:end -->
 
 ![DocLens: click a field, its box lights up on the PDF; an unverified field is red](docs/demo.gif)
+
+## Screenshots
+
+Taken from the running app on the synthetic demo documents (`python -m backend.demo`). The extractions are real Qwen2.5-3B output, errors included: green is verified against the document, red is not, and clicking a field draws its box on the page.
+The first three are Japanese, then English, then Bangla. The yen sign appears only on Japanese amounts; the "as printed" line under each value carries the real currency.
+
+| | |
+|---|---|
+| ![Japanese invoice: every field has its quote and page; the highlighted box is where the invoice number was read](docs/screenshots/ja-fields-verified.jpg) | ![Japanese invoice: line items with their tax rates; the items table is one element, so the whole table lights up](docs/screenshots/ja-line-items.jpg) |
+| **Japanese, clean PDF.** Verified fields in green, "arithmetic checks passed" above them, and the box on the page for the clicked value. | **Line items with 10% / 8% rates.** The whole items table is one element, so a click highlights all of it: boxes are element-level, not cell-level. |
+| ![Japanese scan: the total is red because the quote is not in the OCR text](docs/screenshots/ja-scan-unverified.jpg) | ![English invoice: the total is verified and its box is drawn on the totals block](docs/screenshots/en-fields.jpg) |
+| **Japanese scan, a red field.** The model's quote (`合計：85, 448円`) is not in the OCR text, which printed the number with a stray space, so the value is flagged although it is right. | **English (USD).** Text-layer PDF, verified total. The tax-rate check says *skipped*: Japan's 10% / 8% are the only rates it knows. |
+| ![English invoice: three line items and their boxes](docs/screenshots/en-line-items.jpg) | ![Bangla invoice: the total is verified through OCR; the box is on the VAT and total lines](docs/screenshots/bn-fields.jpg) |
+| **English line items.** Names, quantities and prices copied from the table, each row with its quote. | **Bangla (৳, Bangla digits, lakh grouping).** The page is OCR'd (a Bangla text layer is not trusted); `৬,৫৯,৬৪০` becomes `659640`. |
+| ![Bangla invoice: row 1 has a red amount, the model's own multiplication](docs/screenshots/bn-line-items.jpg) | ![All eight documents, each with a language badge](docs/screenshots/documents.jpg) |
+| **A Bangla error caught.** In row 1 the model took the printed amount (7,500) as the unit price and then wrote 3 × 7,500 = 22,500 as the amount. That number is not in the document, so it is red. | **Documents.** Japanese, English and Bangla in one space, each with a language badge. |
+
+![The Evaluation page: parser and extractor runs read from eval/results/*.json](docs/screenshots/evaluation.jpg)
+
+*The Evaluation page renders `eval/results/*.json`; nothing on it is typed in by hand.*
 
 ## Results
 
@@ -57,6 +77,16 @@ On the 6 documents the sample run covers (clean-000, clean-001, clean-002, scan-
 
 Cheap signals only (text layer, Docling table quality; no VLM involved): of 24 pages, **12/12 scanned pages** were sent to the VLM and **0/12 clean pages** were; 24/24 routed as the ground truth says. Reasons: scanned ×12, figure on the page ×12.
 
+**English and Bangla** (6 synthetic invoices each; Bangla pages are read by OCR)
+
+| Language | Parser | Extractor | Documents | Field F1 | Verified | Wrong values flagged | Documents failing an arithmetic check |
+|---|---|---|---|---|---|---|---|
+| Bangla | tesseract-ben | qwen2.5-3b-instruct-q4_k_m (before the Bangla prompt note: it translated into Japanese) | 6 | 0.43 | 44% | 81% | 6 |
+| Bangla | tesseract-ben | qwen2.5-3b-instruct-q4_k_m | 6 | 0.56 | 66% | 60% | 6 |
+| Bangla | tesseract-ben | rules (regex) | 6 | 0.77 | 100% | 0% | 3 |
+| English | pdfium | qwen2.5-3b-instruct-q4_k_m | 6 | 0.85 | 63% | 62% | 4 |
+| English | pdfium | rules (regex) | 6 | 1.00 | 100% | — | 0 |
+
 **PowerPoint input (F5)**
 
 2 synthetic decks (6 slides: bullets, a table and a chart each), read by Docling's PPTX backend: **100% of key facts** and **100% of table cells** recovered. Charts come out as figures without values.
@@ -76,7 +106,7 @@ _Not run yet: needs a GPU (`notebooks/kaggle_lora.ipynb`)._
 
 - **An evidence check on every value.** The model returns a value, the element it is in and a quote. The value is `verified` only if the quote is found in that element *and* the value is in the quote *and* in the element. (The last rule matters: fuzzy matching alone accepted a quote with one digit changed to fit a wrong value.) Verified fields are green in the UI, unverified ones red.
 - **A router that spends the expensive model only where it is needed** (`PARSER=router`). Docling reads pages that have a text layer; pages that are scanned, contain a broken table or a figure, or whose fields fail verification go to a vision-language model. Its routing decisions are measured below; the accuracy-versus-GPU-seconds comparison needs a GPU and has not been run.
-- **Japanese handled in code, not by the LLM.** The model copies a value as printed; `backend/normalize_ja.py` turns `令和8年10月24日` into `2026-10-24`, `1億2,000万円` into `120000000`, `△1,234` into `-1234`, and attaches 税込/税抜 to an amount.
+- **Dates and amounts handled in code, not by the LLM.** The model copies a value as printed; `normalize_ja.py` and `normalize_intl.py` turn `令和8年10月24日` into `2026-10-24`, `1億2,000万円` into `120000000`, `△1,234` into `-1234`, `24 October 2026` into `2026-10-24`, and `৳ ১২,৩৪,৫৬৭` (Bangla digits, lakh grouping) into `1234567`; 税込/税抜 is attached to the amount.
 - **Arithmetic checks.** Line amounts, subtotal, subtotal + tax = total, tax at 10% or 8% per rate group, issue date ≤ due date. They catch wrong numbers that have a real quote behind them.
 
 ## Architecture
@@ -96,7 +126,7 @@ uvicorn backend.app:app --port 8000 &        # the API
 cd frontend && NEXT_PUBLIC_SPACE=demo npm install && NEXT_PUBLIC_SPACE=demo npm run dev
 ```
 
-The eval command rewrites a committed result with your own timings (pass another `--out` to keep it). Open <http://localhost:3000/docs>, pick an invoice, click a field. For LLM extraction set `LLM_BASE_URL`, `LLM_API_KEY` and `LLM_MODEL` (any OpenAI-compatible server; see [`.env.example`](doclens/.env.example)); for Docling, scans, images and PPTX: `pip install -r requirements-extra.txt`. `pytest` runs the tests (about 190, no GPU or network). Developer guide: [doclens/README.md](doclens/README.md).
+The eval command rewrites a committed result with your own timings (pass another `--out` to keep it). Open <http://localhost:3000/docs>, pick an invoice, click a field. For LLM extraction set `LLM_BASE_URL`, `LLM_API_KEY` and `LLM_MODEL` (any OpenAI-compatible server; see [`.env.example`](doclens/.env.example)); for Docling, scans, images and PPTX: `pip install -r requirements-extra.txt`; for Bangla pages also `apt install tesseract-ocr tesseract-ocr-ben` (Bangla PDFs are OCR'd, not read from their text layer). `pytest` runs the tests (about 240, no GPU or network). Developer guide: [doclens/README.md](doclens/README.md).
 
 ## Failure cases
 
@@ -138,6 +168,7 @@ The regex baseline loses these fields on clean pages; the LLM copes. *Fix:* pair
 - **No GPU in this work.** The VLM parsers, vLLM serving, the quantisation comparison, the chart experiment and the LoRA fine-tune are implemented and unit-tested where possible, and are listed as *not run*. The LoRA training script has not been executed at all.
 - **Not OmniDocBench-style.** Metrics are field-level and table-level on invoices, not page-level reading-order or formula scores.
 - **PowerPoint and image input** go through Docling only; chart values inside slides are not read.
+- **Bangla is the thinnest language here.** Six synthetic, clean, single-column invoices. A Bangla PDF's text layer is not trusted (spaces inside words, overlapping boxes), so those pages are OCR'd with Tesseract; legacy-font Bangla PDFs, scans and handwriting were not tested. The 3B model reads OCR'd Bangla worse than a regex does (F1 0.56 against 0.77), and without a one-line prompt note it translated Bangla into Japanese ([REPORT §4.11](REPORT.md#4-failure-analysis)).
 
 ## Roadmap
 

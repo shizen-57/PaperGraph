@@ -17,9 +17,10 @@ const LABEL: Record<string, string> = {
 };
 const CELL: Record<string, string> = { name: "Item", quantity: "Qty", unit_price: "Unit price", amount: "Amount", tax_rate: "Tax rate" };
 
-const show = (f: ExtractedField) => {
+// The yen sign is only right for Japanese documents; English and Bangla amounts show the number, and "as printed" carries the currency.
+const show = (f: ExtractedField, lang: string) => {
   if (f.value == null) return f.raw ?? "—";
-  if (f.kind === "amount" && typeof f.value === "number") return `¥${f.value.toLocaleString("ja-JP")}`;
+  if (f.kind === "amount" && typeof f.value === "number") return `${lang === "ja" ? "¥" : ""}${f.value.toLocaleString("en-US")}`;
   if (f.kind === "percent" && typeof f.value === "number") return `${Math.round(f.value * 1000) / 10}%`;
   return String(f.value);
 };
@@ -102,11 +103,11 @@ export default function FieldsPanel({ doc, initial, target, onShow }: {
             <p className="checks-ok"><span className="badge ok">✓ arithmetic checks passed</span></p>
           )}
 
-          {header.map((f) => <FieldCard key={f.name} f={f} label={LABEL[f.name] ?? f.name} target={target} onShow={onShow} warn={flagged.has(f.name)} />)}
+          {header.map((f) => <FieldCard key={f.name} f={f} lang={doc.lang} label={LABEL[f.name] ?? f.name} target={target} onShow={onShow} warn={flagged.has(f.name)} />)}
 
           {rows.length > 0 && <h3 className="subhead">Line items · {rows.length}</h3>}
           {rows.map(([i, cells]) => (
-            <RowCard key={i} n={i + 1} cells={cells} target={target} onShow={onShow} flagged={flagged} />
+            <RowCard key={i} n={i + 1} cells={cells} lang={doc.lang} target={target} onShow={onShow} flagged={flagged} />
           ))}
         </>
       )}
@@ -114,8 +115,8 @@ export default function FieldsPanel({ doc, initial, target, onShow }: {
   );
 }
 
-function FieldCard({ f, label, target, onShow, warn }: {
-  f: ExtractedField; label: string; target: Target | null; warn: boolean;
+function FieldCard({ f, lang, label, target, onShow, warn }: {
+  f: ExtractedField; lang: string; label: string; target: Target | null; warn: boolean;
   onShow: (page: number, bbox: BBox | null, elementId: string | null) => void;
 }) {
   const clickable = f.page != null;
@@ -128,15 +129,15 @@ function FieldCard({ f, label, target, onShow, warn }: {
         {warn && <span className="badge warn" title="A consistency check involving this value failed">⚠ check failed</span>}
         {f.page != null && <span className="page">p.{f.page}</span>}
       </span>
-      <span className="value">{show(f)}{f.tax && <small> ({f.tax === "included" ? "tax incl." : "tax excl."})</small>}</span>
-      {f.raw && f.raw !== show(f) && <span className="raw">as printed: {f.raw}</span>}
+      <span className="value">{show(f, lang)}{f.tax && <small> ({f.tax === "included" ? "tax incl." : "tax excl."})</small>}</span>
+      {f.raw && f.raw !== show(f, lang) && <span className="raw">as printed: {f.raw}</span>}
       {f.quote && <span className="quote">“{f.quote}”</span>}
     </button>
   );
 }
 
-function RowCard({ n, cells, target, onShow, flagged }: {
-  n: number; cells: ExtractedField[]; target: Target | null; flagged: Set<string>;
+function RowCard({ n, cells, lang, target, onShow, flagged }: {
+  n: number; cells: ExtractedField[]; lang: string; target: Target | null; flagged: Set<string>;
   onShow: (page: number, bbox: BBox | null, elementId: string | null) => void;
 }) {
   const first = cells.find((c) => c.page != null);
@@ -152,7 +153,7 @@ function RowCard({ n, cells, target, onShow, flagged }: {
           return (
             <span key={c.name} className={`cell ${c.status} ${flagged.has(c.name) ? "flag" : ""}`}
               title={c.status === "unverified" ? "not verified against the document" : flagged.has(c.name) ? "an arithmetic check failed" : undefined}>
-              <small>{CELL[col] ?? col}</small>{show(c)}
+              <small>{CELL[col] ?? col}</small>{show(c, lang)}
             </span>
           );
         })}

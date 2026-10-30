@@ -19,12 +19,13 @@ from eval import metrics, run_eval  # noqa: E402
 
 
 def rescore(run: dict, note: str | None = None) -> dict:
+    variants = run["config"]["dataset"]["variants"]
+    rates = consistency.RATES if {"clean", "scanned"} & set(variants) else None  # Japan's 10% / 8% apply to the Japanese set only
     for row in run["documents"]:
-        checks = consistency.check_invoice(row["pred"])
+        checks = consistency.check_invoice(row["pred"], rates=rates)
         row["checks"] = [c.model_dump() for c in checks]
         row["judge"]["check_failed"] = any(c.status == "fail" for c in checks)
     cfg = run["config"]
-    variants = cfg["dataset"]["variants"]
     gpu = bool(cfg["hardware"]["gpu"])
     peak = run["summary"]["all"].get("peak_vram_mb")
     usd = cfg.get("gpu_hourly_usd")

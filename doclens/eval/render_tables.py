@@ -214,6 +214,8 @@ def languages_section(results: Path = RESULTS) -> str:
         c, a = r["config"], r["summary"]["all"]
         lang = {"en": "English", "bn": "Bangla"}.get(c["dataset"]["variants"][0], c["dataset"]["variants"][0])
         extractor = "rules (regex)" if c["extractor"] == "rules" else c.get("llm") or "LLM"
+        if "before-language-note" in c.get("name", ""):
+            extractor += " (before the Bangla prompt note: it translated into Japanese)"
         e = a["evidence"]
         rows.append(f"| {lang} | {c['parser']} | {extractor} | {a['n_docs']} | {fmt(a['field_f1'])} | {pct(e['verified_rate'])} | "
                     f"{pct(e['hallucination_catch_rate'])} | {e['docs_failing_a_consistency_check']} |")

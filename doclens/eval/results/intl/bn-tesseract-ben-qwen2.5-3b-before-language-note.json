@@ -1,6 +1,6 @@
 {
  "config": {
-  "name": "bn-tesseract-ben-qwen2.5-3b",
+  "name": "bn-tesseract-ben-qwen2.5-3b-before-language-note",
   "parser": "tesseract-ben",
   "parser_version": null,
   "extractor": "llm",

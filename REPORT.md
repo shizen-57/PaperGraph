@@ -24,6 +24,7 @@ blur, ink bleed, JPEG artifacts, a red 印 stamp over the issuer block). That is
 
 Also generated, for the smaller experiments: 6 charts with exact values ([`eval/synth/charts.py`](doclens/eval/synth/charts.py)) and 2 PowerPoint
 decks with known facts ([`eval/synth/decks.py`](doclens/eval/synth/decks.py)).
+English and Bangla invoices (6 of each, [`eval/synth/intl.py`](doclens/eval/synth/intl.py)) are described in 4.11.
 **Not used: real documents.** Redistributable real PDFs with hand-made labels were out of reach for this work; see Limitations.
 
 **Hardware and models.** Recorded in each results file (`config.hardware`, `config.parser_version`, `config.llm`, `config.notes`). The
@@ -57,6 +58,7 @@ in a test, a model "quoted" `1,200` against a real row that said `1,000`, and wi
 | `docling-rules`, `pdfium-rules`, `tesseract-rules` | Docling · PDF text layer · Tesseract jpn+eng | regexes ([`extract_rules.py`](doclens/backend/extract_rules.py)) | Parser comparison with the extractor held fixed and free of model noise |
 | `docling-qwen2.5-3b`, `pdfium-qwen2.5-3b`, `tesseract-qwen2.5-3b` | same | Qwen2.5-3B | The same comparison with an LLM, and the evidence-check numbers |
 | `router-decisions` | text layer + cached Docling tables | none | What the router does with the set (no VLM needed) |
+| `intl/en-*`, `intl/bn-*` | PDF text layer (English) · Tesseract `ben+eng` (Bangla) | regexes · Qwen2.5-3B | English and Bangla invoices (6 each), and the Bangla run before the prompt fix |
 | `decks-docling` | Docling (PPTX backend) | none | PowerPoint input |
 
 The rules extractor was written after looking at the three layouts, so its clean-slice scores are an upper bound for rules, not evidence about
@@ -139,10 +141,25 @@ On the 6 documents the sample run covers (clean-000, clean-001, clean-002, scan-
 | tesseract-qwen2.5-3b | scanned | 6 | 7 | 91 | 3 | 0 | 11 | 11 | 2 | 10 |
 | tesseract-rules | clean | 0 | 4 | 75 | 0 | 0 | 14 | 6 | 8 | 0 |
 | tesseract-rules | scanned | 0 | 2 | 100 | 0 | 0 | 18 | 11 | 2 | 0 |
+| bn-tesseract-ben-qwen2.5-3b-before-language-note | bn | 0 | 1 | 11 | 23 | 0 | 4 | 4 | 26 | 11 |
+| bn-tesseract-ben-qwen2.5-3b | bn | 0 | 3 | 11 | 2 | 0 | 7 | 2 | 14 | 23 |
+| bn-tesseract-ben-rules | bn | 0 | 1 | 11 | 0 | 0 | 3 | 4 | 5 | 4 |
+| en-pdfium-qwen2.5-3b | en | 0 | 3 | 0 | 4 | 0 | 0 | 0 | 10 | 6 |
+| en-pdfium-rules | en | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 **Router (F2)**
 
 Cheap signals only (text layer, Docling table quality; no VLM involved): of 24 pages, **12/12 scanned pages** were sent to the VLM and **0/12 clean pages** were; 24/24 routed as the ground truth says. Reasons: scanned ×12, figure on the page ×12.
+
+**English and Bangla** (6 synthetic invoices each; Bangla pages are read by OCR)
+
+| Language | Parser | Extractor | Documents | Field F1 | Verified | Wrong values flagged | Documents failing an arithmetic check |
+|---|---|---|---|---|---|---|---|
+| Bangla | tesseract-ben | qwen2.5-3b-instruct-q4_k_m (before the Bangla prompt note: it translated into Japanese) | 6 | 0.43 | 44% | 81% | 6 |
+| Bangla | tesseract-ben | qwen2.5-3b-instruct-q4_k_m | 6 | 0.56 | 66% | 60% | 6 |
+| Bangla | tesseract-ben | rules (regex) | 6 | 0.77 | 100% | 0% | 3 |
+| English | pdfium | qwen2.5-3b-instruct-q4_k_m | 6 | 0.85 | 63% | 62% | 4 |
+| English | pdfium | rules (regex) | 6 | 1.00 | 100% | — | 0 |
 
 **PowerPoint input (F5)**
 
@@ -236,6 +253,29 @@ With 3 charts per group, the 8.1% (labelled) versus 1.3% (unlabelled) error is n
 
 On the cheap signals alone it sent all 12 scanned pages to the VLM and none of the 12 clean pages (24/24 as the ground truth says; the reasons were the missing text layer on every scan and a "figure" on every scan, which was the seal).
 That is a weak test: a scan has no text layer by construction. It says the plumbing and the signals work, not that the router saves GPU time; that comparison (Docling-only, VLM-only, router; accuracy against GPU seconds) is `--parser router` on a GPU and has not been run.
+
+### 4.11 English and Bangla (6 invoices each)
+
+The Japanese set came first, so supporting two more languages exposed what was Japan-specific. Changes: `backend/normalize_intl.py` (month-name dates, `$` and `৳` amounts, Bangla digits, lakh/crore grouping and words);
+a tax-rate check that applies Japan's 10% / 8% only to documents containing Japanese; Bangla language detection; a Bangla OCR route; English and Bangla labels in the regex baseline; a language note in the LLM prompt.
+Data: [`eval/synth/intl.py`](doclens/eval/synth/intl.py), clean text-layer PDFs with exact ground truth (English: USD, `From` / `Bill To`; Bangla: `৳` with Bangla digits and `12,34,567` grouping, `বিক্রেতা` / `ক্রেতা`), party blocks stacked vertically.
+Results are in the "English and Bangla" table above; the cause table lists the runs as `en-…` and `bn-…`.
+
+**English works, and the explicit labels removed the role confusion.** Qwen2.5-3B got F1 0.85 and made no issuer/recipient swaps at all (0 of 6 documents), against 17% / 25% accuracy on those fields in Japanese.
+The difference is the layout: `From` and `Bill To` sit on their own lines. What it got wrong was line items (10 rows lost, 6 invented) and 3 copy-boundary errors.
+
+**A Bangla text layer cannot be trusted, so Bangla pages are OCR'd.** From a Chromium-rendered PDF, the characters come out right but pdfium puts spaces inside words (`চা লা ন` for `চালান`) and returns overlapping duplicate boxes (`নম্ব`, `নম্বর`, `ম্বর`).
+`parse_path` therefore sends any PDF whose first page has Bengali letters in its text layer to Tesseract (`ben+eng`), unless you chose a parser yourself. Legacy-font Bangla PDFs, which are common, are worse and were not tested.
+
+**Table borders break Tesseract's Bengali model.** On the first Bangla page, headers and totals were read but the whole bordered table came back as noise; with the ruling lines painted out beforehand (`parse.strip_rules`), the same row read exactly (`এ৪ কাগজ (৫০০ শিট) ১৬ ১২,৫০০ ২,০০,০০০`).
+Resolution (200 vs 300 dpi) and page-segmentation mode made no difference. OCR errors remain (`ফুড` read as `ফুভ`, `ট্রে` as `ট্রৈ`, `৳` as `ট` or `&`), and the arithmetic check caught one of them (a subtotal read as `9`).
+
+**The model translated Bangla into Japanese.** The first Bangla LLM run returned item names in Japanese (`スタンド＆セットアップ`) and dates as `2026年8月26日`: the prompt's examples and field guide are Japanese and a 3B model followed them.
+The evidence check did its job: those values were not in the document, so they were flagged (F1 0.43, 44% verified, 81% of wrong values flagged; 23 failures classed as hallucinated). Adding a one-line Bangla note to the prompt (only for Bangla documents; Japanese and English prompts are unchanged) raised F1 to 0.56 and the verified rate to 66%, and cut "hallucinated" from 23 to 2.
+The first run is kept as `eval/results/intl/bn-tesseract-ben-qwen2.5-3b-before-language-note.json`.
+
+**What is still weak.** Bangla with the 3B model (F1 0.56) is behind the regex baseline on the same OCR text (0.77), which reads fixed labels without understanding Bengali; row boundaries are the main loss (14 lost, 23 invented).
+The English and Bangla labels in the regex baseline were written after looking at these two layouts, so its English 1.00 is an upper bound. Six synthetic, clean, single-column documents per language say nothing about scans, handwriting, legacy fonts or real invoices.
 
 ## 5. Recommended next steps
 
